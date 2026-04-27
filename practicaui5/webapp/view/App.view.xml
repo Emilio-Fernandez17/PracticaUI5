@@ -1,8 +1,9 @@
 <mvc:View controllerName="practicaui5.practicaui5.controller.App"
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:tnt="sap.tnt"
     xmlns="sap.m"
-    xmlns:tnt="sap.tnt">
+    >
     <App id="app">
     </App>
 </mvc:View>
