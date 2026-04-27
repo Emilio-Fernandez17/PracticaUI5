@@ -60,7 +60,9 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "practicaui5.practicaui5.i18n.i18n"
+          "bundleName": "practicaui5.practicaui5.i18n.i18n",
+          "supportedLocales": ["", "en", "es"],
+          "fallbackLocale": ""
         }
       },
       "": {
