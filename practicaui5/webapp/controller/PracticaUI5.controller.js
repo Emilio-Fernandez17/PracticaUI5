@@ -46,7 +46,7 @@ sap.ui.define([
 
             this.getView().setModel(oNewModel, "i18n");
         },
-        anadeArticulo: function () {
+        anadeArticulo: async function () {
             var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
 
@@ -54,8 +54,8 @@ sap.ui.define([
             var sLote = this.getView().byId("lote").getSelectedKey();
 
             let datos = {
-                "ItemCode": "i001",
-                "ItemName": "Item1",
+                "ItemCode": sCodigo,
+                "ItemName": sNombre,
                 "ItemType": "itItems"
             };
 
@@ -67,10 +67,34 @@ sap.ui.define([
             }
 
             const json = JSON.stringify(datos);
-
             console.log(json)
-        },
 
+            try {
+                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
+                if (!loginRespuesta.ok) throw new Error('Error en login');
+                const loginDatos = await loginRespuesta.json();
+
+                const respuesta = await fetch('https://localhost:7184/api/values/Post/Items', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: json
+                });
+
+                if (!respuesta.ok) {
+                    const errorMsg = await respuesta.text();
+                    throw new Error('Error al crear artículo: ' + errorMsg);
+                }
+
+                const articuloC = await respuesta.json();
+                console.log('Artículo Creado con éxito:', articuloC);
+
+            } catch (oError) {
+                console.error(oError);
+            }
+        },
+        
         editar: function () {
 
         },
@@ -110,7 +134,7 @@ sap.ui.define([
                 this.ventas = datosPO;
                 console.log('PurchaseOrders:', this.ventas);
 
-                 // Cargar Items
+                // Cargar Items
                 const peticionItems = await fetch('https://localhost:7184/api/values/Peticion/Items');
                 if (!peticionItems.ok) throw new Error('Error en la peticion de Items');
                 const datosItems = await peticionItems.json();

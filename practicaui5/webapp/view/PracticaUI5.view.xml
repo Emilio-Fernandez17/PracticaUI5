@@ -52,7 +52,7 @@
                         </items>
                     </Table>
 
-<Button id="anadeArticulo" text="Añadir Articulo" press="mostrarFormulario"></Button>
+<Button id="anadeArticulo" text="Añadir Articulo" type="Emphasized" press="mostrarFormulario"></Button>
 
 
 <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
@@ -79,8 +79,8 @@
     </Select>
 
     <HBox id="hbox"  class="sapUiSmallMarginTop" >
-        <Button id="Anade" text="Añadir Articulo" type="Emphasized" press="anadeArticulo"></Button>
-        <Button id="cancelar" text="Cancelar" press="ocultarFormulario"></Button>
+        <Button id="Anade" text="Añadir Articulo" type="Accept" press="anadeArticulo"></Button>
+        <Button id="cancelar" text="Cancelar" type="Back" press="ocultarFormulario"></Button>
     </HBox>
 </VBox>
 
