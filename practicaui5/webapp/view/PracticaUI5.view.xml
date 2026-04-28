@@ -16,7 +16,7 @@
         </Select>-->
 
         <tnt:NavigationList id="navigationList" width="500px">
-            <tnt:NavigationListItem id="navigationCabecera" text="Lista De Interlocutores" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
+            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
                 <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
             </tnt:NavigationListItem>
         </tnt:NavigationList>
