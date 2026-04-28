@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Configuration",
-    "sap/ui/model/resource/ResourceModel"
-], (Controller) => {
+    "sap/ui/model/resource/ResourceModel",
+    "sap/ui/model/json/JSONModel"
+], (Controller, JSONModel) => {
     "use strict";
 
     return Controller.extend("practicaui5.practicaui5.controller.PracticaUI5", {
