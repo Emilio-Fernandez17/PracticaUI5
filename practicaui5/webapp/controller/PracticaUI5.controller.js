@@ -11,6 +11,15 @@ sap.ui.define([
     return Controller.extend("practicaui5.practicaui5.controller.PracticaUI5", {
 
         onInit() {
+
+            var formulario = {
+                formulario: false,
+                lote: false
+            };
+
+            var oModel = new sap.ui.model.json.JSONModel(formulario);
+            this.getView().setModel(oModel, "formulario");
+
             this._sCurrentLanguage = "es";
             this.datos = {};
             this.ventas = {};
@@ -35,6 +44,56 @@ sap.ui.define([
             });
 
             this.getView().setModel(oNewModel, "i18n");
+        },
+        anadeArticulo: function () {
+            var sCodigo = this.getView().byId("vCode").getValue();
+            var sNombre = this.getView().byId("vName").getValue();
+
+            var sSerie = this.getView().byId("serie").getSelectedKey();
+            var sLote = this.getView().byId("lote").getSelectedKey();
+
+            alert(
+                "Datos del Artículo:\n" +
+                "Código: " + sCodigo + "\n" +
+                "Nombre: " + sNombre + "\n" +
+                "Serie: " + sSerie + "\n" +
+                "Lote: " + sLote
+            );
+
+            let datos = {
+                "ItemCode": "i001",
+                "ItemName": "Item1",
+                "ItemType": "itItems"
+            };
+
+            if (sSerie === 'S') {
+                datos.ManageSerialNumbers = "tYES";
+            }
+            else if (sLote === 'S') {
+                datos.ManageBatchNumbers = "tYES";
+            }
+
+            const json = JSON.stringify(datos);
+
+            console.log(json)
+        },
+
+        editar: function () {
+            
+        },
+        borrar: function () {
+
+        },
+        mostrarlote: function () {
+            let oModel = this.getView().getModel("formulario");
+            oModel.setProperty("/lote", !oModel.getProperty("/lote"));
+
+        },
+        mostrarFormulario: function () {
+            this.getView().getModel("formulario").setProperty("/formulario", true);
+        },
+        ocultarFormulario: function () {
+            this.getView().getModel("formulario").setProperty("/formulario", false);
         },
 
         async cargarDatos() {
