@@ -6,7 +6,9 @@
 
         <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
 
-        <Text id="Prueba" text="Prueba cambio de idioma"></Text>
+        <!-- <Text id="Prueba" text="Prueba cambio de idioma"></Text> -->
+        
+        <Text id="prueba"  text="{i18n>prueba}"/>
 
         <Button id="botonDatos" text="cargarDatos" press="cargarDatos"/>
  
