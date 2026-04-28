@@ -8,11 +8,12 @@
     xmlns:suite="sap.suite.ui.commons">
     <Page id="page" title="{i18n>title}">
 
-        <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
-
-        <Text id="Prueba" text="{i18n>prueba}"></Text>
-
-        <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
+        <layout:VerticalLayout id="epacio" class="sapUiContentPadding">
+            <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
+            <Text id="Prueba" text="{i18n>prueba}"></Text>
+            <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
+        </layout:VerticalLayout>
+ 
  
         <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
             <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
@@ -26,7 +27,7 @@
 
 
         <Text id="a" text="&#10;"/>
-                    <Table id="idTablaPrueba" headerText="Datos de Prueba Directos" items="{modeloSelect>/letras}">
+                    <Table id="idTablaPrueba" headerText="Datos de Prueba Directos" items="{Items>/value}">
                         <columns>
                             <Column id="colCode"><header><Text id="Code" text="ItemCode" /></header></Column>
                             <Column id="colName"><header><Text id="Name" text="ItemName" /></header></Column>
@@ -39,11 +40,11 @@
                         <items>
                             <ColumnListItem id="idFila1">
                                 <cells>
-                                    <Text id="codeTexto" text="{modeloSelect>clave}" />
-                                    <Text id="nameTexto" text="{modeloSelect>clave}" />
-									<Text id="serieTexto" text="{modeloSelect>clave}" />
-                                    <Text id="loteTexto" text="{modeloSelect>clave}" />
-									<Text id="almacenadoTexto" text="{modeloSelect>clave}" />
+                                    <Text id="codeTexto" text="{Items>ItemCode}" />
+                                    <Text id="nameTexto" text="{Items>ItemName}" />
+									<Text id="serieTexto" text="{Items>ManageSerialNumbers}" />
+                                    <Text id="loteTexto" text="{Items>ManageBatchNumbers}" />
+									<Text id="almacenadoTexto" text="{Items>QuantityOnStock}" />
                                     <Button id="editar" text="Editar" press="editar">
 									</Button> <Button id="borrar" text="Borrar" press="borrar"></Button>
                                 </cells>
@@ -52,6 +53,7 @@
                     </Table>
 
 <Button id="anadeArticulo" text="Añadir Articulo" press="mostrarFormulario"></Button>
+
 
 <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
     <Text id="nCode" text="Codigo:"></Text>
@@ -81,7 +83,6 @@
         <Button id="cancelar" text="Cancelar" press="ocultarFormulario"></Button>
     </HBox>
 </VBox>
-
 
         <Text id="mensajeCarga" text="Cargue datos para ver la gráfica" visible="true"/>
 

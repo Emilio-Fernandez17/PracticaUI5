@@ -23,6 +23,7 @@ sap.ui.define([
             this._sCurrentLanguage = "es";
             this.datos = {};
             this.ventas = {};
+            this.Items = {};
 
             // Guardamos referencias a las clases
             this._FlattenedDataset = FlattenedDataset;
@@ -52,14 +53,6 @@ sap.ui.define([
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
 
-            alert(
-                "Datos del Artículo:\n" +
-                "Código: " + sCodigo + "\n" +
-                "Nombre: " + sNombre + "\n" +
-                "Serie: " + sSerie + "\n" +
-                "Lote: " + sLote
-            );
-
             let datos = {
                 "ItemCode": "i001",
                 "ItemName": "Item1",
@@ -79,7 +72,7 @@ sap.ui.define([
         },
 
         editar: function () {
-            
+
         },
         borrar: function () {
 
@@ -116,14 +109,23 @@ sap.ui.define([
                 const datosPO = await peticionPO.json();
                 this.ventas = datosPO;
                 console.log('PurchaseOrders:', this.ventas);
-                
+
+                 // Cargar Items
+                const peticionItems = await fetch('https://localhost:7184/api/values/Peticion/Items');
+                if (!peticionItems.ok) throw new Error('Error en la peticion de Items');
+                const datosItems = await peticionItems.json();
+                this.Items = datosItems;
+                console.log('Items:', this.Items);
+                const modelo = new JSONModel(this.Items);
+                this.getView().setModel(modelo, "Items");
+
                 // Crear modelo para la lista (usando BusinessPartners)
                 const oModelLista = new JSONModel(this.datos);
                 this.getView().setModel(oModelLista, "modeloSelect");
-                
+
                 // Crear y configurar la gráfica con los datos de PurchaseOrders
                 this._crearGraficaConDatos(this.ventas, this.datos);
-                
+
                 // Mostrar la gráfica y ocultar el mensaje
                 this.getView().byId("grafica").setVisible(true);
                 this.getView().byId("mensajeCarga").setVisible(false);
@@ -133,27 +135,27 @@ sap.ui.define([
                 sap.m.MessageToast.show("Error al cargar los datos: " + error.message);
             }
         },
-        
+
         _crearGraficaConDatos(datosVentas, datosSocios) {
             if (!this.oVizFrame) {
                 console.error("No se encontró el VizFrame");
                 return;
             }
-            
+
             // Transformar los datos de PurchaseOrders para la gráfica
             const datosParaGrafica = this._transformarDatosParaGrafica(datosVentas, datosSocios);
-            
+
             if (!datosParaGrafica || datosParaGrafica.length === 0) {
                 console.warn('No hay datos para mostrar en la gráfica');
                 sap.m.MessageToast.show("No hay datos de ventas disponibles para la gráfica");
                 return;
             }
-            
+
             console.log('Datos transformados para gráfica:', datosParaGrafica.slice(0, 5));
-            
+
             // Crear modelo con los datos transformados
             const oModel = new JSONModel({ Products: datosParaGrafica });
-            
+
             // Configurar el dataset para la gráfica
             const oDataset = new this._FlattenedDataset({
                 dimensions: [{ name: "Country", value: "{Country}" }],
@@ -164,31 +166,31 @@ sap.ui.define([
                 ],
                 data: { path: "/Products" }
             });
-            
+
             // Configurar propiedades de la gráfica
             const vizProperties = {
                 plotArea: { showGap: true },
                 title: { visible: true, text: "Análisis de Órdenes de Compra" }
             };
-            
+
             // Aplicar configuración a la gráfica
             this.oVizFrame.setVizProperties(vizProperties);
             this.oVizFrame.setDataset(oDataset);
             this.oVizFrame.setModel(oModel);
-            
+
             // Limpiar feeds existentes
             this.oVizFrame.removeAllFeeds();
-            
+
             // Agregar nuevos feeds
             this.oVizFrame.addFeed(new this._FeedItem({ uid: "primaryValues", type: "Measure", values: ["Revenue"] }));
             this.oVizFrame.addFeed(new this._FeedItem({ uid: "axisLabels", type: "Dimension", values: ["Country"] }));
             this.oVizFrame.addFeed(new this._FeedItem({ uid: "targetValues", type: "Measure", values: ["Target"] }));
-            
+
             // Establecer tipo de gráfica
             this.oVizFrame.setVizType("line");
-            
+
             console.log("Gráfica actualizada con", datosParaGrafica.length, "registros de PurchaseOrders");
-            
+
             // Forzar actualización de la gráfica
             setTimeout(() => {
                 if (this.oVizFrame) {
@@ -196,10 +198,10 @@ sap.ui.define([
                 }
             }, 100);
         },
-        
+
         _transformarDatosParaGrafica(datosVentas, datosSocios) {
             console.log('=== TRANSFORMANDO DATOS DE PURCHASEORDERS ===');
-            
+
             // Extraer el array de PurchaseOrders
             let purchaseOrders = [];
             if (datosVentas.value && Array.isArray(datosVentas.value)) {
@@ -212,7 +214,7 @@ sap.ui.define([
                 console.error('Formato de datos de ventas no reconocido:', datosVentas);
                 return [];
             }
-            
+
             // Crear un mapa de BusinessPartners para obtener nombres
             let sociosMap = new Map();
             if (datosSocios && datosSocios.value && Array.isArray(datosSocios.value)) {
@@ -221,12 +223,12 @@ sap.ui.define([
                 });
                 console.log('Mapa de socios creado con', sociosMap.size, 'registros');
             }
-            
+
             // Limitar a los primeros 15 registros para mejor visualización
             const maxItems = 15;
             const limitedOrders = purchaseOrders.slice(0, maxItems);
             console.log(`Mostrando ${limitedOrders.length} de ${purchaseOrders.length} registros en la gráfica`);
-            
+
             // Transformar los datos de PurchaseOrders para la gráfica
             const datosGrafica = limitedOrders.map((item, index) => {
                 // Log para ver la estructura de cada item
@@ -234,42 +236,42 @@ sap.ui.define([
                     console.log('Estructura de PurchaseOrder:', Object.keys(item));
                     console.log('Item completo:', item);
                 }
-                
+
                 // Obtener el CardCode del socio (puede tener diferente nombre en PurchaseOrders)
                 const cardCode = item.CardCode || item.CardCode || item.BusinessPartner || item.Supplier;
-                
+
                 // Obtener el nombre del socio del mapa, o usar el CardCode si no existe
                 const socioNombre = cardCode ? (sociosMap.get(cardCode) || cardCode) : `Orden ${index + 1}`;
-                
+
                 // Extraer valores numéricos - AJUSTA ESTOS NOMBRES SEGÚN TU ESTRUCTURA REAL
                 // Estos son nombres comunes en PurchaseOrders, ajústalos según tu API
                 const docTotal = this._extractNumericValue(item, ['DocTotal', 'Total', 'Amount', 'GrandTotal', 'DocTotalFC']);
                 const docTotalBase = this._extractNumericValue(item, ['DocTotal', 'Total', 'Amount', 'DocTotalFC']);
                 const linesTotal = this._extractNumericValue(item, ['LinesTotal', 'SubTotal', 'TotalBeforeDiscount']);
-                
+
                 return {
                     // Para el eje X - usamos el nombre del socio o código
                     Country: socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre,
-                    
+
                     // Revenue - usamos DocTotal como valor principal
                     Revenue: docTotal,
-                    
+
                     // Target - usamos un valor relacionado (como DocTotalBase o un porcentaje)
                     Target: docTotalBase > 0 ? docTotalBase * 1.1 : docTotal > 0 ? docTotal * 1.1 : 0,
-                    
+
                     // Forcast - usamos otro valor o un porcentaje
                     Forcast: linesTotal > 0 ? linesTotal : (docTotal > 0 ? docTotal * 0.9 : 0)
                 };
             });
-            
+
             // Filtrar registros que tengan al menos un valor numérico > 0
             const datosFiltrados = datosGrafica.filter(item => item.Revenue > 0 || item.Target > 0 || item.Forcast > 0);
             console.log(`Datos filtrados: ${datosFiltrados.length} de ${datosGrafica.length} tienen valores numéricos`);
             console.log('Primeros 3 datos transformados:', datosFiltrados.slice(0, 3));
-            
+
             return datosFiltrados;
         },
-        
+
         _extractNumericValue(item, possibleFields) {
             // Busca el primer campo que existe y sea numérico
             for (let field of possibleFields) {
