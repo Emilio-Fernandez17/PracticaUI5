@@ -1,0 +1,14 @@
+{
+  "es": {
+    "title": "Mi Aplicación",
+    "botonTraducir": "Traducir a inglés",
+    "botonDatos": "Cargar datos",
+    "prueba": "Prueba cambio de idioma"
+  },
+  "en": {
+    "title": "My Application",
+    "botonTraducir": "Translate to Spanish",
+    "botonDatos": "Load data",
+    "prueba": "Language change test"
+  }
+}
