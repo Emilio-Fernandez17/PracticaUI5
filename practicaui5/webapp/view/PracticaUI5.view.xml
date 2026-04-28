@@ -9,7 +9,7 @@
 
         <Text id="Prueba" text="{i18n>prueba}"></Text>
 
-        <Button id="botonDatos" text="cargarDatos" press="cargarDatos"/>
+        <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
  
         <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
             <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
