@@ -42,36 +42,27 @@ sap.ui.define([
 
         },
         async cargarDatos() {
-
             try {
-
                 const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
-
                 if (!loginRespuesta.ok) throw new Error('Error en login');
-
                 const loginDatos = await loginRespuesta.json();
-
                 console.log('loginDatos:', loginDatos);
- 
-                const peticionGet = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
 
+                const peticionGet = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
                 if (!peticionGet.ok) throw new Error('Error en la peticion');
 
                 const datosGet = await peticionGet.json();
-
                 this.datos = datosGet
-
                 console.log('datosGet:', this.datos);
- 
                 const oModel = new JSONModel(this.datos);
 
                 this.getView().setModel(oModel, "modeloSelect");
- 
+
             } catch (error) {
-
                 console.error('Hubo un problema:', error);
-
             }
+        },
+        seleccionar(){
 
         }
 

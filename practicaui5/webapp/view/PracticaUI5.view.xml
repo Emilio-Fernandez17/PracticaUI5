@@ -1,20 +1,25 @@
 <mvc:View controllerName="practicaui5.practicaui5.controller.PracticaUI5"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
 
         <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
 
-        <!-- <Text id="Prueba" text="Prueba cambio de idioma"></Text> -->
-        
-        <Text id="prueba"  text="{i18n>prueba}"/>
+        <Text id="Prueba" text="Prueba cambio de idioma"></Text>
 
         <Button id="botonDatos" text="cargarDatos" press="cargarDatos"/>
  
-       <Select id="select" items="{modeloSelect>/value}">
+        <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
             <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
-    </Select>
+        </Select>-->
+
+        <tnt:NavigationList id="navigationList" width="500px">
+            <tnt:NavigationListItem id="navigationCabecera" text="Lista De Interlocutores" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
+                <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
+            </tnt:NavigationListItem>
+        </tnt:NavigationList>
 
     </Page>
 </mvc:View>
