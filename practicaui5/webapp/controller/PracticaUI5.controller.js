@@ -2,45 +2,41 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Configuration",
     "sap/ui/model/resource/ResourceModel",
-    "sap/ui/model/json/JSONModel"
-], (Controller, Configuration, ResourceModel, JSONModel) => {
+    "sap/ui/model/json/JSONModel",
+    "sap/viz/ui5/data/FlattenedDataset",
+    "sap/viz/ui5/controls/common/feeds/FeedItem"
+], (Controller, Configuration, ResourceModel, JSONModel, FlattenedDataset, FeedItem) => {
     "use strict";
 
     return Controller.extend("practicaui5.practicaui5.controller.PracticaUI5", {
+
         onInit() {
             this._sCurrentLanguage = "es";
-            this.datos = {}
- 
+            this.datos = {};
+            this.ventas = {};
+
+            // Guardamos referencias a las clases
+            this._FlattenedDataset = FlattenedDataset;
+            this._FeedItem = FeedItem;
+
+            // Guardamos referencia al VizFrame
+            this.oVizFrame = this.getView().byId("chartContainerVizFrame");
         },
 
-         onButtonPress: function () {
-            // Alternamos entre "es" y "en"
-
+        onButtonPress: function () {
             var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";
-
             this._sCurrentLanguage = sNewLang;
 
-
-            // Creamos un nuevo ResourceModel con el idioma elegido
-
             var oNewModel = new ResourceModel({
-
                 bundleName: "practicaui5.practicaui5.i18n.i18n",
-
                 supportedLocales: ["", "en", "es"],
-
                 fallbackLocale: "",
-
                 bundleLocale: sNewLang
-
             });
 
-
-            // Reemplazamos el modelo i18n en la vista
-
             this.getView().setModel(oNewModel, "i18n");
-
         },
+
         async cargarDatos() {
             try {
                 const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
@@ -48,24 +44,188 @@ sap.ui.define([
                 const loginDatos = await loginRespuesta.json();
                 console.log('loginDatos:', loginDatos);
 
-                const peticionGet = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
-                if (!peticionGet.ok) throw new Error('Error en la peticion');
+                // Cargar BusinessPartners
+                const peticionBP = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
+                if (!peticionBP.ok) throw new Error('Error en la peticion de BusinessPartners');
+                const datosBP = await peticionBP.json();
+                this.datos = datosBP;
+                console.log('BusinessPartners:', this.datos);
 
-                const datosGet = await peticionGet.json();
-                this.datos = datosGet
-                console.log('datosGet:', this.datos);
-                const oModel = new JSONModel(this.datos);
-
-                this.getView().setModel(oModel, "modeloSelect");
+                // Cargar PurchaseOrders
+                const peticionPO = await fetch('https://localhost:7184/api/values/Peticion/PurchaseOrders');
+                if (!peticionPO.ok) throw new Error('Error en la peticion de PurchaseOrders');
+                const datosPO = await peticionPO.json();
+                this.ventas = datosPO;
+                console.log('PurchaseOrders:', this.ventas);
+                
+                // Crear modelo para la lista (usando BusinessPartners)
+                const oModelLista = new JSONModel(this.datos);
+                this.getView().setModel(oModelLista, "modeloSelect");
+                
+                // Crear y configurar la gráfica con los datos de PurchaseOrders
+                this._crearGraficaConDatos(this.ventas, this.datos);
+                
+                // Mostrar la gráfica y ocultar el mensaje
+                this.getView().byId("grafica").setVisible(true);
+                this.getView().byId("mensajeCarga").setVisible(false);
 
             } catch (error) {
                 console.error('Hubo un problema:', error);
+                sap.m.MessageToast.show("Error al cargar los datos: " + error.message);
             }
         },
-        seleccionar(){
+        
+        _crearGraficaConDatos(datosVentas, datosSocios) {
+            if (!this.oVizFrame) {
+                console.error("No se encontró el VizFrame");
+                return;
+            }
+            
+            // Transformar los datos de PurchaseOrders para la gráfica
+            const datosParaGrafica = this._transformarDatosParaGrafica(datosVentas, datosSocios);
+            
+            if (!datosParaGrafica || datosParaGrafica.length === 0) {
+                console.warn('No hay datos para mostrar en la gráfica');
+                sap.m.MessageToast.show("No hay datos de ventas disponibles para la gráfica");
+                return;
+            }
+            
+            console.log('Datos transformados para gráfica:', datosParaGrafica.slice(0, 5));
+            
+            // Crear modelo con los datos transformados
+            const oModel = new JSONModel({ Products: datosParaGrafica });
+            
+            // Configurar el dataset para la gráfica
+            const oDataset = new this._FlattenedDataset({
+                dimensions: [{ name: "Country", value: "{Country}" }],
+                measures: [
+                    { group: 1, name: "Revenue", value: "{Revenue}" },
+                    { group: 1, name: "Target", value: "{Target}" },
+                    { group: 1, name: "Forcast", value: "{Forcast}" }
+                ],
+                data: { path: "/Products" }
+            });
+            
+            // Configurar propiedades de la gráfica
+            const vizProperties = {
+                plotArea: { showGap: true },
+                title: { visible: true, text: "Análisis de Órdenes de Compra" }
+            };
+            
+            // Aplicar configuración a la gráfica
+            this.oVizFrame.setVizProperties(vizProperties);
+            this.oVizFrame.setDataset(oDataset);
+            this.oVizFrame.setModel(oModel);
+            
+            // Limpiar feeds existentes
+            this.oVizFrame.removeAllFeeds();
+            
+            // Agregar nuevos feeds
+            this.oVizFrame.addFeed(new this._FeedItem({ uid: "primaryValues", type: "Measure", values: ["Revenue"] }));
+            this.oVizFrame.addFeed(new this._FeedItem({ uid: "axisLabels", type: "Dimension", values: ["Country"] }));
+            this.oVizFrame.addFeed(new this._FeedItem({ uid: "targetValues", type: "Measure", values: ["Target"] }));
+            
+            // Establecer tipo de gráfica
+            this.oVizFrame.setVizType("line");
+            
+            console.log("Gráfica actualizada con", datosParaGrafica.length, "registros de PurchaseOrders");
+            
+            // Forzar actualización de la gráfica
+            setTimeout(() => {
+                if (this.oVizFrame) {
+                    this.oVizFrame.rerender();
+                }
+            }, 100);
+        },
+        
+        _transformarDatosParaGrafica(datosVentas, datosSocios) {
+            console.log('=== TRANSFORMANDO DATOS DE PURCHASEORDERS ===');
+            
+            // Extraer el array de PurchaseOrders
+            let purchaseOrders = [];
+            if (datosVentas.value && Array.isArray(datosVentas.value)) {
+                purchaseOrders = datosVentas.value;
+                console.log('Usando datosVentas.value, longitud:', purchaseOrders.length);
+            } else if (Array.isArray(datosVentas)) {
+                purchaseOrders = datosVentas;
+                console.log('Usando datosVentas directo como array, longitud:', purchaseOrders.length);
+            } else {
+                console.error('Formato de datos de ventas no reconocido:', datosVentas);
+                return [];
+            }
+            
+            // Crear un mapa de BusinessPartners para obtener nombres
+            let sociosMap = new Map();
+            if (datosSocios && datosSocios.value && Array.isArray(datosSocios.value)) {
+                datosSocios.value.forEach(socio => {
+                    sociosMap.set(socio.CardCode, socio.CardName || socio.CardCode);
+                });
+                console.log('Mapa de socios creado con', sociosMap.size, 'registros');
+            }
+            
+            // Limitar a los primeros 15 registros para mejor visualización
+            const maxItems = 15;
+            const limitedOrders = purchaseOrders.slice(0, maxItems);
+            console.log(`Mostrando ${limitedOrders.length} de ${purchaseOrders.length} registros en la gráfica`);
+            
+            // Transformar los datos de PurchaseOrders para la gráfica
+            const datosGrafica = limitedOrders.map((item, index) => {
+                // Log para ver la estructura de cada item
+                if (index === 0) {
+                    console.log('Estructura de PurchaseOrder:', Object.keys(item));
+                    console.log('Item completo:', item);
+                }
+                
+                // Obtener el CardCode del socio (puede tener diferente nombre en PurchaseOrders)
+                const cardCode = item.CardCode || item.CardCode || item.BusinessPartner || item.Supplier;
+                
+                // Obtener el nombre del socio del mapa, o usar el CardCode si no existe
+                const socioNombre = cardCode ? (sociosMap.get(cardCode) || cardCode) : `Orden ${index + 1}`;
+                
+                // Extraer valores numéricos - AJUSTA ESTOS NOMBRES SEGÚN TU ESTRUCTURA REAL
+                // Estos son nombres comunes en PurchaseOrders, ajústalos según tu API
+                const docTotal = this._extractNumericValue(item, ['DocTotal', 'Total', 'Amount', 'GrandTotal', 'DocTotalFC']);
+                const docTotalBase = this._extractNumericValue(item, ['DocTotal', 'Total', 'Amount', 'DocTotalFC']);
+                const linesTotal = this._extractNumericValue(item, ['LinesTotal', 'SubTotal', 'TotalBeforeDiscount']);
+                
+                return {
+                    // Para el eje X - usamos el nombre del socio o código
+                    Country: socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre,
+                    
+                    // Revenue - usamos DocTotal como valor principal
+                    Revenue: docTotal,
+                    
+                    // Target - usamos un valor relacionado (como DocTotalBase o un porcentaje)
+                    Target: docTotalBase > 0 ? docTotalBase * 1.1 : docTotal > 0 ? docTotal * 1.1 : 0,
+                    
+                    // Forcast - usamos otro valor o un porcentaje
+                    Forcast: linesTotal > 0 ? linesTotal : (docTotal > 0 ? docTotal * 0.9 : 0)
+                };
+            });
+            
+            // Filtrar registros que tengan al menos un valor numérico > 0
+            const datosFiltrados = datosGrafica.filter(item => item.Revenue > 0 || item.Target > 0 || item.Forcast > 0);
+            console.log(`Datos filtrados: ${datosFiltrados.length} de ${datosGrafica.length} tienen valores numéricos`);
+            console.log('Primeros 3 datos transformados:', datosFiltrados.slice(0, 3));
+            
+            return datosFiltrados;
+        },
+        
+        _extractNumericValue(item, possibleFields) {
+            // Busca el primer campo que existe y sea numérico
+            for (let field of possibleFields) {
+                if (item[field] !== undefined && item[field] !== null) {
+                    const value = typeof item[field] === 'number' ? item[field] : parseFloat(item[field]);
+                    if (!isNaN(value) && value > 0) {
+                        return value;
+                    }
+                }
+            }
+            return 0; // Retorna 0 si no encuentra ningún valor válido
+        },
 
+        seleccionar() {
+            // Implementa la selección si es necesario
         }
-
- 
     });
 });
