@@ -25,7 +25,9 @@
         </tnt:NavigationList>
 
 
-        <layout:Splitter id="grafica" width="100%" height="100%">
+        <Text id="mensajeCarga" text="Cargue datos para ver la gráfica" visible="true"/>
+
+        <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
             <layout:contentAreas>
                 <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="Grafica">
                     <suite:content>
