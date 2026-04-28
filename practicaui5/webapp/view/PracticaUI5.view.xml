@@ -5,5 +5,11 @@
 
         <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
 
+        <Button id="botonDatos" text="cargarDatos" press="cargarDatos"/>
+ 
+       <Select id="select" items="{modeloSelect>/value}">
+<core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
+</Select>
+
     </Page>
 </mvc:View>
