@@ -189,6 +189,8 @@ sap.ui.define([
             if(sSerie === 'S'){
                 var sSerie = this.getView().byId("lote").setSelectedKey('N');
                 oModel.setProperty("/lote", sSerie === 'N');
+            }else{
+                oModel.setProperty("/lote", true);
             }
         },
         mostrarFormulario: function () {
