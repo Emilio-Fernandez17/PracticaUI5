@@ -79,7 +79,8 @@
     </Select>
 
     <HBox id="hbox"  class="sapUiSmallMarginTop" >
-        <Button id="Anade" text="Añadir Articulo" type="Accept" press="anadeArticulo"></Button>
+        <Button id="Anade" text="Añadir Articulo" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
+        <Button id="Edita" text="Editar Articulo" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
         <Button id="cancelar" text="Cancelar" type="Back" press="ocultarFormulario"></Button>
     </HBox>
 </VBox>

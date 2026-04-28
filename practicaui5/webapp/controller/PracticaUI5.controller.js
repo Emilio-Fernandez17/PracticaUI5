@@ -14,7 +14,9 @@ sap.ui.define([
 
             var formulario = {
                 formulario: false,
-                lote: false
+                lote: false,
+                editar: false,
+                anade: true
             };
 
             var oModel = new sap.ui.model.json.JSONModel(formulario);
@@ -90,27 +92,115 @@ sap.ui.define([
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
 
+                ocultarFormulario()
             } catch (oError) {
                 console.error(oError);
             }
         },
-        
-        editar: function () {
 
+        editar: function (oEvent) {
+            var oFormModel = this.getView().getModel("formulario");
+
+            oFormModel.setProperty("/editar", true);
+            oFormModel.setProperty("/anade", false);
+
+            var sCodigo = this.getView().byId("vCode");
+            var sNombre = this.getView().byId("vName");
+            var sSerie = this.getView().byId("serie");
+            var sLote = this.getView().byId("lote");
+
+            this.mostrarFormulario();
+
+            var boton = oEvent.getSource();
+            var oContext = boton.getBindingContext("Items");
+            var articulo = oContext.getObject();
+
+            sCodigo.setValue(articulo.ItemCode);
+            sNombre.setValue(articulo.ItemName);
+
+            var sSerieValue = articulo.ManageSerialNumbers === 'tYES' ? 'S' : 'N';
+
+            sSerie.setSelectedKey(sSerieValue);
+            sLote.setSelectedKey(articulo.ManageBatchNumbers === 'tYES' ? 'S' : 'N');
+
+            oFormModel.setProperty("/lote", sSerieValue === 'N');
         },
-        borrar: function () {
 
+        EditaArticulo: async function () {
+             var sCodigo = this.getView().byId("vCode").getValue();
+            var sNombre = this.getView().byId("vName").getValue();
+
+            var sSerie = this.getView().byId("serie").getSelectedKey();
+            var sLote = this.getView().byId("lote").getSelectedKey();
+
+            let datos = {
+                "ItemCode": sCodigo,
+                "ItemName": sNombre,
+                "ItemType": "itItems"
+            };
+
+            if (sSerie === 'S') {
+                datos.ManageSerialNumbers = "tYES";
+            }
+            else if (sLote === 'S') {
+                datos.ManageBatchNumbers = "tYES";
+            }
+
+            const json = JSON.stringify(datos);
+            console.log(json)
+
+            try {
+                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
+                if (!loginRespuesta.ok) throw new Error('Error en login');
+                const loginDatos = await loginRespuesta.json();
+
+                const respuesta = await fetch('https://localhost:7184/api/values/Patch/Items', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: json
+                });
+
+                if (!respuesta.ok) {
+                    const errorMsg = await respuesta.text();
+                    throw new Error('Error al crear artículo: ' + errorMsg);
+                }
+
+                const articuloC = await respuesta.json();
+                console.log('Artículo Creado con éxito:', articuloC);
+
+                this.ocultarFormulario()
+            } catch (oError) {
+                console.error(oError);
+            }
+        },
+        borrar: function (oEvent) {
+            var oButton = oEvent.getSource();
+            var oContext = oButton.getBindingContext("Items");
+            var oFilaSeleccionada = oContext.getObject();
+
+            alert("Editando el ItemCode: " + oFilaSeleccionada.ItemCode);
         },
         mostrarlote: function () {
+            var sSerie = this.getView().byId("serie").getSelectedKey();
             let oModel = this.getView().getModel("formulario");
-            oModel.setProperty("/lote", !oModel.getProperty("/lote"));
 
+            if(sSerie === 'S'){
+                var sSerie = this.getView().byId("lote").setSelectedKey('N');
+                oModel.setProperty("/lote", sSerie === 'N');
+            }
         },
         mostrarFormulario: function () {
             this.getView().getModel("formulario").setProperty("/formulario", true);
         },
         ocultarFormulario: function () {
             this.getView().getModel("formulario").setProperty("/formulario", false);
+            var sCodigo = this.getView().byId("vCode").setValue() = "";
+            var sNombre = this.getView().byId("vName").setValue() = "";
+
+            var sSerie = this.getView().byId("serie").setSelectedKey('S');
+            var sLote = this.getView().byId("lote").setSelectedKey('N');
         },
 
         async cargarDatos() {
