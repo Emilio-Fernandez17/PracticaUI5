@@ -164,7 +164,7 @@ sap.ui.define([
                 if (respuesta.status !== 204) {
                     articuloC = await respuesta.json();
                 }
-
+                await this.cargarArticulos()
                 this.ocultarFormulario()
             } catch (oError) {
                 console.error(oError);
