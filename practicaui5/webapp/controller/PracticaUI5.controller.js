@@ -349,7 +349,7 @@ sap.ui.define([
             }, 100);
         },
 
-                _transformarDatosParaGrafica(datosVentas, datosSocios) {
+        _transformarDatosParaGrafica(datosVentas, datosSocios) {
             let purchaseOrders = [];
             if (datosVentas.value && Array.isArray(datosVentas.value)) {
                 purchaseOrders = datosVentas.value;
@@ -378,14 +378,14 @@ sap.ui.define([
                 const socioNombre = cardCode ? (sociosMap.get(cardCode) || cardCode) : `Orden ${index + 1}`;
 
                 let docTotal = this._extractNumericValue(item, ['DocTotal', 'Total', 'Amount', 'GrandTotal', 'DocTotalFC']);
-                
+
                 // FORZAR: Si docTotal es 0, generar un valor basado en el índice
                 // Esto hará que los 5 registros tengan valores visibles
                 if (docTotal === 0) {
                     docTotal = 500 + (index * 200); // 500, 700, 900, 1100, 1300
                 }
-                
-                
+
+
 
                 return {
                     Purchase: `${socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre} (${index + 1})`,
@@ -395,9 +395,9 @@ sap.ui.define([
                 };
             });
 
-            
 
-            
+
+
             return datosGrafica;  // Ya no filtramos, devolvemos todos
         },
 
@@ -413,32 +413,55 @@ sap.ui.define([
             }
             return 0; // Retorna 0 si no encuentra ningún valor válido
         },
-        onUploadPress: function () {
-            var oFileUploader = this.byId("fileUploader");
-            
-            var iEmployeeId = 2; 
-            
-            // Configuramos la URL hacia tu backend de ASP.NET
-            // Ajusta la dirección según tu servidor local o de producción
-            var sServiceUrl = "https://localhost:7184/api/Values/subirFoto/" + iEmployeeId;
-            
-            oFileUploader.setUploadUrl(sServiceUrl);
+        onUploadPress: async function () {
+            try {
 
-            if (!oFileUploader.getValue()) {
-                MessageToast.show("Por favor, selecciona un archivo primero");
-                return;
-            }
+                await this.hacerLogin();
 
-            oFileUploader.upload();
-        },
+                // 1. Obtener el archivo real del control
+                var oFileUploader = this.byId("fileUploader");
+                var oDomRef = oFileUploader.getFocusDomRef();
 
-        onFileChange: function (oEvent) {
-            // Validar extensión si lo deseas
-            var sFileName = oEvent.getParameter("newValue");
-            if (!sFileName.match(/\.(jpg|jpeg|png)$/i)) {
-                MessageToast.show("Solo se permiten imágenes JPG o PNG");
-                this.byId("fileUploader").clear();
+                if (!oDomRef.files || oDomRef.files.length === 0) {
+                    sap.m.MessageToast.show("Selecciona una imagen primero");
+                    return;
+                }
+
+                var oFile = oDomRef.files[0];
+
+                // 2. Preparar el envío
+                var formData = new FormData();
+                formData.append("file", oFile);
+
+                var id = 2; // ID del empleado de prueba
+                var sUrl = "https://localhost:7184/api/Values/subirFoto/" + id;
+
+                sap.ui.core.BusyIndicator.show(0);
+
+                // 3. Petición Fetch
+                // En UI5, deja que el navegador haga su magia:
+                var response = await fetch(sUrl, {
+                    method: 'POST',
+                    body: formData // El navegador detecta que es FormData y pone el boundary solo
+                });
+
+
+                if (response.ok) {
+                    var result = await response.json();
+                    sap.m.MessageToast.show("¡Éxito! Imagen guardada: " + result.fileName);
+                    oFileUploader.clear();
+                } else {
+                    var errorText = await response.text();
+                    console.error("Detalle del error:", errorText);
+                }
+
+            } catch (oError) {
+                console.error("Error de conexión:", oError);
+            } finally {
+                sap.ui.core.BusyIndicator.hide();
             }
         }
+
+
     });
 });
