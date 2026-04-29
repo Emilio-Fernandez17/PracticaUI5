@@ -296,21 +296,13 @@ sap.ui.define([
         },
 
         _crearGraficaConDatos(datosVentas, datosSocios) {
-            if (!this.oVizFrame) {
-                console.error("No se encontró el VizFrame");
-                return;
-            }
-
             // Transformar los datos de PurchaseOrders para la gráfica
             const datosParaGrafica = this._transformarDatosParaGrafica(datosVentas, datosSocios);
 
             if (!datosParaGrafica || datosParaGrafica.length === 0) {
                 console.warn('No hay datos para mostrar en la gráfica');
-                sap.m.MessageToast.show("No hay datos de ventas disponibles para la gráfica");
                 return;
             }
-
-            console.log('Datos transformados para gráfica:', datosParaGrafica.slice(0, 5));
 
             // Crear modelo con los datos transformados
             const oModel = new JSONModel({ Products: datosParaGrafica });
@@ -327,7 +319,6 @@ sap.ui.define([
             });
 
             var oBundle = this.getView().getModel("i18n").getResourceBundle();
-            // Configurar propiedades de la gráfica
             const vizProperties = {
                 plotArea: { showGap: true },
                 title: { visible: true, text: oBundle.getText("AnalisisGrafica") }
@@ -348,9 +339,6 @@ sap.ui.define([
 
             // Establecer tipo de gráfica
             this.oVizFrame.setVizType("line");
-
-            console.log("Gráfica actualizada con", datosParaGrafica.length, "registros de PurchaseOrders");
-
             // Forzar actualización de la gráfica
             setTimeout(() => {
                 if (this.oVizFrame) {
@@ -360,7 +348,6 @@ sap.ui.define([
         },
 
         _transformarDatosParaGrafica(datosVentas, datosSocios) {
-
             let purchaseOrders = [];
             if (datosVentas.value && Array.isArray(datosVentas.value)) {
                 purchaseOrders = datosVentas.value;
@@ -379,12 +366,10 @@ sap.ui.define([
                 console.log('Mapa de socios creado con', sociosMap.size, 'registros');
             }
 
-            // Limitar a los primeros 15 registros para mejor visualización
             const maxItems = 15;
             const limitedOrders = purchaseOrders.slice(0, maxItems);
             console.log(`Mostrando ${limitedOrders.length} de ${purchaseOrders.length} registros en la gráfica`);
 
-            // Transformar los datos de PurchaseOrders para la gráfica
             const datosGrafica = limitedOrders.map((item, index) => {
 
                 // Obtener el CardCode del socio (puede tener diferente nombre en PurchaseOrders)
@@ -434,9 +419,5 @@ sap.ui.define([
             }
             return 0; // Retorna 0 si no encuentra ningún valor válido
         },
-
-        seleccionar() {
-            // Implementa la selección si es necesario
-        }
     });
 });
