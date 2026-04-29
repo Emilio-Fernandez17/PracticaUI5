@@ -203,20 +203,28 @@ sap.ui.define([
             this.getView().byId("serie").setSelectedKey('S');
             this.getView().byId("lote").setSelectedKey('N');
         },
+        hacerLogin: async function () {
+            const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
+            if (!loginRespuesta.ok) throw new Error('Error en login');
+            const loginDatos = await loginRespuesta.json();
+            console.log('loginDatos:', loginDatos);
+        },
+        cargarInterlocutores: async function () {
+            // Cargar BusinessPartners
+            const peticionBP = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
+            if (!peticionBP.ok) throw new Error('Error en la peticion de BusinessPartners');
+            const datosBP = await peticionBP.json();
+            this.datos = datosBP;
+            console.log('BusinessPartners:', this.datos);
+
+            const oModelLista = new JSONModel(this.datos);
+            this.getView().setModel(oModelLista, "modeloSelect");
+        },
 
         async cargarDatos() {
             try {
-                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
-                if (!loginRespuesta.ok) throw new Error('Error en login');
-                const loginDatos = await loginRespuesta.json();
-                console.log('loginDatos:', loginDatos);
-
-                // Cargar BusinessPartners
-                const peticionBP = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');
-                if (!peticionBP.ok) throw new Error('Error en la peticion de BusinessPartners');
-                const datosBP = await peticionBP.json();
-                this.datos = datosBP;
-                console.log('BusinessPartners:', this.datos);
+                this.hacerLogin()
+                this.cargarInterlocutores()
 
                 // Cargar PurchaseOrders
                 const peticionPO = await fetch('https://localhost:7184/api/values/Peticion/PurchaseOrders');
@@ -234,9 +242,7 @@ sap.ui.define([
                 const modelo = new JSONModel(this.Items);
                 this.getView().setModel(modelo, "Items");
 
-                // Crear modelo para la lista (usando BusinessPartners)
-                const oModelLista = new JSONModel(this.datos);
-                this.getView().setModel(oModelLista, "modeloSelect");
+
 
                 // Crear y configurar la gráfica con los datos de PurchaseOrders
                 this._crearGraficaConDatos(this.ventas, this.datos);
