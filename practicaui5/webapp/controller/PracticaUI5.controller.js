@@ -96,8 +96,8 @@ sap.ui.define([
 
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
-
                 this.ocultarFormulario()
+                sap.m.MessageToast.show("Articulo añadido: " + sCodigo);
             } catch (oError) {
                 console.error(oError);
             }
@@ -209,6 +209,7 @@ sap.ui.define([
                 await this.cargarArticulos()
                 this.ocultarFormulario()
             } catch (oError) {
+                sap.m.MessageToast.show("No se puede borrar los datos del articulo: " + articulo.ItemCode);
                 console.error(oError);
             }
         },
