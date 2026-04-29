@@ -16,7 +16,9 @@ sap.ui.define([
                 formulario: false,
                 lote: false,
                 editar: false,
-                anade: true
+                anade: true,
+                repeticion: false,
+                cantidad: true
             };
 
             var oModel = new sap.ui.model.json.JSONModel(formulario);
@@ -48,7 +50,12 @@ sap.ui.define([
 
             this.getView().setModel(oNewModel, "i18n");
         },
+        anadir: async function(){
+            this.getView().byId("vCode").setEditable(true);
+            this.mostrarFormulario()
+        },
         anadeArticulo: async function () {
+            this.getView().getModel("formulario").setProperty("/puedeCambiarManejo", true);
             var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
 
@@ -97,8 +104,8 @@ sap.ui.define([
         },
 
         editar: function (oEvent) {
+            this.getView().byId("vCode").setEditable(false);
             var oFormModel = this.getView().getModel("formulario");
-
             oFormModel.setProperty("/editar", true);
             oFormModel.setProperty("/anade", false);
 
@@ -117,11 +124,13 @@ sap.ui.define([
             sNombre.setValue(articulo.ItemName);
 
             var sSerieValue = articulo.ManageSerialNumbers === 'tYES' ? 'S' : 'N';
-
             sSerie.setSelectedKey(sSerieValue);
-            sLote.setSelectedKey(articulo.ManageBatchNumbers === 'tYES' ? 'S' : 'N');
 
+            sLote.setSelectedKey(articulo.ManageBatchNumbers === 'tYES' ? 'S' : 'N');
             oFormModel.setProperty("/lote", sSerieValue === 'N');
+
+            var editable = (articulo.QuantityOnStock === 0 || articulo.QuantityOnStock === "0.0");
+            oFormModel.setProperty("/cantidad", editable);
         },
 
         EditaArticulo: async function () {
@@ -129,16 +138,27 @@ sap.ui.define([
             var sNombre = this.getView().byId("vName").getValue();
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
+
             let datos = {
                 "ItemName": sNombre,
                 "ItemType": "itItems"
             };
 
+            if (sSerie === 'S' && sLote === 'S') {
+                this.getView().getModel("formulario").setProperty("/repeticion", true);
+                return;
+            }
+            this.getView().getModel("formulario").setProperty("/repeticion", false);
+
             if (sSerie === 'S') {
                 datos.ManageSerialNumbers = "tYES";
-            }
-            else if (sLote === 'S') {
+                datos.ManageBatchNumbers = "tNO";
+            } else if (sLote === 'S') {
                 datos.ManageBatchNumbers = "tYES";
+                datos.ManageSerialNumbers = "tNO";
+            } else {
+                datos.ManageSerialNumbers = "tNO";
+                datos.ManageBatchNumbers = "tNO";
             }
 
             const json = JSON.stringify(datos);
@@ -170,12 +190,27 @@ sap.ui.define([
                 console.error(oError);
             }
         },
-        borrar: function (oEvent) {
-            var oButton = oEvent.getSource();
-            var oContext = oButton.getBindingContext("Items");
-            var oFilaSeleccionada = oContext.getObject();
+        borrar: async function (oEvent) {
+            var boton = oEvent.getSource();
+            var oContext = boton.getBindingContext("Items");
+            var articulo = oContext.getObject();
 
-            alert("Editando el ItemCode: " + oFilaSeleccionada.ItemCode);
+            try {
+                await this.hacerLogin()
+
+                const respuesta = await fetch(`https://localhost:7184/api/values/Delete/Items('${articulo.ItemCode}')`, {
+                    method: 'DELETE',
+                });
+
+                if (!respuesta.ok) {
+                    const errorMsg = await respuesta.text();
+                    throw new Error('Error al eliminar artículo: ' + errorMsg);
+                }
+                await this.cargarArticulos()
+                this.ocultarFormulario()
+            } catch (oError) {
+                console.error(oError);
+            }
         },
         mostrarlote: function () {
             var sSerie = this.getView().byId("serie").getSelectedKey();
@@ -192,7 +227,13 @@ sap.ui.define([
             this.getView().getModel("formulario").setProperty("/formulario", true);
         },
         ocultarFormulario: function () {
-            this.getView().getModel("formulario").setProperty("/formulario", false);
+            var oModel = this.getView().getModel("formulario");
+            oModel.setProperty("/formulario", false);
+            oModel.setProperty("/repeticion", false);
+            oModel.setProperty("/cantidad", true);
+            oModel.setProperty("/anade", true);
+            oModel.setProperty("/editar", false);
+            oModel.setProperty("/lote", false);
             this.getView().byId("vCode").setValue("")
             this.getView().byId("vName").setValue("")
 

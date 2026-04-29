@@ -52,18 +52,18 @@
                         </items>
                     </Table>
 
-<Button id="anadeArticulo" text="Añadir Articulo" type="Emphasized" press="mostrarFormulario"></Button>
+<Button id="anadeArticulo" text="Añadir Articulo" type="Emphasized" press="anadir"></Button>
 
 
 <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
     <Text id="nCode" text="Codigo:"></Text>
-    <MultiInput id="vCode" type="Text"></MultiInput>
+    <MultiInput id="vCode" type="Text" editable="false"></MultiInput>
 
     <Text id="nName" text="Nombre:"></Text>
     <MultiInput id="vName" type="Text"></MultiInput>
 
     <Text id="nSerie" text="Serie:"></Text>
-    <Select id="serie" change="mostrarlote">
+    <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote">
         <items>
 			<core:Item id="serieS" key="S" text="Sí" />
 			<core:Item id="serieN" key="N" text="No" />  
@@ -71,12 +71,13 @@
     </Select>
     
     <Text id="nLote" text="Lote:" visible="{formulario>/lote}"></Text>
-    <Select id="lote" visible="{formulario>/lote}">
+    <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}">
         <items>
             <core:Item id="loteN" key="N" text="No" />
 			<core:Item id="loteS" key="S" text="Sí" />
         </items>
     </Select>
+    <Text id="repeticion" text="No se puede managar por serie y lote:" visible="{formulario>/repeticion}"></Text>
 
     <HBox id="hbox"  class="sapUiSmallMarginTop" >
         <Button id="Anade" text="Añadir Articulo" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
