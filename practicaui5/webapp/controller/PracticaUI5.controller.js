@@ -415,10 +415,7 @@ sap.ui.define([
         },
         onUploadPress: async function () {
             try {
-
                 await this.hacerLogin();
-
-                // 1. Obtener el archivo real del control
                 var oFileUploader = this.byId("fileUploader");
                 var oDomRef = oFileUploader.getFocusDomRef();
 
@@ -428,23 +425,17 @@ sap.ui.define([
                 }
 
                 var oFile = oDomRef.files[0];
-
-                // 2. Preparar el envío
                 var formData = new FormData();
                 formData.append("file", oFile);
-
-                var id = 2; // ID del empleado de prueba
+                var id = 2;
                 var sUrl = "https://localhost:7184/api/Values/subirFoto/" + id;
 
                 sap.ui.core.BusyIndicator.show(0);
 
-                // 3. Petición Fetch
-                // En UI5, deja que el navegador haga su magia:
                 var response = await fetch(sUrl, {
                     method: 'POST',
-                    body: formData // El navegador detecta que es FormData y pone el boundary solo
+                    body: formData
                 });
-
 
                 if (response.ok) {
                     var result = await response.json();
