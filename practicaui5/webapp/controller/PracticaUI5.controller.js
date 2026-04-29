@@ -72,9 +72,7 @@ sap.ui.define([
             console.log(json)
 
             try {
-                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
-                if (!loginRespuesta.ok) throw new Error('Error en login');
-                const loginDatos = await loginRespuesta.json();
+                await this.hacerLogin()
 
                 const respuesta = await fetch('https://localhost:7184/api/values/Post/Items', {
                     method: 'POST',
@@ -147,9 +145,7 @@ sap.ui.define([
             console.log(json)
 
             try {
-                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
-                if (!loginRespuesta.ok) throw new Error('Error en login');
-                const loginDatos = await loginRespuesta.json();
+                await this.hacerLogin()
 
                 const respuesta = await fetch(`https://localhost:7184/api/values/Patch/Items('${sCodigo}')`, {
                     method: 'PATCH',
@@ -220,31 +216,29 @@ sap.ui.define([
             const oModelLista = new JSONModel(this.datos);
             this.getView().setModel(oModelLista, "modeloSelect");
         },
+        cargarPedidos: async function () {
+            const peticionPO = await fetch('https://localhost:7184/api/values/Peticion/PurchaseOrders');
+            if (!peticionPO.ok) throw new Error('Error en la peticion de PurchaseOrders');
+            const datosPO = await peticionPO.json();
+            this.ventas = datosPO;
+            console.log('PurchaseOrders:', this.ventas);
+        },
+        cargarArticulos: async function () {
+            const peticionItems = await fetch('https://localhost:7184/api/values/Peticion/Items');
+            if (!peticionItems.ok) throw new Error('Error en la peticion de Items');
+            const datosItems = await peticionItems.json();
+            this.Items = datosItems;
+            console.log('Items:', this.Items);
+            const modelo = new JSONModel(this.Items);
+            this.getView().setModel(modelo, "Items");
+        },
 
         async cargarDatos() {
             try {
-                this.hacerLogin()
-                this.cargarInterlocutores()
-
-                // Cargar PurchaseOrders
-                const peticionPO = await fetch('https://localhost:7184/api/values/Peticion/PurchaseOrders');
-                if (!peticionPO.ok) throw new Error('Error en la peticion de PurchaseOrders');
-                const datosPO = await peticionPO.json();
-                this.ventas = datosPO;
-                console.log('PurchaseOrders:', this.ventas);
-
-                // Cargar Items
-                const peticionItems = await fetch('https://localhost:7184/api/values/Peticion/Items');
-                if (!peticionItems.ok) throw new Error('Error en la peticion de Items');
-                const datosItems = await peticionItems.json();
-                this.Items = datosItems;
-                console.log('Items:', this.Items);
-                const modelo = new JSONModel(this.Items);
-                this.getView().setModel(modelo, "Items");
-
-
-
-                // Crear y configurar la gráfica con los datos de PurchaseOrders
+                await this.hacerLogin()
+                await this.cargarInterlocutores()
+                await this.cargarPedidos()
+                await this.cargarArticulos()
                 this._crearGraficaConDatos(this.ventas, this.datos);
 
                 // Mostrar la gráfica y ocultar el mensaje
