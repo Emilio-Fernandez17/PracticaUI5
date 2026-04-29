@@ -127,14 +127,11 @@ sap.ui.define([
         },
 
         EditaArticulo: async function () {
-             var sCodigo = this.getView().byId("vCode").getValue();
+            var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
-
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
-
             let datos = {
-                "ItemCode": sCodigo,
                 "ItemName": sNombre,
                 "ItemType": "itItems"
             };
@@ -154,7 +151,7 @@ sap.ui.define([
                 if (!loginRespuesta.ok) throw new Error('Error en login');
                 const loginDatos = await loginRespuesta.json();
 
-                const respuesta = await fetch('https://localhost:7184/api/values/Patch/Items', {
+                const respuesta = await fetch(`https://localhost:7184/api/values/Patch/Items('${sCodigo}')`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -164,11 +161,13 @@ sap.ui.define([
 
                 if (!respuesta.ok) {
                     const errorMsg = await respuesta.text();
-                    throw new Error('Error al crear artículo: ' + errorMsg);
+                    throw new Error('Error al editar artículo: ' + errorMsg);
                 }
 
-                const articuloC = await respuesta.json();
-                console.log('Artículo Creado con éxito:', articuloC);
+                let articuloC = null;
+                if (respuesta.status !== 204) {
+                    articuloC = await respuesta.json();
+                }
 
                 this.ocultarFormulario()
             } catch (oError) {
@@ -186,10 +185,10 @@ sap.ui.define([
             var sSerie = this.getView().byId("serie").getSelectedKey();
             let oModel = this.getView().getModel("formulario");
 
-            if(sSerie === 'S'){
+            if (sSerie === 'S') {
                 var sSerie = this.getView().byId("lote").setSelectedKey('N');
                 oModel.setProperty("/lote", sSerie === 'N');
-            }else{
+            } else {
                 oModel.setProperty("/lote", true);
             }
         },
