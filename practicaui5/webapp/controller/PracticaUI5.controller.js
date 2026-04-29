@@ -296,6 +296,11 @@ sap.ui.define([
         },
 
         _crearGraficaConDatos(datosVentas, datosSocios) {
+            if (!this.oVizFrame) {
+                console.error("No se encontró el VizFrame");
+                return;
+            }
+
             // Transformar los datos de PurchaseOrders para la gráfica
             const datosParaGrafica = this._transformarDatosParaGrafica(datosVentas, datosSocios);
 

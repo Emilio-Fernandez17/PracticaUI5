@@ -9,15 +9,15 @@
     <Page id="page" title="{i18n>title}">
 
         <layout:VerticalLayout id="epacio" class="sapUiContentPadding">
-            <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
-            
-            <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
+                <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
+                
+                <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
         </layout:VerticalLayout>
- 
- 
-        <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
-            <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
-        </Select>-->
+    
+    
+            <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
+                <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
+            </Select>-->
 
         <tnt:NavigationList id="navigationList" width="500px">
             <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
@@ -27,78 +27,78 @@
 
 
         <Text id="a" text="&#10;"/>
-                    <Table id="idTablaPrueba" headerText="{i18n>titleTable}" items="{Items>/value}">
-                        <columns>
-                            <Column id="colCode"><header><Text id="Code" text="{i18n>ItemCode}" /></header></Column>
-                            <Column id="colName"><header><Text id="Name" text="{i18n>ItemName}" /></header></Column>
-							<Column id="colSerie"><header><Text id="Serie" text="{i18n>ItemSerie}" /></header></Column>
-							<Column id="colLote"><header><Text id="Lote" text="{i18n>ItemLote}" /></header></Column>
-							<Column id="colAlmacenado"><header><Text id="Almacenado" text="{i18n>stock}" /></header></Column>
-							<Column id="colEditar"><header><Text id="Editar" text="{i18n>edit}" /></header></Column>
-							<Column id="colBorrar"><header><Text id="Borrar" text="{i18n>delete}" /></header></Column>
-                        </columns>
-                        <items>
-                            <ColumnListItem id="idFila1">
-                                <cells>
-                                    <Text id="codeTexto" text="{Items>ItemCode}" />
-                                    <Text id="nameTexto" text="{Items>ItemName}" />
-									<Text id="serieTexto" text="{Items>ManageSerialNumbers}" />
-                                    <Text id="loteTexto" text="{Items>ManageBatchNumbers}" />
-									<Text id="almacenadoTexto" text="{Items>QuantityOnStock}" />
-                                    <Button id="editar" text="{i18n>botonEditar}" press="editar">
-									</Button> <Button id="borrar" text="{i18n>botonBorrar}" press="borrar"></Button>
-                                </cells>
-                            </ColumnListItem>
-                        </items>
-                    </Table>
+        <Table id="idTablaPrueba" headerText="{i18n>titleTable}" items="{Items>/value}">
+            <columns>
+                <Column id="colCode"><header><Text id="Code" text="{i18n>ItemCode}" /></header></Column>
+                <Column id="colName"><header><Text id="Name" text="{i18n>ItemName}" /></header></Column>
+                <Column id="colSerie"><header><Text id="Serie" text="{i18n>ItemSerie}" /></header></Column>
+                <Column id="colLote"><header><Text id="Lote" text="{i18n>ItemLote}" /></header></Column>
+                <Column id="colAlmacenado"><header><Text id="Almacenado" text="{i18n>stock}" /></header></Column>
+                <Column id="colEditar"><header><Text id="Editar" text="{i18n>edit}" /></header></Column>
+                <Column id="colBorrar"><header><Text id="Borrar" text="{i18n>delete}" /></header></Column>
+            </columns>
+            <items>
+                <ColumnListItem id="idFila1">
+                    <cells>
+                        <Text id="codeTexto" text="{Items>ItemCode}" />
+                        <Text id="nameTexto" text="{Items>ItemName}" />
+                        <Text id="serieTexto" text="{Items>ManageSerialNumbers}" />
+                        <Text id="loteTexto" text="{Items>ManageBatchNumbers}" />
+                        <Text id="almacenadoTexto" text="{Items>QuantityOnStock}" />
+                        <Button id="editar" text="{i18n>botonEditar}" press="editar">
+                        </Button> <Button id="borrar" text="{i18n>botonBorrar}" press="borrar"></Button>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
 
-<Button id="anadeArticulo" text="{i18n>abrirFormulario}" type="Emphasized" press="anadir"></Button>
+    <Button id="anadeArticulo" text="{i18n>abrirFormulario}" type="Emphasized" press="anadir"></Button>
 
 
-<VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
-    <Text id="nCode" text="{i18n>formCode}"></Text>
-    <MultiInput id="vCode" type="Text" editable="false"></MultiInput>
+    <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
+        <Text id="nCode" text="{i18n>formCode}"></Text>
+        <MultiInput id="vCode" type="Text" editable="false"></MultiInput>
 
-    <Text id="nName" text="{i18n>formName}"></Text>
-    <MultiInput id="vName" type="Text"></MultiInput>
+        <Text id="nName" text="{i18n>formName}"></Text>
+        <MultiInput id="vName" type="Text"></MultiInput>
 
-    <Text id="nSerie" text="{i18n>formSerie}"></Text>
-    <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote">
-        <items>
-			<core:Item id="serieS" key="S" text="{i18n>si}" />
-			<core:Item id="serieN" key="N" text="{i18n>no}" />  
-        </items>
-    </Select>
-    
-    <Text id="nLote" text="{i18n>formLote}" visible="{formulario>/lote}"></Text>
-    <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}">
-        <items>
-            <core:Item id="loteN" key="N" text="{i18n>no}" />
-			<core:Item id="loteS" key="S" text="{i18n>si}" />
-        </items>
-    </Select>
-    <Text id="repeticion" text="{i18n>repeticion}:" visible="{formulario>/repeticion}"></Text>
+        <Text id="nSerie" text="{i18n>formSerie}"></Text>
+        <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote">
+            <items>
+                <core:Item id="serieS" key="S" text="{i18n>si}" />
+                <core:Item id="serieN" key="N" text="{i18n>no}" />  
+            </items>
+        </Select>
+        
+        <Text id="nLote" text="{i18n>formLote}" visible="{formulario>/lote}"></Text>
+        <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}">
+            <items>
+                <core:Item id="loteN" key="N" text="{i18n>no}" />
+                <core:Item id="loteS" key="S" text="{i18n>si}" />
+            </items>
+        </Select>
+        <Text id="repeticion" text="{i18n>repeticion}:" visible="{formulario>/repeticion}"></Text>
 
-    <HBox id="hbox"  class="sapUiSmallMarginTop" >
-        <Button id="Anade" text="{i18n>abrirFormulario}" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
-        <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
-        <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario"></Button>
-    </HBox>
-</VBox>
+        <HBox id="hbox"  class="sapUiSmallMarginTop" >
+            <Button id="Anade" text="{i18n>abrirFormulario}" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
+            <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
+            <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario"></Button>
+        </HBox>
+        </VBox>
 
-        <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
-            <layout:contentAreas>
-                <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="{i18n>Grafica}">
-                    <suite:content>
-                        <suite:ChartContainerContent id="ChartContainer" icon="sap-icon://line-chart" title="Line Chart">
-                            <suite:content>
-                                <viz:VizFrame id="chartContainerVizFrame" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
-                            </suite:content>
-                        </suite:ChartContainerContent>
-                    </suite:content>
-                </suite:ChartContainer>
-            </layout:contentAreas>
-	    </layout:Splitter>
+    <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
+                <layout:contentAreas>
+                    <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="{i18n>Grafica}">
+                        <suite:content>
+                            <suite:ChartContainerContent id="ChartContainer" icon="sap-icon://line-chart" title="Line Chart">
+                                <suite:content>
+                                    <viz:VizFrame id="chartContainerVizFrame" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+                                </suite:content>
+                            </suite:ChartContainerContent>
+                        </suite:content>
+                    </suite:ChartContainer>
+                </layout:contentAreas>
+            </layout:Splitter>
 
-    </Page>
+        </Page>
 </mvc:View>
