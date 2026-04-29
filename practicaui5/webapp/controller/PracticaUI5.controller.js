@@ -311,7 +311,7 @@ sap.ui.define([
 
             // Configurar el dataset para la gráfica
             const oDataset = new this._FlattenedDataset({
-                dimensions: [{ name: "Country", value: "{Country}" }],
+                dimensions: [{ name: "Purchase", value: "{Purchase}" }],
                 measures: [
                     { group: 1, name: "Revenue", value: "{Revenue}" },
                     { group: 1, name: "Target", value: "{Target}" },
@@ -336,7 +336,7 @@ sap.ui.define([
 
             // Agregar nuevos feeds
             this.oVizFrame.addFeed(new this._FeedItem({ uid: "primaryValues", type: "Measure", values: ["Revenue"] }));
-            this.oVizFrame.addFeed(new this._FeedItem({ uid: "axisLabels", type: "Dimension", values: ["Country"] }));
+            this.oVizFrame.addFeed(new this._FeedItem({ uid: "axisLabels", type: "Dimension", values: ["Purchase"] }));
             this.oVizFrame.addFeed(new this._FeedItem({ uid: "targetValues", type: "Measure", values: ["Target"] }));
 
             // Establecer tipo de gráfica
@@ -388,7 +388,7 @@ sap.ui.define([
 
                 return {
                     // Para el eje X - usamos el nombre del socio o código
-                    Country: socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre,
+                    Purchase: socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre,
 
                     // Revenue - usamos DocTotal como valor principal
                     Revenue: docTotal,
