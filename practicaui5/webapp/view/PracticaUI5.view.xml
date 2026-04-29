@@ -10,7 +10,7 @@
 
         <layout:VerticalLayout id="epacio" class="sapUiContentPadding">
             <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
-            <Text id="Prueba" text="{i18n>prueba}"></Text>
+            
             <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
         </layout:VerticalLayout>
  
@@ -45,8 +45,8 @@
 									<Text id="serieTexto" text="{Items>ManageSerialNumbers}" />
                                     <Text id="loteTexto" text="{Items>ManageBatchNumbers}" />
 									<Text id="almacenadoTexto" text="{Items>QuantityOnStock}" />
-                                    <Button id="editar" text="Editar" press="editar">
-									</Button> <Button id="borrar" text="Borrar" press="borrar"></Button>
+                                    <Button id="editar" text="{i18n>botonEditar}" press="editar">
+									</Button> <Button id="borrar" text="{i18n>botonBorrar}" press="borrar"></Button>
                                 </cells>
                             </ColumnListItem>
                         </items>
@@ -88,7 +88,7 @@
 
         <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
             <layout:contentAreas>
-                <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="Grafica">
+                <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="{i18n>Grafica}">
                     <suite:content>
                         <suite:ChartContainerContent id="ChartContainer" icon="sap-icon://line-chart" title="Line Chart">
                             <suite:content>

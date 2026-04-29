@@ -328,10 +328,14 @@ sap.ui.define([
                 data: { path: "/Products" }
             });
 
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
+                var sMsg = oBundle.getText("AnalisisGrafica");
+                
+
             // Configurar propiedades de la gráfica
             const vizProperties = {
                 plotArea: { showGap: true },
-                title: { visible: true, text: "Análisis de Órdenes de Compra" }
+                title: { visible: true, text: sMsg }
             };
 
             // Aplicar configuración a la gráfica
