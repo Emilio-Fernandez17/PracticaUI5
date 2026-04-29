@@ -397,10 +397,7 @@ sap.ui.define([
 
             
 
-            // ELIMINAR EL FILTRO - Devolver todos los 5 registros directamente
-            console.log(`Total de datos para gráfica: ${datosGrafica.length} registros`);
-            console.log('Datos:', datosGrafica);
-
+            
             return datosGrafica;  // Ya no filtramos, devolvemos todos
         },
 
