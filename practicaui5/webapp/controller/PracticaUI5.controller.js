@@ -368,7 +368,7 @@ sap.ui.define([
                 console.log('Mapa de socios creado con', sociosMap.size, 'registros');
             }
 
-            const maxItems = 5;
+            const maxItems = purchaseOrders.length;
             const limitedOrders = purchaseOrders.slice(0, maxItems);
             console.log(`Mostrando ${limitedOrders.length} de ${purchaseOrders.length} registros en la gráfica`);
 
