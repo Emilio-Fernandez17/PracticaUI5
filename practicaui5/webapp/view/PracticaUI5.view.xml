@@ -6,7 +6,8 @@
     xmlns:tnt="sap.tnt"
     xmlns="sap.m"
     xmlns:f="sap.ui.layout.form"
-    xmlns:suite="sap.suite.ui.commons">
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:u="sap.ui.unified">
     <Page id="page" title="{i18n>title}">
 
         <OverflowToolbar id="headerToolbar" style="Clear">
@@ -128,6 +129,9 @@
                 </f:SimpleForm>
             </content>
         </Panel>
+        
+        <u:FileUploader id="fileUploader" name="file" uploadUrl="" useMultipart="true" sendXHR="true" placeholder="Selecciona una imagen..." change="onFileChange"/>
+        <Button id="BotonSubir" text="Subir Foto" press="onUploadPress" type="Emphasized"/>
 
 
 

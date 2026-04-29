@@ -413,5 +413,32 @@ sap.ui.define([
             }
             return 0; // Retorna 0 si no encuentra ningún valor válido
         },
+        onUploadPress: function () {
+            var oFileUploader = this.byId("fileUploader");
+            
+            var iEmployeeId = 2; 
+            
+            // Configuramos la URL hacia tu backend de ASP.NET
+            // Ajusta la dirección según tu servidor local o de producción
+            var sServiceUrl = "https://localhost:7184/api/Values/subirFoto/" + iEmployeeId;
+            
+            oFileUploader.setUploadUrl(sServiceUrl);
+
+            if (!oFileUploader.getValue()) {
+                MessageToast.show("Por favor, selecciona un archivo primero");
+                return;
+            }
+
+            oFileUploader.upload();
+        },
+
+        onFileChange: function (oEvent) {
+            // Validar extensión si lo deseas
+            var sFileName = oEvent.getParameter("newValue");
+            if (!sFileName.match(/\.(jpg|jpeg|png)$/i)) {
+                MessageToast.show("Solo se permiten imágenes JPG o PNG");
+                this.byId("fileUploader").clear();
+            }
+        }
     });
 });
