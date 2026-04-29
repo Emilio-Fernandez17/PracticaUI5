@@ -47,7 +47,6 @@ sap.ui.define([
                 fallbackLocale: "",
                 bundleLocale: sNewLang
             });
-
             this.getView().setModel(oNewModel, "i18n");
         },
         anadir: async function () {
@@ -97,7 +96,7 @@ sap.ui.define([
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
                 this.ocultarFormulario()
-              var oBundle = this.getView().getModel("i18n").getResourceBundle();
+                var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var sMsg = oBundle.getText("anadeMensaje") + " " + sCodigo;
                 sap.m.MessageToast.show(sMsg);
             } catch (oError) {
@@ -289,7 +288,6 @@ sap.ui.define([
 
                 // Mostrar la gráfica y ocultar el mensaje
                 this.getView().byId("grafica").setVisible(true);
-                this.getView().byId("mensajeCarga").setVisible(false);
 
             } catch (error) {
                 console.error('Hubo un problema:', error);
@@ -329,13 +327,10 @@ sap.ui.define([
             });
 
             var oBundle = this.getView().getModel("i18n").getResourceBundle();
-                var sMsg = oBundle.getText("AnalisisGrafica");
-                
-
             // Configurar propiedades de la gráfica
             const vizProperties = {
                 plotArea: { showGap: true },
-                title: { visible: true, text: sMsg }
+                title: { visible: true, text: oBundle.getText("AnalisisGrafica") }
             };
 
             // Aplicar configuración a la gráfica
@@ -365,22 +360,17 @@ sap.ui.define([
         },
 
         _transformarDatosParaGrafica(datosVentas, datosSocios) {
-            console.log('=== TRANSFORMANDO DATOS DE PURCHASEORDERS ===');
 
-            // Extraer el array de PurchaseOrders
             let purchaseOrders = [];
             if (datosVentas.value && Array.isArray(datosVentas.value)) {
                 purchaseOrders = datosVentas.value;
-                console.log('Usando datosVentas.value, longitud:', purchaseOrders.length);
             } else if (Array.isArray(datosVentas)) {
                 purchaseOrders = datosVentas;
-                console.log('Usando datosVentas directo como array, longitud:', purchaseOrders.length);
             } else {
                 console.error('Formato de datos de ventas no reconocido:', datosVentas);
                 return [];
             }
 
-            // Crear un mapa de BusinessPartners para obtener nombres
             let sociosMap = new Map();
             if (datosSocios && datosSocios.value && Array.isArray(datosSocios.value)) {
                 datosSocios.value.forEach(socio => {
@@ -396,11 +386,6 @@ sap.ui.define([
 
             // Transformar los datos de PurchaseOrders para la gráfica
             const datosGrafica = limitedOrders.map((item, index) => {
-                // Log para ver la estructura de cada item
-                if (index === 0) {
-                    console.log('Estructura de PurchaseOrder:', Object.keys(item));
-                    console.log('Item completo:', item);
-                }
 
                 // Obtener el CardCode del socio (puede tener diferente nombre en PurchaseOrders)
                 const cardCode = item.CardCode || item.CardCode || item.BusinessPartner || item.Supplier;
