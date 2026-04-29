@@ -50,7 +50,7 @@ sap.ui.define([
 
             this.getView().setModel(oNewModel, "i18n");
         },
-        anadir: async function(){
+        anadir: async function () {
             this.getView().byId("vCode").setEditable(true);
             this.mostrarFormulario()
         },
@@ -97,7 +97,9 @@ sap.ui.define([
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
                 this.ocultarFormulario()
-                sap.m.MessageToast.show("Articulo añadido: " + sCodigo);
+              var oBundle = this.getView().getModel("i18n").getResourceBundle();
+                var sMsg = oBundle.getText("anadeMensaje") + " " + sCodigo;
+                sap.m.MessageToast.show(sMsg);
             } catch (oError) {
                 console.error(oError);
             }
@@ -209,7 +211,9 @@ sap.ui.define([
                 await this.cargarArticulos()
                 this.ocultarFormulario()
             } catch (oError) {
-                sap.m.MessageToast.show("No se puede borrar los datos del articulo: " + articulo.ItemCode);
+                var oBundle = this.getView().getModel("i18n").getResourceBundle();
+                var sMsg = oBundle.getText("borrarMensaje") + " " + articulo.ItemCode;
+                sap.m.MessageToast.show(sMsg);
                 console.error(oError);
             }
         },

@@ -27,15 +27,15 @@
 
 
         <Text id="a" text="&#10;"/>
-                    <Table id="idTablaPrueba" headerText="Datos de Prueba Directos" items="{Items>/value}">
+                    <Table id="idTablaPrueba" headerText="{i18n>titleTable}" items="{Items>/value}">
                         <columns>
-                            <Column id="colCode"><header><Text id="Code" text="ItemCode" /></header></Column>
-                            <Column id="colName"><header><Text id="Name" text="ItemName" /></header></Column>
-							<Column id="colSerie"><header><Text id="Serie" text="ManageSerialNumbers" /></header></Column>
-							<Column id="colLote"><header><Text id="Lote" text="ManageBatchNumbers" /></header></Column>
-							<Column id="colAlmacenado"><header><Text id="Almacenado" text="QuantityOnStock" /></header></Column>
-							<Column id="colEditar"><header><Text id="Editar" text="Editar" /></header></Column>
-							<Column id="colBorrar"><header><Text id="Borrar" text="Borrar" /></header></Column>
+                            <Column id="colCode"><header><Text id="Code" text="{i18n>ItemCode}" /></header></Column>
+                            <Column id="colName"><header><Text id="Name" text="{i18n>ItemName}" /></header></Column>
+							<Column id="colSerie"><header><Text id="Serie" text="{i18n>ItemSerie}" /></header></Column>
+							<Column id="colLote"><header><Text id="Lote" text="{i18n>ItemLote}" /></header></Column>
+							<Column id="colAlmacenado"><header><Text id="Almacenado" text="{i18n>stock}" /></header></Column>
+							<Column id="colEditar"><header><Text id="Editar" text="{i18n>edit}" /></header></Column>
+							<Column id="colBorrar"><header><Text id="Borrar" text="{i18n>delete}" /></header></Column>
                         </columns>
                         <items>
                             <ColumnListItem id="idFila1">
@@ -52,41 +52,39 @@
                         </items>
                     </Table>
 
-<Button id="anadeArticulo" text="Añadir Articulo" type="Emphasized" press="anadir"></Button>
+<Button id="anadeArticulo" text="{i18n>abrirFormulario}" type="Emphasized" press="anadir"></Button>
 
 
 <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
-    <Text id="nCode" text="Codigo:"></Text>
+    <Text id="nCode" text="{i18n>formCode}"></Text>
     <MultiInput id="vCode" type="Text" editable="false"></MultiInput>
 
-    <Text id="nName" text="Nombre:"></Text>
+    <Text id="nName" text="{i18n>formName}"></Text>
     <MultiInput id="vName" type="Text"></MultiInput>
 
-    <Text id="nSerie" text="Serie:"></Text>
+    <Text id="nSerie" text="{i18n>formSerie}"></Text>
     <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote">
         <items>
-			<core:Item id="serieS" key="S" text="Sí" />
-			<core:Item id="serieN" key="N" text="No" />  
+			<core:Item id="serieS" key="S" text="{i18n>si}" />
+			<core:Item id="serieN" key="N" text="{i18n>no}" />  
         </items>
     </Select>
     
-    <Text id="nLote" text="Lote:" visible="{formulario>/lote}"></Text>
+    <Text id="nLote" text="{i18n>formLote}" visible="{formulario>/lote}"></Text>
     <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}">
         <items>
-            <core:Item id="loteN" key="N" text="No" />
-			<core:Item id="loteS" key="S" text="Sí" />
+            <core:Item id="loteN" key="N" text="{i18n>no}" />
+			<core:Item id="loteS" key="S" text="{i18n>si}" />
         </items>
     </Select>
-    <Text id="repeticion" text="No se puede managar por serie y lote:" visible="{formulario>/repeticion}"></Text>
+    <Text id="repeticion" text="{i18n>repeticion}:" visible="{formulario>/repeticion}"></Text>
 
     <HBox id="hbox"  class="sapUiSmallMarginTop" >
-        <Button id="Anade" text="Añadir Articulo" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
-        <Button id="Edita" text="Editar Articulo" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
-        <Button id="cancelar" text="Cancelar" type="Back" press="ocultarFormulario"></Button>
+        <Button id="Anade" text="{i18n>abrirFormulario}" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
+        <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
+        <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario"></Button>
     </HBox>
 </VBox>
-
-        <Text id="mensajeCarga" text="Cargue datos para ver la gráfica" visible="true"/>
 
         <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
             <layout:contentAreas>
