@@ -92,7 +92,7 @@ sap.ui.define([
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
 
-                ocultarFormulario()
+                this.ocultarFormulario()
             } catch (oError) {
                 console.error(oError);
             }
@@ -186,8 +186,8 @@ sap.ui.define([
             let oModel = this.getView().getModel("formulario");
 
             if (sSerie === 'S') {
-                var sSerie = this.getView().byId("lote").setSelectedKey('N');
-                oModel.setProperty("/lote", sSerie === 'N');
+                var sLote = this.getView().byId("lote").setSelectedKey('N');
+                oModel.setProperty("/lote", sLote === 'N');
             } else {
                 oModel.setProperty("/lote", true);
             }
@@ -197,11 +197,11 @@ sap.ui.define([
         },
         ocultarFormulario: function () {
             this.getView().getModel("formulario").setProperty("/formulario", false);
-            var sCodigo = this.getView().byId("vCode").setValue() = "";
-            var sNombre = this.getView().byId("vName").setValue() = "";
+            this.getView().byId("vCode").setValue("")
+            this.getView().byId("vName").setValue("")
 
-            var sSerie = this.getView().byId("serie").setSelectedKey('S');
-            var sLote = this.getView().byId("lote").setSelectedKey('N');
+            this.getView().byId("serie").setSelectedKey('S');
+            this.getView().byId("lote").setSelectedKey('N');
         },
 
         async cargarDatos() {
