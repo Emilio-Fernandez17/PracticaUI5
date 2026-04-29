@@ -286,9 +286,6 @@ sap.ui.define([
                 await this.cargarArticulos()
                 this._crearGraficaConDatos(this.ventas, this.datos);
 
-                // Mostrar la gráfica y ocultar el mensaje
-                this.getView().byId("grafica").setVisible(true);
-
             } catch (error) {
                 console.error('Hubo un problema:', error);
                 sap.m.MessageToast.show("Error al cargar los datos: " + error.message);

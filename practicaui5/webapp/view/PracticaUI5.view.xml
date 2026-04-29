@@ -5,100 +5,131 @@
     xmlns:layout="sap.ui.layout"
     xmlns:tnt="sap.tnt"
     xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
     xmlns:suite="sap.suite.ui.commons">
     <Page id="page" title="{i18n>title}">
 
-        <layout:VerticalLayout id="epacio" class="sapUiContentPadding">
-                <Button id="botonIdiomas" text="{i18n>Idioma}" press="onButtonPress"/>
-                
-                <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos"/>
-        </layout:VerticalLayout>
-    
-    
-            <!--<Select id="select" items="{modeloSelect>/value}" change="seleccionar">
-                <core:Item id="option" key="{modeloSelect>CardName}" text="{modeloSelect>CardCode}"/>
-            </Select>-->
+        <OverflowToolbar id="headerToolbar" style="Clear">
+            <ToolbarSpacer id="spacer" />
+                <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+                <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
+        </OverflowToolbar>
 
-        <tnt:NavigationList id="navigationList" width="500px">
-            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
-                <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
-            </tnt:NavigationListItem>
-        </tnt:NavigationList>
 
+        <HBox id="layoutHorizontal" width="100%" alignItems="Stretch">
+            <items>
+                <VBox id="contenedorLista" width="100%">
+                    <layoutData>
+                        <FlexItemData id="flexDataLista" baseSize="30%" />
+                    </layoutData>
+                    <items>
+                        <tnt:NavigationList id="navigationList" width="100%">
+                            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
+                            <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
+                            </tnt:NavigationListItem>
+                        </tnt:NavigationList>
+                    </items>
+                </VBox>
+
+                <VBox id="contenedorGrafica" width="100%">
+                    <layoutData>
+                        <FlexItemData id="flexDataGrafica" growFactor="1" baseSize="70%" />
+                    </layoutData>
+                    <items>
+                        <suite:ChartContainer id="chartContainer" showFullScreen="true" title="{i18n>Grafica}">
+                            <suite:content>
+                                <suite:ChartContainerContent id="chartContentGrafica" icon="sap-icon://line-chart" title="Line Chart">
+                                    <suite:content>
+                                        <viz:VizFrame id="chartContainerVizFrame" height="720px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+                                    </suite:content>
+                                </suite:ChartContainerContent>
+                            </suite:content>
+                        </suite:ChartContainer>
+                    </items>
+                </VBox>
+        </items>
+    </HBox>
 
         <Text id="a" text="&#10;"/>
-        <Table id="idTablaPrueba" headerText="{i18n>titleTable}" items="{Items>/value}">
+        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin" >
+            <headerToolbar>
+                <OverflowToolbar id="otbTable">
+                    <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
+                    <ToolbarSpacer id="spacerTable" />
+                    <Button id="anadeArticuloTable" text="{i18n>abrirFormulario}" icon="sap-icon://add" type="Emphasized" press="anadir" />
+                </OverflowToolbar>
+            </headerToolbar>
             <columns>
-                <Column id="colCode"><header><Text id="Code" text="{i18n>ItemCode}" /></header></Column>
-                <Column id="colName"><header><Text id="Name" text="{i18n>ItemName}" /></header></Column>
-                <Column id="colSerie"><header><Text id="Serie" text="{i18n>ItemSerie}" /></header></Column>
-                <Column id="colLote"><header><Text id="Lote" text="{i18n>ItemLote}" /></header></Column>
-                <Column id="colAlmacenado"><header><Text id="Almacenado" text="{i18n>stock}" /></header></Column>
-                <Column id="colEditar"><header><Text id="Editar" text="{i18n>edit}" /></header></Column>
-                <Column id="colBorrar"><header><Text id="Borrar" text="{i18n>delete}" /></header></Column>
+                <Column id="colCode"><header><Text id="txtColCode" text="{i18n>ItemCode}" /></header></Column>
+                <Column id="colName"><header><Text id="txtColName" text="{i18n>ItemName}" /></header></Column>
+                <Column id="colSerie" hAlign="Center"><header><Text id="txtColSerie" text="{i18n>ItemSerie}" /></header></Column>
+                <Column id="colLote" hAlign="Center"><header><Text id="txtColLote" text="{i18n>ItemLote}" /></header></Column>
+                <Column id="colAlmacenado" hAlign="End"><header><Text id="txtColStock" text="{i18n>stock}" /></header></Column>
+                <Column id="colAcciones" hAlign="End" width="8rem"><header><Text id="txtColAcciones" text="Acciones" /></header></Column>
             </columns>
             <items>
                 <ColumnListItem id="idFila1">
                     <cells>
-                        <Text id="codeTexto" text="{Items>ItemCode}" />
-                        <Text id="nameTexto" text="{Items>ItemName}" />
-                        <Text id="serieTexto" text="{Items>ManageSerialNumbers}" />
-                        <Text id="loteTexto" text="{Items>ManageBatchNumbers}" />
-                        <Text id="almacenadoTexto" text="{Items>QuantityOnStock}" />
-                        <Button id="editar" text="{i18n>botonEditar}" press="editar">
-                        </Button> <Button id="borrar" text="{i18n>botonBorrar}" press="borrar"></Button>
+                        <Text id="txtCellCode" text="{Items>ItemCode}" />
+                        <Text id="txtCellName" text="{Items>ItemName}" />
+                        <Text id="txtCellSerie" text="{Items>ManageSerialNumbers}" />
+                        <Text id="txtCellLote" text="{Items>ManageBatchNumbers}" />
+                        <ObjectNumber id="objStock" number="{Items>QuantityOnStock}" unit="uds" /> 
+                        <HBox id="hbAcciones" justifyContent="End">
+                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" />
+                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" />
+                        </HBox>
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
 
-    <Button id="anadeArticulo" text="{i18n>abrirFormulario}" type="Emphasized" press="anadir"></Button>
+        <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
+            <headerToolbar>
+                <OverflowToolbar id="otbForm">
+                    <Title id="titleForm" text="Detalles del Artículo" />
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+                <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+                    <f:content>
+                        <Label id="lblCode" text="{i18n>formCode}" />
+                        <MultiInput id="vCode" editable="false" />
+
+                        <Label id="lblName" text="{i18n>formName}" />
+                        <MultiInput id="vName" />
+
+                        <Label id="lblSerie" text="{i18n>formSerie}" />
+                        <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote" width="100%">
+                            <items>
+                                <core:Item id="serieS" key="S" text="{i18n>si}" />
+                                <core:Item id="serieN" key="N" text="{i18n>no}" />  
+                            </items>
+                        </Select>
+
+                        <Label id="lblLote" text="{i18n>formLote}" visible="{formulario>/lote}" />
+                        <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}" width="100%">
+                            <items>
+                                <core:Item id="loteN" key="N" text="{i18n>no}" />
+                                <core:Item id="loteS" key="S" text="{i18n>si}" />
+                            </items>
+                        </Select>
+
+                        <Label id="lblRepeticion" text="{i18n>repeticion}" visible="{formulario>/repeticion}" />
+                        <Text id="txtRepeticion" text=":" visible="{formulario>/repeticion}" />
+
+                        <Label id="lblSpacer" text="" />
+                        <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
+                            <Button id="Anade" text="Añadir" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
+                            <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
+                            <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
+                        </HBox>
+                    </f:content>
+                </f:SimpleForm>
+            </content>
+        </Panel>
 
 
-    <VBox id="box" class="contenedor-especial" visible="{formulario>/formulario}">
-        <Text id="nCode" text="{i18n>formCode}"></Text>
-        <MultiInput id="vCode" type="Text" editable="false"></MultiInput>
 
-        <Text id="nName" text="{i18n>formName}"></Text>
-        <MultiInput id="vName" type="Text"></MultiInput>
-
-        <Text id="nSerie" text="{i18n>formSerie}"></Text>
-        <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote">
-            <items>
-                <core:Item id="serieS" key="S" text="{i18n>si}" />
-                <core:Item id="serieN" key="N" text="{i18n>no}" />  
-            </items>
-        </Select>
-        
-        <Text id="nLote" text="{i18n>formLote}" visible="{formulario>/lote}"></Text>
-        <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}">
-            <items>
-                <core:Item id="loteN" key="N" text="{i18n>no}" />
-                <core:Item id="loteS" key="S" text="{i18n>si}" />
-            </items>
-        </Select>
-        <Text id="repeticion" text="{i18n>repeticion}:" visible="{formulario>/repeticion}"></Text>
-
-        <HBox id="hbox"  class="sapUiSmallMarginTop" >
-            <Button id="Anade" text="{i18n>abrirFormulario}" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" ></Button>
-            <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}"></Button>
-            <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario"></Button>
-        </HBox>
-        </VBox>
-
-    <layout:Splitter id="grafica" width="100%" height="100%"  visible="false">
-                <layout:contentAreas>
-                    <suite:ChartContainer id="chartContainer" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false" title="{i18n>Grafica}">
-                        <suite:content>
-                            <suite:ChartContainerContent id="ChartContainer" icon="sap-icon://line-chart" title="Line Chart">
-                                <suite:content>
-                                    <viz:VizFrame id="chartContainerVizFrame" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
-                                </suite:content>
-                            </suite:ChartContainerContent>
-                        </suite:content>
-                    </suite:ChartContainer>
-                </layout:contentAreas>
-            </layout:Splitter>
-
-        </Page>
+    </Page>
 </mvc:View>
