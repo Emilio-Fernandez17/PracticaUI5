@@ -12,7 +12,7 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-                <Button id="btn2" text="Vista 2" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
+                <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
                 <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
                 <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
         </OverflowToolbar>
