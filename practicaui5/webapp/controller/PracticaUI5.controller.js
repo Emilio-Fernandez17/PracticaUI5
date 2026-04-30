@@ -413,8 +413,6 @@ sap.ui.define([
                     docTotal = 500 + (index * 200); // 500, 700, 900, 1100, 1300
                 }
 
-
-
                 return {
                     Purchase: `${socioNombre.length > 20 ? socioNombre.substring(0, 17) + '...' : socioNombre} (${index + 1})`,
                     Revenue: Math.round(docTotal),
@@ -422,9 +420,6 @@ sap.ui.define([
                     Forcast: Math.round(docTotal * 0.9)
                 };
             });
-
-
-
 
             return datosGrafica;  // Ya no filtramos, devolvemos todos
         },
@@ -474,7 +469,7 @@ sap.ui.define([
                 });
 
                 if (respuesta.ok) {
-                    sap.m.MessageToast.show("Archivo enviado con exito");
+                    sap.m.MessageToast.show(oBundle.getText("fotoSubida"));
                     archivo.clear();
                 }
                 else {
