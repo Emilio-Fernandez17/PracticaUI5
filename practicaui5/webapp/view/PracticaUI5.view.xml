@@ -1,3 +1,5 @@
+
+
 <mvc:View controllerName="practicaui5.practicaui5.controller.PracticaUI5"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:viz="sap.viz.ui5.controls"
@@ -12,11 +14,11 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-                <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
-                <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
-                <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
+            <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+            <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
         </OverflowToolbar>
 
+    
 
         <HBox id="layoutHorizontal" width="100%" alignItems="Stretch">
             <items>
@@ -26,34 +28,41 @@
                     </layoutData>
                     <items>
                         <tnt:NavigationList id="navigationList" width="100%">
-                            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://list" items="{modeloSelect>/value}">
-                            <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
+                            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
+                                <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
                             </tnt:NavigationListItem>
                         </tnt:NavigationList>
                     </items>
                 </VBox>
 
-                <VBox id="contenedorGrafica" width="100%">
-                    <layoutData>
-                        <FlexItemData id="flexDataGrafica" growFactor="1" baseSize="70%" />
-                    </layoutData>
-                    <items>
-                        <suite:ChartContainer id="chartContainer" showFullScreen="true" title="{i18n>Grafica}">
-                            <suite:content>
-                                <suite:ChartContainerContent id="chartContentGrafica" icon="sap-icon://line-chart" title="Line Chart">
-                                    <suite:content>
-                                        <viz:VizFrame id="chartContainerVizFrame" height="720px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
-                                    </suite:content>
-                                </suite:ChartContainerContent>
-                            </suite:content>
-                        </suite:ChartContainer>
-                    </items>
-                </VBox>
-        </items>
-    </HBox>
+                    <VBox id="contenedorGrafica" visible="{permisos>/verGrafica}" width="100%">
+                        <layoutData>
+                            <FlexItemData id="flexDataGrafica" growFactor="1" baseSize="70%" />
+                        </layoutData>
+                        <items>
+                            <suite:ChartContainer id="chartContainer" showFullScreen="true" title="{i18n>Grafica}">
+                                <suite:content>
+                                    <suite:ChartContainerContent id="chartContentGrafica" icon="sap-icon://line-chart" title="Line Chart">
+                                        <suite:content>
+                                            <viz:VizFrame id="chartContainerVizFrame" height="720px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+                                        </suite:content>
+                                    </suite:ChartContainerContent>
+                                </suite:content>
+                            </suite:ChartContainer>
+                        </items>
+                    </VBox>
+
+            </items>
+
+        </HBox>
 
         <Text id="a" text="&#10;"/>
-        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin">
+
+        <!-- Gráfica: visible solo si tiene permiso -->
+        
+
+        <!-- Tabla artículos: visible solo si tiene permiso -->
+        <Table id="idTablaPrueba" visible="{permisos>/verTablaArticulos}" width="95%" items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin">
             <headerToolbar>
                 <OverflowToolbar id="otbTable">
                     <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
@@ -62,7 +71,7 @@
                 </OverflowToolbar>
             </headerToolbar>
             <columns>
-                <Column id="colCode"><header><Text id="txtColCode" text="{i18n>ItemCode}"/></header></Column>
+                <Column id="colCode"><header><Text id="txtColCode" text="{i18n>ItemCode}" /></header></Column>
                 <Column id="colName"><header><Text id="txtColName" text="{i18n>ItemName}" /></header></Column>
                 <Column id="colSerie" hAlign="Center"><header><Text id="txtColSerie" text="{i18n>ItemSerie}" /></header></Column>
                 <Column id="colLote" hAlign="Center"><header><Text id="txtColLote" text="{i18n>ItemLote}" /></header></Column>
@@ -74,19 +83,44 @@
                     <cells>
                         <Text id="txtCellCode" text="{Items>ItemCode}" />
                         <Text id="txtCellName" text="{Items>ItemName}" />
-                        <Text id="txtCellSerie" text="{parts: [{path: 'Items>ManageSerialNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
-                        <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
-                        <Text id="stock" text="{Items>QuantityOnStock} unidades" /> 
+                        <Text id="txtCellSerie" text="{Items>ManageSerialNumbers}" />
+                        <Text id="txtCellLote" text="{Items>ManageBatchNumbers}" />
+                        <ObjectNumber id="objStock" number="{Items>QuantityOnStock}" unit="uds" />
                         <HBox id="hbAcciones" justifyContent="End">
-                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" />
-                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" />
+                            <Button id="btnEditarFila" visible="{permisos>/editarArticulos}" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" />
+                            <Button id="btnBorrarFila" visible="{permisos>/borrarArticulos}" icon="sap-icon://delete" type="Reject" press="borrar" />
                         </HBox>
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
 
-        <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
+        <!-- Panel fotos: visible solo si tiene permiso -->
+        <Panel id="panelGestionFotos" visible="{permisos>/verGestionFotos}" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin">
+            <content>
+                <f:SimpleForm id="formSubidaFotos" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1">
+                    <f:content>
+                        <Label id="TextoEmpleados" text="{i18n>seleccionarEmp}" />
+                        <Select id="select" items="{Empleados>/value}" width="100%" forceSelection="false">
+                            <core:Item id="option" key="{Empleados>EmployeeID}" text="{Empleados>FirstName} {Empleados>LastName}"/>
+                        </Select>
+
+                        <Label id="lblArchivo" text="{i18n>imagen}" />
+                        <u:FileUploader id="subirFoto" name="file" fileType="jpg,jpeg,png" change="cargar" placeholder="{i18n>seleccionarImg}" style="Emphasized" width="100%" />
+
+                        <Label id="label1" text="" />
+                        <Button id="BotonSubir" text="{i18n>botonImg}" icon="sap-icon://upload" press="subirFotoEmpleado" type="Emphasized">
+                            <layoutData>
+                                <layout:GridData id="layout1" span="L4 M4 S12" />
+                            </layoutData>
+                        </Button>
+                    </f:content>
+                </f:SimpleForm>
+            </content>
+        </Panel>
+
+        <!-- Panel formulario: visible solo si tiene permiso -->
+        <Panel id="panelFormulario" visible="{permisos>/verFormulario}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
             <headerToolbar>
                 <OverflowToolbar id="otbForm">
                     <Title id="titleForm" text="Detalles del Artículo" />
@@ -96,16 +130,16 @@
                 <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
                     <f:content>
                         <Label id="lblCode" text="{i18n>formCode}" />
-                        <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..."/>
+                        <MultiInput id="vCode" editable="false" />
 
                         <Label id="lblName" text="{i18n>formName}" />
-                        <MultiInput id="vName" placeholder="Introduce el nombre..."/>
+                        <MultiInput id="vName" />
 
                         <Label id="lblSerie" text="{i18n>formSerie}" />
                         <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote" width="100%">
                             <items>
                                 <core:Item id="serieS" key="S" text="{i18n>si}" />
-                                <core:Item id="serieN" key="N" text="{i18n>no}" />  
+                                <core:Item id="serieN" key="N" text="{i18n>no}" />
                             </items>
                         </Select>
 
@@ -122,33 +156,10 @@
 
                         <Label id="lblSpacer" text="" />
                         <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
-                            <Button id="Anade" text="Añadir" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
-                            <Button id="Edita" text="{i18n>EditarBoton}" icon="sap-icon://edit" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
+                            <Button id="Anade" text="Añadir" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
+                            <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
                             <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
                         </HBox>
-                    </f:content>
-                </f:SimpleForm>
-            </content>
-        </Panel>
-
-        <Panel id="panelGestionFotos" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin">
-            <content>
-                <f:SimpleForm id="formSubidaFotos" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1">
-                    <f:content>
-                        <Label id="TextoEmpleados" text="{i18n>seleccionarEmp}" />
-                        <Select id="select" items="{Empleados>/value}" width="100%" forceSelection="false">
-                            <core:Item id="option" key="{Empleados>EmployeeID}" text="{Empleados>FirstName} {Empleados>LastName}"/>
-                        </Select>
-
-                        <Label id="lblArchivo" text="{i18n>imagen}" />
-                        <u:FileUploader id="subirFoto" name="file" fileType="jpg,jpeg,png" change="cargar" placeholder="{i18n>seleccionarImg}" style="Emphasized" width="100%" />
-
-                        <Label id="label1" text="" />
-                        <Button id="BotonSubir" text="{i18n>botonImg}" icon="sap-icon://upload" press="subirFotoEmpleado" type="Emphasized">
-                            <layoutData>
-                                <layout:GridData  id="layout1" span="L4 M4 S12" />
-                            </layoutData>
-                        </Button>
                     </f:content>
                 </f:SimpleForm>
             </content>
