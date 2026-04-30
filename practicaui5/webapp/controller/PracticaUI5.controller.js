@@ -427,7 +427,7 @@ sap.ui.define([
                 var oFile = oDomRef.files[0];
                 var formData = new FormData();
                 formData.append("file", oFile);
-                var id = 2;
+                var id = 3;
                 var sUrl = "https://localhost:7184/api/Values/subirFoto/" + id;
 
                 sap.ui.core.BusyIndicator.show(0);
