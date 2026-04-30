@@ -28,6 +28,7 @@ sap.ui.define([
             this.datos = {};
             this.ventas = {};
             this.Items = {};
+            this.Empleados = {};
 
             // Guardamos referencias a las clases
             this._FlattenedDataset = FlattenedDataset;
@@ -277,6 +278,15 @@ sap.ui.define([
             const modelo = new JSONModel(this.Items);
             this.getView().setModel(modelo, "Items");
         },
+        cargarEmpleados: async function () {
+            const peticionEmpleados = await fetch('https://localhost:7184/api/values/Peticion/EmployeesInfo');
+            if (!peticionEmpleados.ok) throw new Error('Error en la peticion de Empleados');
+            const datosEmpleados = await peticionEmpleados.json();
+            this.Empleados = datosEmpleados;
+            console.log('Empleados:', this.Empleados);
+            const modelo = new JSONModel(this.Empleados);
+            this.getView().setModel(modelo, "Empleados");
+        },
 
         async cargarDatos() {
             try {
@@ -285,13 +295,14 @@ sap.ui.define([
                 await this.cargarInterlocutores()
                 await this.cargarPedidos()
                 await this.cargarArticulos()
+                await this.cargarEmpleados()
                 this._crearGraficaConDatos(this.ventas, this.datos);
 
             } catch (error) {
                 console.error('Hubo un problema:', error);
                 sap.m.MessageToast.show("Error al cargar los datos: " + error.message);
             }
-            finally{
+            finally {
                 sap.ui.core.BusyIndicator.hide();
             }
         },
@@ -419,6 +430,12 @@ sap.ui.define([
         },
         subirFotoEmpleado: async function () {
             try {
+                var empleadoID = this.getView().byId("select").getSelectedKey();
+                if (!empleadoID || empleadoID.length === 0) {
+                    sap.m.MessageToast.show("Selecciona un Empleado primero");
+                    return;
+                }
+
                 await this.hacerLogin();
                 var archivo = this.byId("subirFoto");
                 var nombre = archivo.getFocusDomRef();
@@ -431,8 +448,7 @@ sap.ui.define([
                 var oFile = nombre.files[0];
                 var formData = new FormData();
                 formData.append("file", oFile);
-                var id = 1;
-                var sUrl = "https://localhost:7184/api/Values/subirFoto/" + id;
+                var sUrl = "https://localhost:7184/api/Values/subirFoto/" + empleadoID;
 
                 sap.ui.core.BusyIndicator.show(0);
 
@@ -443,9 +459,11 @@ sap.ui.define([
 
                 if (response.ok) {
                     var result = await response.json();
-                    sap.m.MessageToast.show("¡Éxito! Imagen guardada: " + result.fileName);
+                    console.log(result); // <-- Añade este log para ver la estructura real en la consola
+                    sap.m.MessageToast.show("¡Éxito! Imagen guardada: " + (result.fileName || result.FileName));
                     archivo.clear();
-                } else {
+                }
+                else {
                     var errorText = await response.text();
                     console.error("Detalle del error:", errorText);
                 }
