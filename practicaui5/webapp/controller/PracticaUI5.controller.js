@@ -431,24 +431,27 @@ sap.ui.define([
         subirFotoEmpleado: async function () {
             try {
                 var empleadoID = this.getView().byId("select").getSelectedKey();
-                if (!empleadoID || empleadoID.length === 0) {
+                if (!empleadoID) {
                     sap.m.MessageToast.show("Selecciona un Empleado primero");
                     return;
                 }
 
                 await this.hacerLogin();
-                var archivo = this.byId("subirFoto");
-                var nombre = archivo.getFocusDomRef();
 
-                if (!nombre.files || nombre.files.length === 0) {
+                var oFileUploader = this.byId("subirFoto"); // Referencia al control UI5
+                var oDomRef = oFileUploader.getFocusDomRef();
+
+                if (!oDomRef.files || oDomRef.files.length === 0) {
                     sap.m.MessageToast.show("Selecciona una imagen primero");
                     return;
                 }
 
-                var oFile = nombre.files[0];
+                var oFile = oDomRef.files[0];
                 var formData = new FormData();
                 formData.append("file", oFile);
-                var sUrl = "https://localhost:7184/api/Values/subirFoto/" + empleadoID;
+
+                // Asegúrate de que esta URL coincida con el [HttpPost("adjuntarFoto/{id}")] de tu C#
+                var sUrl = "https://localhost:7184/api/Values/adjuntarFoto/" + empleadoID;
 
                 sap.ui.core.BusyIndicator.show(0);
 
@@ -459,13 +462,16 @@ sap.ui.define([
 
                 if (response.ok) {
                     var result = await response.json();
-                    console.log(result); // <-- Añade este log para ver la estructura real en la consola
-                    sap.m.MessageToast.show("¡Éxito! Imagen guardada: " + (result.fileName || result.FileName));
-                    archivo.clear();
+                    // Mostramos el ID del anexo que devuelve el nuevo backend
+                    sap.m.MessageToast.show("¡Éxito! Archivo adjuntado con el ID: " + result.attachmentEntry);
+
+                    // CORRECCIÓN: Usar la referencia al control para limpiar
+                    oFileUploader.clear();
                 }
                 else {
                     var errorText = await response.text();
                     console.error("Detalle del error:", errorText);
+                    sap.m.MessageBox.error("Error al adjuntar: " + errorText);
                 }
 
             } catch (oError) {
@@ -474,6 +480,7 @@ sap.ui.define([
                 sap.ui.core.BusyIndicator.hide();
             }
         },
+
         cargar: function (oEvent) {
             var texto = oEvent.getSource();
             var archivo = oEvent.getParameter("files")[0];
