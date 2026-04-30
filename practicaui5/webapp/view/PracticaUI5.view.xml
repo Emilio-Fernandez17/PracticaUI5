@@ -95,10 +95,10 @@
                 <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
                     <f:content>
                         <Label id="lblCode" text="{i18n>formCode}" />
-                        <MultiInput id="vCode" editable="false" />
+                        <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..."/>
 
                         <Label id="lblName" text="{i18n>formName}" />
-                        <MultiInput id="vName" />
+                        <MultiInput id="vName" placeholder="Introduce el nombre..."/>
 
                         <Label id="lblSerie" text="{i18n>formSerie}" />
                         <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote" width="100%">
