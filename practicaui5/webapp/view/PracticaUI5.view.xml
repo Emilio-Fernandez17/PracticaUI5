@@ -130,20 +130,20 @@
             </content>
         </Panel>
 
-        <Panel id="panelGestionFotos" headerText="Gestión de Fotos de Empleados" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin">
+        <Panel id="panelGestionFotos" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin">
             <content>
                 <f:SimpleForm id="formSubidaFotos" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1">
                     <f:content>
-                        <Label id="TextoEmpleados" text="Seleccione el Empleado" />
+                        <Label id="TextoEmpleados" text="{i18n>seleccionarEmp}" />
                         <Select id="select" items="{Empleados>/value}" width="100%" forceSelection="false">
                             <core:Item id="option" key="{Empleados>EmployeeID}" text="{Empleados>FirstName} {Empleados>LastName}"/>
                         </Select>
 
-                        <Label id="lblArchivo" text="Nueva Imagen" />
-                        <u:FileUploader id="subirFoto" name="file" fileType="jpg,jpeg,png" change="cargar" placeholder="Seleccione imagen..." style="Emphasized" width="100%" />
+                        <Label id="lblArchivo" text="{i18n>imagen}" />
+                        <u:FileUploader id="subirFoto" name="file" fileType="jpg,jpeg,png" change="cargar" placeholder="{i18n>seleccionarImg}" style="Emphasized" width="100%" />
 
                         <Label id="label1" text="" />
-                        <Button id="BotonSubir" text="Subir Foto a SAP" icon="sap-icon://upload" press="subirFotoEmpleado" type="Emphasized">
+                        <Button id="BotonSubir" text="{i18n>botonImg}" icon="sap-icon://upload" press="subirFotoEmpleado" type="Emphasized">
                             <layoutData>
                                 <layout:GridData  id="layout1" span="L4 M4 S12" />
                             </layoutData>
