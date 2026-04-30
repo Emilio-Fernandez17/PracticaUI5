@@ -99,14 +99,14 @@
       "routes": [
         {
           "name": "RoutePracticaUI5",
-          "pattern": ":?query:",
+          "pattern": "Vista2",
           "target": [
             "TargetPracticaUI5"
           ]
         },
         {
           "name": "Routevista2",
-          "pattern": "Vista2",
+          "pattern": "",
           "target": [
             "Targetvista2"
           ]
