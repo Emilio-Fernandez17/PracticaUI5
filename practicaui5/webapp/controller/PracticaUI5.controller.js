@@ -308,6 +308,7 @@ sap.ui.define([
         },
 
         _crearGraficaConDatos(datosVentas, datosSocios) {
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
             if (!this.oVizFrame) {
                 console.error("No se encontró el VizFrame");
                 return;
@@ -335,7 +336,6 @@ sap.ui.define([
                 data: { path: "/Products" }
             });
 
-            var oBundle = this.getView().getModel("i18n").getResourceBundle();
             const vizProperties = {
                 plotArea: { showGap: true },
                 title: { visible: true, text: oBundle.getText("AnalisisGrafica") }
@@ -430,46 +430,42 @@ sap.ui.define([
         },
         subirFotoEmpleado: async function () {
             try {
+                var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var empleadoID = this.getView().byId("select").getSelectedKey();
                 if (!empleadoID) {
-                    sap.m.MessageToast.show("Selecciona un Empleado primero");
+                    sap.m.MessageToast.show(oBundle.getText("SeleccionarEmpleado"));
                     return;
                 }
 
                 await this.hacerLogin();
 
-                var oFileUploader = this.byId("subirFoto"); // Referencia al control UI5
-                var oDomRef = oFileUploader.getFocusDomRef();
+                var archivo = this.byId("subirFoto"); 
+                var ruta = archivo.getFocusDomRef();
 
-                if (!oDomRef.files || oDomRef.files.length === 0) {
-                    sap.m.MessageToast.show("Selecciona una imagen primero");
+                if (!ruta.files || ruta.files.length === 0) {
+                    sap.m.MessageToast.show(oBundle.getText("SeleccionarFoto"));
                     return;
                 }
 
-                var oFile = oDomRef.files[0];
+                var file = ruta.files[0];
                 var formData = new FormData();
-                formData.append("file", oFile);
+                formData.append("file", file);
 
-                // Asegúrate de que esta URL coincida con el [HttpPost("adjuntarFoto/{id}")] de tu C#
                 var sUrl = "https://localhost:7184/api/Values/adjuntarFoto/" + empleadoID;
 
                 sap.ui.core.BusyIndicator.show(0);
 
-                var response = await fetch(sUrl, {
+                var respuesta = await fetch(sUrl, {
                     method: 'POST',
                     body: formData
                 });
 
-                if (response.ok) {
-                    var result = await response.json();
-                    // Mostramos el ID del anexo que devuelve el nuevo backend
-                    sap.m.MessageToast.show("¡Éxito! Archivo adjuntado con el ID: " + result.attachmentEntry);
-
-                    // CORRECCIÓN: Usar la referencia al control para limpiar
-                    oFileUploader.clear();
+                if (respuesta.ok) {
+                    sap.m.MessageToast.show("Archivo enviado con exito");
+                    archivo.clear();
                 }
                 else {
-                    var errorText = await response.text();
+                    var errorText = await respuesta.text();
                     console.error("Detalle del error:", errorText);
                     sap.m.MessageBox.error("Error al adjuntar: " + errorText);
                 }
