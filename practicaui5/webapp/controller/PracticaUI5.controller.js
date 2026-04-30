@@ -413,21 +413,21 @@ sap.ui.define([
             }
             return 0; // Retorna 0 si no encuentra ningún valor válido
         },
-        onUploadPress: async function () {
+        subirFotoEmpleado: async function () {
             try {
                 await this.hacerLogin();
-                var oFileUploader = this.byId("fileUploader");
-                var oDomRef = oFileUploader.getFocusDomRef();
+                var archivo = this.byId("subirFoto");
+                var nombre = archivo.getFocusDomRef();
 
-                if (!oDomRef.files || oDomRef.files.length === 0) {
+                if (!nombre.files || nombre.files.length === 0) {
                     sap.m.MessageToast.show("Selecciona una imagen primero");
                     return;
                 }
 
-                var oFile = oDomRef.files[0];
+                var oFile = nombre.files[0];
                 var formData = new FormData();
                 formData.append("file", oFile);
-                var id = 3;
+                var id = 1;
                 var sUrl = "https://localhost:7184/api/Values/subirFoto/" + id;
 
                 sap.ui.core.BusyIndicator.show(0);
@@ -440,7 +440,7 @@ sap.ui.define([
                 if (response.ok) {
                     var result = await response.json();
                     sap.m.MessageToast.show("¡Éxito! Imagen guardada: " + result.fileName);
-                    oFileUploader.clear();
+                    archivo.clear();
                 } else {
                     var errorText = await response.text();
                     console.error("Detalle del error:", errorText);
@@ -451,6 +451,9 @@ sap.ui.define([
             } finally {
                 sap.ui.core.BusyIndicator.hide();
             }
+        },
+        cargar: function (){
+
         }
 
 

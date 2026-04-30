@@ -129,9 +129,9 @@
                 </f:SimpleForm>
             </content>
         </Panel>
-        
-        <u:FileUploader id="fileUploader" name="file" uploadUrl="" useMultipart="true" sendXHR="true" placeholder="Selecciona una imagen..." change="onFileChange"/>
-        <Button id="BotonSubir" text="Subir Foto" press="onUploadPress" type="Emphasized"/>
+
+        <u:FileUploader id="subirFoto" name="file" uploadUrl="" useMultipart="true" sendXHR="true" placeholder="Selecciona una imagen..." change="cargar"/>
+        <Button id="BotonSubir" text="Subir Foto" press="subirFotoEmpleado" type="Emphasized"/>
 
 
 
