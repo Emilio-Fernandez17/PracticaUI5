@@ -130,7 +130,7 @@
             </content>
         </Panel>
 
-        <u:FileUploader id="subirFoto" name="file" uploadUrl="" useMultipart="true" sendXHR="true" placeholder="Selecciona una imagen..." change="cargar"/>
+        <u:FileUploader id="subirFoto" name="file" fileType="jpg,jpeg,png" change="cargar" placeholder="Seleccione imagen..." style="Emphasized" />
         <Button id="BotonSubir" text="Subir Foto" press="subirFotoEmpleado" type="Emphasized"/>
 
 

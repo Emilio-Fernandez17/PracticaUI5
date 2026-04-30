@@ -280,6 +280,7 @@ sap.ui.define([
 
         async cargarDatos() {
             try {
+                sap.ui.core.BusyIndicator.show(0);
                 await this.hacerLogin()
                 await this.cargarInterlocutores()
                 await this.cargarPedidos()
@@ -289,6 +290,9 @@ sap.ui.define([
             } catch (error) {
                 console.error('Hubo un problema:', error);
                 sap.m.MessageToast.show("Error al cargar los datos: " + error.message);
+            }
+            finally{
+                sap.ui.core.BusyIndicator.hide();
             }
         },
 
@@ -452,10 +456,20 @@ sap.ui.define([
                 sap.ui.core.BusyIndicator.hide();
             }
         },
-        cargar: function (){
+        cargar: function (oEvent) {
+            var texto = oEvent.getSource();
+            var archivo = oEvent.getParameter("files")[0];
+            if (!archivo) {
+                return;
+            }
 
+            var permitir = ["image/jpeg", "image/png", "image/jpg"];
+            var tipo = archivo.type;
+
+            if (permitir.indexOf(tipo) === -1) {
+                texto.clear();
+                return;
+            }
         }
-
-
     });
 });
