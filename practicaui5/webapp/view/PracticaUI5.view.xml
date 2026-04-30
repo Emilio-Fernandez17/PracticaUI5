@@ -26,7 +26,7 @@
                     </layoutData>
                     <items>
                         <tnt:NavigationList id="navigationList" width="100%">
-                            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://business-objects-explorer" items="{modeloSelect>/value}">
+                            <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://list" items="{modeloSelect>/value}">
                             <tnt:NavigationListItem id="navigationItem" text="{modeloSelect>CardCode}" key="{modeloSelect>CardCode}" />
                             </tnt:NavigationListItem>
                         </tnt:NavigationList>
@@ -53,7 +53,7 @@
     </HBox>
 
         <Text id="a" text="&#10;"/>
-        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin" >
+        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin">
             <headerToolbar>
                 <OverflowToolbar id="otbTable">
                     <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
