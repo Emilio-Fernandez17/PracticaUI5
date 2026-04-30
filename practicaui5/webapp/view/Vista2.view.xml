@@ -1,0 +1,18 @@
+<mvc:View controllerName="practicaui5.practicaui5.controller.vista2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+
+   <Page id="page2" title="Detalle de Vista" showNavButton="true" navButtonPress="cambiarRuta">
+    
+        <content>
+            <VBox id="vobox" alignItems="Center" justifyContent="Center" class="sapUiMediumMarginTop">
+                <items>
+                    <Title id="titulo" text="Vista 2" titleStyle="H2" class="sapUiSmallMarginBottom" />
+                </items>
+            </VBox>
+        </content>
+        
+    </Page>
+
+</mvc:View>

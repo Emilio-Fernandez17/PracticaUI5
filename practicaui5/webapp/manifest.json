@@ -103,12 +103,23 @@
           "target": [
             "TargetPracticaUI5"
           ]
+        },
+        {
+          "name": "Routevista2",
+          "pattern": "Vista2",
+          "target": [
+            "Targetvista2"
+          ]
         }
       ],
       "targets": {
         "TargetPracticaUI5": {
           "id": "PracticaUI5",
           "name": "PracticaUI5"
+        },
+         "Targetvista2": {
+          "viewName": "vista2",
+          "viewLevel": 2
         }
       }
     },

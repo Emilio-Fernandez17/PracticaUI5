@@ -499,6 +499,10 @@ sap.ui.define([
                 texto.clear();
                 return;
             }
-        }
+        },
+         cambiarRuta: function (oEvent) {
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("Routevista2");
+        },
     });
 });
