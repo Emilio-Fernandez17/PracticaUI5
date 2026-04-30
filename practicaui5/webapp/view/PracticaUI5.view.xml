@@ -62,7 +62,7 @@
                 </OverflowToolbar>
             </headerToolbar>
             <columns>
-                <Column id="colCode"><header><Text id="txtColCode" text="{i18n>ItemCode}" /></header></Column>
+                <Column id="colCode"><header><Text id="txtColCode" text="{i18n>ItemCode}"/></header></Column>
                 <Column id="colName"><header><Text id="txtColName" text="{i18n>ItemName}" /></header></Column>
                 <Column id="colSerie" hAlign="Center"><header><Text id="txtColSerie" text="{i18n>ItemSerie}" /></header></Column>
                 <Column id="colLote" hAlign="Center"><header><Text id="txtColLote" text="{i18n>ItemLote}" /></header></Column>
@@ -122,8 +122,8 @@
 
                         <Label id="lblSpacer" text="" />
                         <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
-                            <Button id="Anade" text="Añadir" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
-                            <Button id="Edita" text="{i18n>EditarBoton}" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
+                            <Button id="Anade" text="Añadir" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
+                            <Button id="Edita" text="{i18n>EditarBoton}" icon="sap-icon://edit" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
                             <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
                         </HBox>
                     </f:content>
