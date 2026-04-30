@@ -1,35 +1,14 @@
-
 <mvc:View controllerName="practicaui5.practicaui5.controller.vista2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form">
-    
+    xmlns:f="sap.f">
 
-   <Page id="page2" title="Detalle de Vista" >
+   <Page id="page2" title="Detalle de Vista" showNavButton="true" navButtonPress="cambiarRuta">
     
         <content>
-            <VBox id="loginBox" 
-                  width="400px" 
-                  class="sapUiMediumMarginTop sapUiResponsiveMargin"
-                  alignItems="Center">
+            <VBox id="vobox" alignItems="Center" justifyContent="Center" class="sapUiMediumMarginTop">
                 <items>
-                    <f:SimpleForm id="loginForm" editable="true" layout="ResponsiveGridLayout" columnsL="1" columnsM="1">
-                        <f:content>
-                            <Label id="lblUsuario" text="Usuario" />
-                            <Input id="inputUsuario" placeholder="Introduce tu usuario" width="100%" />
-
-                            <Label id="lblPassword" text="Contraseña" />
-                            <Input id="inputPassword" placeholder="Introduce tu contraseña" 
-                                   type="Password" width="100%" />
-
-                            <Label id="lblSpace" text="" />
-                            <Button id="btnLogin" text="Entrar" type="Emphasized" 
-                                    press="onLogin" width="100%" />
-
-                            <Text id="txtError" text="" visible="false" 
-                                  class="sapUiSmallMarginTop" />
-                        </f:content>
-                    </f:SimpleForm>
+                    <Title id="titulo" text="Vista 2" titleStyle="H2" class="sapUiSmallMarginBottom" />
                 </items>
             </VBox>
         </content>

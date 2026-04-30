@@ -1,5 +1,3 @@
-
-
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Configuration",
@@ -47,7 +45,24 @@ sap.ui.define([
                 bundleLocale: sNewLang
             });
             this.getView().setModel(oNewModel, "i18n");
+            this.getView().getModel("formulario").setProperty("/idiomaActual", sNewLang);
         },
+        formatearSiNo: function (sValue, sIdioma) {
+            if (!sValue) return "";
+
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
+            var sUpper = sValue.toUpperCase();
+
+            if (sUpper === "TYES") {
+                return oBundle.getText("txtSi");
+            } else if (sUpper === "TNO") {
+                return oBundle.getText("txtNo");
+            }
+
+            return sValue;
+        },
+
+
         anadir: async function () {
             this.getView().byId("vCode").setEditable(true);
 
@@ -502,7 +517,7 @@ sap.ui.define([
                 return;
             }
         },
-         cambiarRuta: function (oEvent) {
+        cambiarRuta: function (oEvent) {
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("Routevista2");
         },
