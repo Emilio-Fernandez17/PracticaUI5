@@ -29,12 +29,8 @@ sap.ui.define([
             this.ventas = {};
             this.Items = {};
             this.Empleados = {};
-
-            // Guardamos referencias a las clases
             this._FlattenedDataset = FlattenedDataset;
             this._FeedItem = FeedItem;
-
-            // Guardamos referencia al VizFrame
             this.oVizFrame = this.getView().byId("chartContainerVizFrame");
         },
 
@@ -52,13 +48,27 @@ sap.ui.define([
         },
         anadir: async function () {
             this.getView().byId("vCode").setEditable(true);
+
+            var sCodigo = this.getView().byId("vCode");
+            sCodigo.setValue("")
+
+            var sNombre = this.getView().byId("vName");
+            sNombre.setValue("")
+
+            var sSerie = this.getView().byId("serie");
+            sSerie.setSelectedKey("S")
+
+            var sLote = this.getView().byId("lote");
+            sLote.setSelectedKey("N")
+
             this.mostrarFormulario()
         },
         anadeArticulo: async function () {
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
             this.getView().getModel("formulario").setProperty("/puedeCambiarManejo", true);
+
             var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
-
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
 
@@ -92,12 +102,13 @@ sap.ui.define([
                 if (!respuesta.ok) {
                     const errorMsg = await respuesta.text();
                     throw new Error('Error al crear artículo: ' + errorMsg);
+                    var sMsg = oBundle.getText("mensajeErrorArticulo") + " " + sCodigo;
+                    sap.m.MessageToast.show(sMsg);
                 }
 
                 const articuloC = await respuesta.json();
                 console.log('Artículo Creado con éxito:', articuloC);
                 this.ocultarFormulario()
-                var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var sMsg = oBundle.getText("anadeMensaje") + " " + sCodigo;
                 sap.m.MessageToast.show(sMsg);
             } catch (oError) {
@@ -112,9 +123,16 @@ sap.ui.define([
             oFormModel.setProperty("/anade", false);
 
             var sCodigo = this.getView().byId("vCode");
+            sCodigo.setValue("")
+
             var sNombre = this.getView().byId("vName");
+            sNombre.setValue("")
+
             var sSerie = this.getView().byId("serie");
+            sSerie.setSelectedKey("S")
+
             var sLote = this.getView().byId("lote");
+            sLote.setSelectedKey("N")
 
             this.mostrarFormulario();
 
@@ -239,11 +257,6 @@ sap.ui.define([
             oModel.setProperty("/anade", true);
             oModel.setProperty("/editar", false);
             oModel.setProperty("/lote", false);
-            this.getView().byId("vCode").setValue("")
-            this.getView().byId("vName").setValue("")
-
-            this.getView().byId("serie").setSelectedKey('S');
-            this.getView().byId("lote").setSelectedKey('N');
         },
         hacerLogin: async function () {
             const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
@@ -439,7 +452,7 @@ sap.ui.define([
 
                 await this.hacerLogin();
 
-                var archivo = this.byId("subirFoto"); 
+                var archivo = this.byId("subirFoto");
                 var ruta = archivo.getFocusDomRef();
 
                 if (!ruta.files || ruta.files.length === 0) {
