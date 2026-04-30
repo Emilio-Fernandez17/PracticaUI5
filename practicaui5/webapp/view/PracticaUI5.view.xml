@@ -74,9 +74,9 @@
                     <cells>
                         <Text id="txtCellCode" text="{Items>ItemCode}" />
                         <Text id="txtCellName" text="{Items>ItemName}" />
-                        <Text id="txtCellSerie" text="{Items>ManageSerialNumbers}" />
-                        <Text id="txtCellLote" text="{Items>ManageBatchNumbers}" />
-                        <ObjectNumber id="objStock" number="{Items>QuantityOnStock}" unit="uds" /> 
+                        <Text id="txtCellSerie" text="{parts: [{path: 'Items>ManageSerialNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
+                        <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
+                        <Text id="stock" text="{Items>QuantityOnStock} unidades" /> 
                         <HBox id="hbAcciones" justifyContent="End">
                             <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" />
                             <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" />
