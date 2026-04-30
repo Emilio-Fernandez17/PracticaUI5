@@ -1,18 +1,31 @@
 <mvc:View controllerName="practicaui5.practicaui5.controller.vista2"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    xmlns:f="sap.f">
+    xmlns="sap.m">
 
    <Page id="page2" title="Detalle de Vista" showNavButton="true" navButtonPress="cambiarRuta">
-    
         <content>
-            <VBox id="vobox" alignItems="Center" justifyContent="Center" class="sapUiMediumMarginTop">
-                <items>
-                    <Title id="titulo" text="Vista 2" titleStyle="H2" class="sapUiSmallMarginBottom" />
-                </items>
+            <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">             
+                <Panel id="panelLogin" width="450px" accessibleRole="Region" class="sapUiResponsiveMargin">
+                    <headerToolbar>
+                        <Toolbar id="tbLogin">
+                            <ToolbarSpacer id="spacerIzquierdo" />
+                            <Title id="txtTitle" text="Iniciar Sesión" />
+                            <ToolbarSpacer id="spacerDerecho" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vboxCampos">               
+                            <Label id="lblNombre" text="Nombre" labelFor="inputNombre"/>
+                            <Input id="inputNombre" type="Text" placeholder="Tu nombre..." width="100%" />
+
+                            <Label id="lblPassword" text="Contraseña" labelFor="inputPassword" class="sapUiSmallMarginTop" />
+                            <Input id="inputPassword" type="Password" placeholder="••••••••" width="100%" />
+
+                            <Button id="btnEnviar" text="Login" type="Emphasized" press="onLoginTap" width="100%" class="sapUiSmallMarginTop" />
+                        </VBox>
+                    </content>
+                </Panel>
             </VBox>
         </content>
-        
     </Page>
-
 </mvc:View>
