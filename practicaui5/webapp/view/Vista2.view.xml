@@ -2,9 +2,9 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
 
-   <Page id="page2" title="Detalle de Vista" navButtonPress="cambiarRuta">
+    <Page id="page2" title="Detalle de Vista" navButtonPress="cambiarRuta">
         <content>
-            <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">             
+            <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">
                 <Panel id="panelLogin" width="450px" accessibleRole="Region" class="sapUiResponsiveMargin">
                     <headerToolbar>
                         <Toolbar id="tbLogin">
@@ -14,18 +14,19 @@
                         </Toolbar>
                     </headerToolbar>
                     <content>
-                        <VBox id="vboxCampos">               
-                            <Label id="lblNombre" text="Nombre" labelFor="inputNombre"/>
+                        <VBox id="vboxCampos">
+                            <Label id="lblNombre" text="Nombre" labelFor="inputNombre" />
                             <Input id="inputNombre" type="Text" placeholder="Tu nombre..." width="100%" />
 
                             <Label id="lblPassword" text="Contraseña" labelFor="inputPassword" class="sapUiSmallMarginTop" />
                             <Input id="inputPassword" type="Password" placeholder="••••••••" width="100%" />
 
-                            <Button id="btnEnviar" text="Login" type="Emphasized" press="login" width="100%" class="sapUiSmallMarginTop" />
+                            <Button id="btnEnviar" text="Enviar" type="Emphasized" press="login" width="100%" class="sapUiSmallMarginTop" />
                         </VBox>
                     </content>
                 </Panel>
             </VBox>
         </content>
     </Page>
+
 </mvc:View>
