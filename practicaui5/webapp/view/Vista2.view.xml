@@ -9,7 +9,7 @@
                     <headerToolbar>
                         <Toolbar id="tbLogin">
                             <ToolbarSpacer id="spacerIzquierdo" />
-                            <Title id="txtTitle" text="Iniciar Sesión" />
+                            <Title id="txtTitle" text="{i18n>inicioSesion}" />
                             <ToolbarSpacer id="spacerDerecho" />
                         </Toolbar>
                     </headerToolbar>
