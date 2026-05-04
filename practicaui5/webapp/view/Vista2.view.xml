@@ -9,7 +9,7 @@
                     <headerToolbar>
                         <Toolbar id="tbLogin">
                             <ToolbarSpacer id="spacerIzquierdo" />
-                            <Title id="txtTitle" text="{i18n>inicioSesion}" />
+                            <Title id="txtTitle" text="Iniciar Sesión" />
                             <ToolbarSpacer id="spacerDerecho" />
                         </Toolbar>
                     </headerToolbar>
@@ -21,7 +21,7 @@
                             <Label id="lblPassword" text="Contraseña" labelFor="inputPassword" class="sapUiSmallMarginTop" />
                             <Input id="inputPassword" type="Password" placeholder="••••••••" width="100%" />
 
-                            <Button id="btnEnviar" text="Login" type="Emphasized" press="onLoginTap" width="100%" class="sapUiSmallMarginTop" />
+                            <Button id="btnEnviar" text="Login" type="Emphasized" press="login" width="100%" class="sapUiSmallMarginTop" />
                         </VBox>
                     </content>
                 </Panel>
