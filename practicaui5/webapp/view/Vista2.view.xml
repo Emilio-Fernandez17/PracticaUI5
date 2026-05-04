@@ -2,7 +2,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
 
-   <Page id="page2" title="Detalle de Vista" showNavButton="true" navButtonPress="cambiarRuta">
+   <Page id="page2" title="Detalle de Vista" navButtonPress="cambiarRuta">
         <content>
             <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">             
                 <Panel id="panelLogin" width="450px" accessibleRole="Region" class="sapUiResponsiveMargin">
