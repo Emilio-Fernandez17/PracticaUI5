@@ -96,6 +96,7 @@ sap.ui.define([
             var oBundle = this.getView().getModel("i18n").getResourceBundle();
             this.getView().getModel("formulario").setProperty("/puedeCambiarManejo", true);
 
+            var usuario = this.getOwnerComponent().getModel("usuario").getData();
             var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
             var sSerie = this.getView().byId("serie").getSelectedKey();
@@ -104,7 +105,8 @@ sap.ui.define([
             let datos = {
                 "ItemCode": sCodigo,
                 "ItemName": sNombre,
-                "ItemType": "itItems"
+                "ItemType": "itItems",
+                "U_UsuarioEditor": usuario.nombre
             };
 
             if (sSerie === 'S') {
@@ -183,6 +185,7 @@ sap.ui.define([
         },
 
         EditaArticulo: async function () {
+            var usuario = this.getOwnerComponent().getModel("usuario").getData();
             var sCodigo = this.getView().byId("vCode").getValue();
             var sNombre = this.getView().byId("vName").getValue();
             var sSerie = this.getView().byId("serie").getSelectedKey();
@@ -190,7 +193,8 @@ sap.ui.define([
 
             let datos = {
                 "ItemName": sNombre,
-                "ItemType": "itItems"
+                "ItemType": "itItems",
+                "U_UsuarioEditor": usuario.nombre
             };
 
             if (sSerie === 'S' && sLote === 'S') {

@@ -69,6 +69,7 @@
                 <Column id="colLote" hAlign="Center"><header><Text id="txtColLote" text="{i18n>ItemLote}" /></header></Column>
                 <Column id="colAlmacenado" hAlign="End"><header><Text id="txtColStock" text="{i18n>stock}" /></header></Column>
                 <Column id="colAcciones" hAlign="End" width="8rem"><header><Text id="txtColAcciones" text="Acciones" /></header></Column>
+                <Column id="colEditor"><header><Text id="colUsuario" text="Editado por"/></header></Column>
             </columns>
             <items>
                 <ColumnListItem id="idFila1">
@@ -82,6 +83,7 @@
                             <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esAdmin}" />
                             <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esAdmin}" />
                         </HBox>
+                        <Text id="txtUsuario" text="{Items>U_UsuarioEditor}" />
                     </cells>
                 </ColumnListItem>
             </items>
