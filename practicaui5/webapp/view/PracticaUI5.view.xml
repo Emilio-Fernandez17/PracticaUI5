@@ -12,6 +12,7 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
+                <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Transparent"/>
                 <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
                 <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
                 <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
@@ -58,7 +59,7 @@
                 <OverflowToolbar id="otbTable">
                     <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
                     <ToolbarSpacer id="spacerTable" />
-                    <Button id="anadeArticuloTable" text="{i18n>abrirFormulario}" icon="sap-icon://add" type="Emphasized" press="anadir" />
+                    <Button id="anadeArticuloTable" text="{i18n>abrirFormulario}" icon="sap-icon://add" type="Emphasized" press="anadir" visible="{usuario>/esAdmin}"/>
                 </OverflowToolbar>
             </headerToolbar>
             <columns>
@@ -78,8 +79,8 @@
                         <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
                         <Text id="stock" text="{Items>QuantityOnStock} unidades" /> 
                         <HBox id="hbAcciones" justifyContent="End">
-                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" />
-                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" />
+                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esAdmin}" />
+                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esAdmin}" />
                         </HBox>
                     </cells>
                 </ColumnListItem>
@@ -131,7 +132,7 @@
             </content>
         </Panel>
 
-        <Panel id="panelGestionFotos" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin">
+        <Panel id="panelGestionFotos" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esAdmin}">
             <content>
                 <f:SimpleForm id="formSubidaFotos" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1">
                     <f:content>

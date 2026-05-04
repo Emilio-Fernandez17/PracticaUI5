@@ -31,10 +31,12 @@ sap.ui.define([
                 }
 
                 const usuario = await respuesta.json();
-                console.log("Usuario logueado:", usuario);
 
-                // Guardar usuario en el componente para usarlo en otras vistas
-                var oModel = new sap.ui.model.json.JSONModel(usuario);
+                var oModel = new sap.ui.model.json.JSONModel({
+                    nombre: usuario.nombre,
+                    permisos: usuario.permisos,
+                    esAdmin: usuario.permisos === "admin"
+                });
                 this.getOwnerComponent().setModel(oModel, "usuario");
 
                 // Navegar a la vista principal

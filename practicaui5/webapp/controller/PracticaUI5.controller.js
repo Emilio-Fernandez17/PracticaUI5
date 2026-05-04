@@ -11,6 +11,11 @@ sap.ui.define([
     return Controller.extend("practicaui5.practicaui5.controller.PracticaUI5", {
 
         onInit() {
+            var usuario = this.getOwnerComponent().getModel("usuario");
+            if (!usuario) {
+                this.getOwnerComponent().getRouter().navTo("Routevista2");
+                return;
+            }
 
             var formulario = {
                 formulario: false,
