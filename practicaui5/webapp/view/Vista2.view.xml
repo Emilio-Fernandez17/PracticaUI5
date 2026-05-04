@@ -2,26 +2,31 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
 
-    <Page id="page2" title="Detalle de Vista" navButtonPress="cambiarRuta">
+    <Page id="page2" title="{i18n>vista2}">
         <content>
+        <OverflowToolbar id="headerToolbar2" style="Clear">
+            <ToolbarSpacer id="spacer2" />
+                <Button id="botonIdiomas2" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+        </OverflowToolbar>    
+
             <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">
                 <Panel id="panelLogin" width="450px" accessibleRole="Region" class="sapUiResponsiveMargin">
                     <headerToolbar>
                         <Toolbar id="tbLogin">
                             <ToolbarSpacer id="spacerIzquierdo" />
-                            <Title id="txtTitle" text="Iniciar Sesión" />
+                            <Title id="txtTitle" text="{i18n>inicioSesion}" />
                             <ToolbarSpacer id="spacerDerecho" />
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vboxCampos">
-                            <Label id="lblNombre" text="Nombre" labelFor="inputNombre" />
-                            <Input id="inputNombre" type="Text" placeholder="Tu nombre..." width="100%" />
+                            <Label id="lblNombre" text="{i18n>nombre}" labelFor="inputNombre" />
+                            <Input id="inputNombre" type="Text" placeholder="{i18n>Pnombre}" width="100%" />
 
-                            <Label id="lblPassword" text="Contraseña" labelFor="inputPassword" class="sapUiSmallMarginTop" />
+                            <Label id="lblPassword" text="{i18n>contrasena}" labelFor="inputPassword" class="sapUiSmallMarginTop" />
                             <Input id="inputPassword" type="Password" placeholder="••••••••" width="100%" />
 
-                            <Button id="btnEnviar" text="Enviar" type="Emphasized" press="login" width="100%" class="sapUiSmallMarginTop" />
+                            <Button id="btnEnviar" text="{i18n>enviar}" type="Emphasized" press="login" width="100%" class="sapUiSmallMarginTop" />
                         </VBox>
                     </content>
                 </Panel>

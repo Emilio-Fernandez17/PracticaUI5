@@ -1,20 +1,23 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
+    "sap/ui/model/resource/ResourceModel",
     "sap/m/MessageToast",
     "sap/m/MessageBox"
-], (Controller, MessageToast, MessageBox) => {
+], (Controller, ResourceModel, MessageToast, MessageBox) => {
     "use strict";
 
-    return Controller.extend("seiprueba1.controller.vista2", {
+    return Controller.extend("practicaui5.practicaui5.controller.vista2", {
 
         onInit() {
+            this._sCurrentLanguage = "es";
         },
-        cambiarRuta: function (oEvent) {
-            var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("RoutePracticaUI5");
+
+        cambiarRuta: function () {
+            this.getOwnerComponent().getRouter().navTo("RoutePracticaUI5");
         },
+
         login: async function () {
-            var nombre = this.getView().byId("inputNombre").getValue();
+            var nombre   = this.getView().byId("inputNombre").getValue();
             var password = this.getView().byId("inputPassword").getValue();
 
             if (!nombre || !password) {
@@ -33,20 +36,36 @@ sap.ui.define([
                 const usuario = await respuesta.json();
 
                 var oModel = new sap.ui.model.json.JSONModel({
-                    nombre: usuario.nombre,
+                    nombre:   usuario.nombre,
                     permisos: usuario.permisos,
-                    esAdmin: usuario.permisos === "admin"
+                    esAdmin:  usuario.permisos === "admin"
                 });
                 this.getOwnerComponent().setModel(oModel, "usuario");
 
-                // Navegar a la vista principal
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("RoutePracticaUI5");
+                this.cambiarRuta();
 
             } catch (oError) {
                 console.error(oError);
                 MessageBox.error("Error de conexión con el servidor");
             }
+        },
+
+        onButtonPress: function () {
+            var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";
+            this._sCurrentLanguage = sNewLang;
+
+            var oNewModel = new ResourceModel({
+                bundleName:       "practicaui5.practicaui5.i18n.i18n",
+                supportedLocales: ["", "en", "es"],
+                fallbackLocale:   "",
+                bundleLocale:     sNewLang
+            });
+
+            
+            this.getView().setModel(oNewModel, "i18n");
+
+            
+            this.getOwnerComponent().setModel(oNewModel, "i18n");
         }
     });
 });
