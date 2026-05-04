@@ -23,6 +23,12 @@ sap.ui.define([
                 console.log(res.ok ? "UDF creado" : "UDF ya existía");
             });
 
+            fetch("https://localhost:7184/apiUsuario/Usuario/crearUDFPermisos", {
+                method: "POST"
+            }).then(function (res) {
+                console.log(res.ok ? "UDF creado" : "UDF ya existía");
+            });
+
 
             var formulario = {
                 formulario: false,
@@ -44,6 +50,9 @@ sap.ui.define([
             this._FlattenedDataset = FlattenedDataset;
             this._FeedItem = FeedItem;
             this.oVizFrame = this.getView().byId("chartContainerVizFrame");
+        },
+        navegar: function () {
+            this.getOwnerComponent().getRouter().navTo("Routevista3");
         },
 
         onButtonPress: function () {

@@ -105,6 +105,13 @@
           ]
         },
         {
+          "name": "Routevista3",
+          "pattern": "Vista3",
+          "target": [
+            "Targetvista3"
+          ]
+        },
+        {
           "name": "Routevista2",
           "pattern": "",
           "target": [
@@ -120,6 +127,11 @@
          "Targetvista2": {
           "viewName": "vista2",
           "viewLevel": 2
+        },
+        
+         "Targetvista3": {
+          "viewName": "vista3",
+          "viewLevel": 3
         }
       }
     },

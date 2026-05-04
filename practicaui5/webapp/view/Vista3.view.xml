@@ -1,0 +1,8 @@
+<mvc:View controllerName="practicaui5.practicaui5.controller.vista3"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page id="vista3">
+        <Text id="vis123" text="Vista3"></Text>
+    </Page>
+</mvc:View>
