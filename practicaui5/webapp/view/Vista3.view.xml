@@ -6,7 +6,7 @@
     <Page id="vista3" title="Gestión de Permisos">
             <OverflowToolbar id="headerToolbar3" style="Clear">
             <ToolbarSpacer id="spacer3" />
-                <Button id="GuardarDatos" text="GuardarDatos" icon="sap-icon://upload" press="guardarDatos" type="Emphasized" />
+                <Button id="GuardarDatos" text="GuardarDatos" icon="sap-icon://upload" press="GuardarDatos" type="Emphasized" />
         </OverflowToolbar>
 
         <Table id="idTablaPermisos" items="{permisosModel>/}">
@@ -34,7 +34,6 @@
                                 <core:Item id="adminO" key="admin" text="Admin" />
                                 <core:Item id="userO" key="user" text="Usuario" />
                                 <core:Item id="editorO" key="editor" text="Editor" />
-                                <core:Item id="visitanteO" key="visitante" text="Visitante" />
                             </items>
                         </Select>
                     </cells>

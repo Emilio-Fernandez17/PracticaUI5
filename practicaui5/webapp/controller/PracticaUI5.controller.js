@@ -16,6 +16,8 @@ sap.ui.define([
                 this.getOwnerComponent().getRouter().navTo("Routevista2");
                 return;
             }
+            
+            console.log(usuario);
 
             fetch("https://localhost:7184/apiUsuario/Usuario/crearUDF", {
                 method: "POST"

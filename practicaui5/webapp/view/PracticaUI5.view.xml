@@ -55,12 +55,12 @@
     </HBox>
 
         <Text id="a" text="&#10;"/>
-        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin">
+        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esEditor}">
             <headerToolbar>
                 <OverflowToolbar id="otbTable">
                     <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
                     <ToolbarSpacer id="spacerTable" />
-                    <Button id="anadeArticuloTable" text="{i18n>abrirFormulario}" icon="sap-icon://add" type="Emphasized" press="anadir" visible="{usuario>/esAdmin}"/>
+                    <Button id="anadeArticuloTable" text="{i18n>abrirFormulario}" icon="sap-icon://add" type="Emphasized" press="anadir" visible="{usuario>/esEditor}"/>
                 </OverflowToolbar>
             </headerToolbar>
             <columns>
@@ -81,8 +81,8 @@
                         <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
                         <Text id="stock" text="{Items>QuantityOnStock} unidades" /> 
                         <HBox id="hbAcciones" justifyContent="End">
-                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esAdmin}" />
-                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esAdmin}" />
+                            <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esEditor}" />
+                            <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esEditor}" />
                         </HBox>
                         <Text id="txtUsuario" text="{Items>U_UsuarioEditor}" />
                     </cells>
@@ -90,50 +90,52 @@
             </items>
         </Table>
 
-        <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
-            <headerToolbar>
-                <OverflowToolbar id="otbForm">
-                    <Title id="titleForm" text="Detalles del Artículo" />
-                </OverflowToolbar>
-            </headerToolbar>
-            <content>
-                <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
-                    <f:content>
-                        <Label id="lblCode" text="{i18n>formCode}" />
-                        <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..."/>
-
-                        <Label id="lblName" text="{i18n>formName}" />
-                        <MultiInput id="vName" placeholder="Introduce el nombre..."/>
-
-                        <Label id="lblSerie" text="{i18n>formSerie}" />
-                        <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote" width="100%">
-                            <items>
-                                <core:Item id="serieS" key="S" text="{i18n>si}" />
-                                <core:Item id="serieN" key="N" text="{i18n>no}" />  
-                            </items>
-                        </Select>
-
-                        <Label id="lblLote" text="{i18n>formLote}" visible="{formulario>/lote}" />
-                        <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}" width="100%">
-                            <items>
-                                <core:Item id="loteN" key="N" text="{i18n>no}" />
-                                <core:Item id="loteS" key="S" text="{i18n>si}" />
-                            </items>
-                        </Select>
-
-                        <Label id="lblRepeticion" text="{i18n>repeticion}" visible="{formulario>/repeticion}" />
-                        <Text id="txtRepeticion" text=":" visible="{formulario>/repeticion}" />
-
-                        <Label id="lblSpacer" text="" />
-                        <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
-                            <Button id="Anade" text="Añadir" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
-                            <Button id="Edita" text="{i18n>EditarBoton}" icon="sap-icon://edit" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
-                            <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
-                        </HBox>
-                    </f:content>
-                </f:SimpleForm>
-            </content>
-        </Panel>
+        <VBox id="wrapperFormularioPermisos" visible="{usuario>/esEditor}">
+            <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
+                <headerToolbar>
+                    <OverflowToolbar id="otbForm">
+                        <Title id="titleForm" text="Detalles del Artículo" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+                        <f:content>
+                            <Label id="lblCode" text="{i18n>formCode}" />
+                            <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..."/>
+    
+                            <Label id="lblName" text="{i18n>formName}" />
+                            <MultiInput id="vName" placeholder="Introduce el nombre..."/>
+    
+                            <Label id="lblSerie" text="{i18n>formSerie}" />
+                            <Select id="serie" enabled="{formulario>/cantidad}" change="mostrarlote" width="100%">
+                                <items>
+                                    <core:Item id="serieS" key="S" text="{i18n>si}" />
+                                    <core:Item id="serieN" key="N" text="{i18n>no}" />  
+                                </items>
+                            </Select>
+    
+                            <Label id="lblLote" text="{i18n>formLote}" visible="{formulario>/lote}" />
+                            <Select id="lote" enabled="{formulario>/cantidad}" visible="{formulario>/lote}" width="100%">
+                                <items>
+                                    <core:Item id="loteN" key="N" text="{i18n>no}" />
+                                    <core:Item id="loteS" key="S" text="{i18n>si}" />
+                                </items>
+                            </Select>
+    
+                            <Label id="lblRepeticion" text="{i18n>repeticion}" visible="{formulario>/repeticion}" />
+                            <Text id="txtRepeticion" text=":" visible="{formulario>/repeticion}" />
+    
+                            <Label id="lblSpacer" text="" />
+                            <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
+                                <Button id="Anade" text="Añadir" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
+                                <Button id="Edita" text="{i18n>EditarBoton}" icon="sap-icon://edit" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
+                                <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
+                            </HBox>
+                        </f:content>
+                    </f:SimpleForm>
+                </content>
+            </Panel>
+        </VBox>
 
         <Panel id="panelGestionFotos" headerText="{i18n>gestionFotos}" width="95%" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esAdmin}">
             <content>

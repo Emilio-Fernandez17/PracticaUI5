@@ -29,7 +29,6 @@ sap.ui.define([
         async GuardarDatos() {
             const oModel = this.getView().getModel("permisosModel");
             const aDatos = oModel.getData();
-
             sap.ui.core.BusyIndicator.show(0);
 
             try {
@@ -51,6 +50,7 @@ sap.ui.define([
                 MessageBox.error("No se pudieron guardar los cambios: " + err.message);
             } finally {
                 sap.ui.core.BusyIndicator.hide();
+                this.getOwnerComponent().getRouter().navTo("RoutePracticaUI5");
             }
         }
 
