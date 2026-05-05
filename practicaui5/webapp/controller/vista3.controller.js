@@ -50,7 +50,7 @@ sap.ui.define([
                 MessageBox.error("No se pudieron guardar los cambios: " + err.message);
             } finally {
                 sap.ui.core.BusyIndicator.hide();
-                this.getOwnerComponent().getRouter().navTo("RoutePracticaUI5");
+                this.getOwnerComponent().getRouter().navTo("Routevista2");
             }
         }
 
