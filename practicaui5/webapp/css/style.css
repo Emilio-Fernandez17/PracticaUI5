@@ -1,1 +1,21 @@
-/* Enter your custom styles here */
+/* From Uiverse.io by mi-series */ 
+.miBotonPersonalizado {
+  width: 150px;
+  padding: 0;
+  border: none;
+  transform-origin: center;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-radius: 5px;
+  box-shadow: 0 2px 0 #494a4b;
+  background-color: #5cdb95;
+}
+
+.miBotonPersonalizado:active {
+  transform: translateY(5px);
+  padding-bottom: 0px;
+  outline: 0;
+}

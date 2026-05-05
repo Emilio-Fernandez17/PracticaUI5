@@ -12,11 +12,12 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-                <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}"></Button>
-                <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Transparent"/>
+            <Button id="scriptEngine" text="script Engine" press="navegar2" type="Attention" icon="sap-icon://combine"></Button>
+                <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}" icon="sap-icon://journey-change" type="Neutral"></Button>
+                <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Emphasized"/>
                 <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
                 <Button id="botonIdiomas" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
-                <Button id="botonDatos" text="{i18n>cargar}" icon="sap-icon://refresh" press="cargarDatos" type="Emphasized" />
+                <Button id="botonDatos" text="{i18n>cargar}" press="cargarDatos" type="Unstyled" class="miBotonPersonalizado "/>
         </OverflowToolbar>
 
 

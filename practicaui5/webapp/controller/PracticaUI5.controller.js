@@ -51,6 +51,9 @@ sap.ui.define([
         navegar: function () {
             this.getOwnerComponent().getRouter().navTo("Routevista3");
         },
+        navegar2: function () {
+            this.getOwnerComponent().getRouter().navTo("Routevista4");
+        },
 
         onButtonPress: function () {
             var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";
