@@ -3,22 +3,23 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m">
 
-    <Page id="vista3" title="Gestión de Permisos">
+    <Page id="vista3" title="{i18n>permisos}" showNavButton="true" navButtonPress="volverAPrincipal">
             <OverflowToolbar id="headerToolbar3" style="Clear">
             <ToolbarSpacer id="spacer3" />
-                <Button id="GuardarDatos" text="GuardarDatos" icon="sap-icon://upload" press="GuardarDatos" type="Emphasized" />
+                <Button id="botonIdiomas3" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+                <Button id="GuardarDatos" text="{i18n>datos}" icon="sap-icon://upload" press="GuardarDatos" type="Emphasized" />
         </OverflowToolbar>
 
         <Table id="idTablaPermisos" items="{permisosModel>/}">
             <columns>
                 <Column id="columna">
-                    <Text id="colNombre" text="Nombre" />
+                    <Text id="colNombre" text="{i18n>nombre}" />
                 </Column>
                 <Column id="Columna2">
-                    <Text id="textoUser" text="Usuario" />
+                    <Text id="textoUser" text="{i18n>usuario}" />
                 </Column>
                 <Column id="columna3">
-                    <Text id="textoPermiso" text="Permiso" />
+                    <Text id="textoPermiso" text="{i18n>permiso}" />
                 </Column>
             </columns>
             <items>
