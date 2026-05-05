@@ -23,12 +23,6 @@ sap.ui.define([
                 console.log(res.ok ? "UDF creado" : "UDF ya existía");
             });
 
-            fetch("https://localhost:7184/apiUsuario/Usuario/crearUDFPermisos", {
-                method: "POST"
-            }).then(function (res) {
-                console.log(res.ok ? "UDF creado" : "UDF ya existía");
-            });
-
 
             var formulario = {
                 formulario: false,
