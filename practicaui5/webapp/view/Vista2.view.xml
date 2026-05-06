@@ -6,7 +6,7 @@
         <content>
         <OverflowToolbar id="headerToolbar2" style="Clear">
             <ToolbarSpacer id="spacer2" />
-                <Button id="botonIdiomas2" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+                <Button id="botonIdiomas2" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Neutral" />
         </OverflowToolbar>    
 
             <VBox id="vboxCentrado" alignItems="Center" justifyContent="Center" height="70%">
