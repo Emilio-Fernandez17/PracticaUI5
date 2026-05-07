@@ -1,9 +1,181 @@
 <mvc:View controllerName="practicaui5.practicaui5.controller.vista4"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m">
 
-    <Page id="page4" title="Vista 4">
+    <Page id="page4" title="Creación de Empleados" showNavButton="true"
+          titleAlignment="Center"
+          class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+
+        <customHeader>
+            <Bar id="bar">
+                <contentLeft>
+                    <Button id="btnVolver" icon="sap-icon://nav-back" press="navegarPrincipal"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Title id="titulo" text="Creación de Empleados" level="H3"/>
+                </contentMiddle>
+                <contentRight>
+                    <ObjectStatus id="objStatus" text="7 Empleados" state="Information" icon="sap-icon://group"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <l:Grid id="grid" defaultSpan="XL4 L6 M12 S12" hSpacing="1" vSpacing="1" class="sapUiSmallMargin">
+
+                <!-- Empleado 1 -->
+                <Panel id="panel1" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar1">
+                            <Avatar id="avatar1" initials="E1" backgroundColor="Accent1"/>
+                            <Title id="titulo1" text="Empleado 1" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox1" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre1" text="Nombre" required="true" labelFor="in1"/>
+                            <Input id="in1" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos1" text="Apellidos" required="true" labelFor="ia1"/>
+                            <Input id="ia1" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo1" text="Trabajo" labelFor="it1"/>
+                            <Input id="it1" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 2 -->
+                <Panel id="panel2" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar2">
+                            <Avatar id="avatar2" initials="E2" backgroundColor="Accent2"/>
+                            <Title id="titulo2" text="Empleado 2" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox2" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre2" text="Nombre" required="true" labelFor="in2"/>
+                            <Input id="in2" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos2" text="Apellidos" required="true" labelFor="ia2"/>
+                            <Input id="ia2" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo2" text="Trabajo" labelFor="it2"/>
+                            <Input id="it2" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 3 -->
+                <Panel id="panel3" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar3">
+                            <Avatar id="avatar3" initials="E3" backgroundColor="Accent3"/>
+                            <Title id="titulo3" text="Empleado 3" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox3" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre3" text="Nombre" required="true" labelFor="in3"/>
+                            <Input id="in3" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos3" text="Apellidos" required="true" labelFor="ia3"/>
+                            <Input id="ia3" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo3" text="Trabajo" labelFor="it3"/>
+                            <Input id="it3" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 4 -->
+                <Panel id="panel4" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar4">
+                            <Avatar id="avatar4" initials="E4" backgroundColor="Accent4"/>
+                            <Title id="titulo4" text="Empleado 4" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox4" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre4" text="Nombre" required="true" labelFor="in4"/>
+                            <Input id="in4" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos4" text="Apellidos" required="true" labelFor="ia4"/>
+                            <Input id="ia4" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo4" text="Trabajo" labelFor="it4"/>
+                            <Input id="it4" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 5 -->
+                <Panel id="panel5" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar5">
+                            <Avatar id="avatar5" initials="E5" backgroundColor="Accent5"/>
+                            <Title id="titulo5" text="Empleado 5" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox5" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre5" text="Nombre" required="true" labelFor="in5"/>
+                            <Input id="in5" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos5" text="Apellidos" required="true" labelFor="ia5"/>
+                            <Input id="ia5" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo5" text="Trabajo" labelFor="it5"/>
+                            <Input id="it5" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 6 -->
+                <Panel id="panel6" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar6">
+                            <Avatar id="avatar6" initials="E6" backgroundColor="Accent6"/>
+                            <Title id="titulo6" text="Empleado 6" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox6" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre6" text="Nombre" required="true" labelFor="in6"/>
+                            <Input id="in6" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos6" text="Apellidos" required="true" labelFor="ia6"/>
+                            <Input id="ia6" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo6" text="Trabajo" labelFor="it6"/>
+                            <Input id="it6" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 7 -->
+                <Panel id="panel7" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar7">
+                            <Avatar id="avatar7" initials="E7" backgroundColor="Accent7"/>
+                            <Title id="titulo7" text="Empleado 7" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox7" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre7" text="Nombre" required="true" labelFor="in7"/>
+                            <Input id="in7" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos7" text="Apellidos" required="true" labelFor="ia7"/>
+                            <Input id="ia7" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo7" text="Trabajo" labelFor="it7"/>
+                            <Input id="it7" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+            </l:Grid>
+        </content>
+
+        <footer>
+            <OverflowToolbar id="overflowToolbar">
+                <MessageStrip id="msgError" text="Debe rellenar todos los campos obligatorios" type="Error" visible="{errores>/error}" class="sapUiSmallMarginEnd"/>
+                <ToolbarSpacer id="toolbarSpacer"/>
+                <Button id="btnHacerBatch" press="hacerBatch" text="Hacer Petición Batch" type="Emphasized"/>
+            </OverflowToolbar>
+        </footer>
 
     </Page>
-
 </mvc:View>

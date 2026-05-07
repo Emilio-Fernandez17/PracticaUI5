@@ -169,9 +169,8 @@ sap.ui.define([
         enviarMensaje: async function (mensaje) {
             const VERSION = 'v25.0';
             const PHONE_NUMBER_ID = '1092196547309842';
-            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRbhRXJiiY9o62L6ZCms09qhGb2mg8CRxns6HZCjeaLw0UfvROZC9CZBMgvyGDjk9XiexicSQOPLwST9ySCk6RGJFIts8sy9e1XIiYjZChyzGDPjxyRVE4Tw7DL2Wccn5kH1I4cthEp61KA52kZBdkS3ZC8fgzTbXxVbZCDCfwAPvnwJn4ZA62QcW2Rl6PzXXc2e8NqOm1WmOZATZADULJZB34F1X9TJQEeoD7xq3coUDdQCgkP8wdnQNNmnyFzN6ZAX04kagvPWSO1NOmg3yl7AZDZD';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRd1JqP0MruaSvchxtpiZAZCZAySZAeJZAHZAgvgILRwPwjaXTtj66K9iP4gfYrEF9f0fpiswyFqV6h47VmbMkqZC1wfJl3djpcRC9mxArIiJ8J8BRdNJQNa5yE1UU3ZCAc6TvEJkErL6cP04ZCb7DiXLUmaLVDmXU4wFUQv3NfZAbcNkuYS3tYt1WLCKjVkPwFXZCWZCgOOBOOBMZBU6YDDiC9jjL8sLnylsQQir2iSPKTn0lThrzZC7lALDGZBDFa8qz1PfoB9ubsRfze6kW3H';
             const RECIPIENT_NUMBER = '34637853147';
-
 
             const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
 

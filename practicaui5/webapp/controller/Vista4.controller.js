@@ -10,7 +10,73 @@ sap.ui.define([
 
         onInit() {
             this._sCurrentLanguage = "es";
+            var errores = {
+                error: false,
+            };
+
+            var oModel = new sap.ui.model.json.JSONModel(errores);
+            this.getView().setModel(oModel, "errores");
         },
+
+        async hacerBatch() {
+            const empleados = [];
+            const errorModelo = this.getView().getModel("errores");
+
+            for (let i = 1; i <= 7; i++) {
+                const nombre = this.getView().byId(`in${i}`).getValue();
+                const apellido = this.getView().byId(`ia${i}`).getValue();
+                const trabajo = this.getView().byId(`it${i}`).getValue();
+
+
+                if (!nombre || !apellido) {
+                    errorModelo.setProperty("/error", true);
+                    return;
+                }
+
+                empleados.push({
+                    FirstName: nombre,
+                    LastName: apellido,
+                    JobTitle: trabajo
+                });
+            }
+
+            errorModelo.setProperty("/error", false);
+            const rollback = "rollback";
+
+            const cuerpo = empleados.map((emp, index) =>
+                `--${rollback}
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+Content-ID: ${index + 1}
+
+POST /b1s/v2/EmployeesInfo
+Content-Type: application/json
+
+${JSON.stringify(emp)}`
+            ).join("\n");
+
+
+            const textoFinal = `--batch_boundary
+Content-Type: multipart/mixed; boundary=${rollback}
+
+${cuerpo}
+--${rollback}--
+--batch_boundary--`;
+
+            const res = await fetch("https://localhost:7184/apiUsuario/Usuario/PeticionBatch", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(textoFinal)
+            });
+            MessageToast.show("Empleados añadidos ");
+        },
+        navegarPrincipal() {
+            const oRouter = this.getOwnerComponent().getRouter();
+            if (oRouter) {
+                oRouter.navTo("RoutePracticaUI5");
+            }
+        },
+
 
         onButtonPress: function () {
             var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";

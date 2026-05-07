@@ -12,7 +12,7 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-            <Button id="scriptEngine" text="script Engine" press="navegar2" type="Attention" icon="sap-icon://combine"></Button>
+            <Button id="scriptEngine" text="Operacion Batch" press="navegar2" type="Attention" icon="sap-icon://combine"></Button>
                 <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}" icon="sap-icon://journey-change" type="Neutral"></Button>
                 <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Emphasized"/>
                 <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
