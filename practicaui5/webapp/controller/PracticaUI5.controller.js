@@ -111,6 +111,11 @@ sap.ui.define([
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
 
+            if(sCodigo === "") {
+                sap.m.MessageToast.show("Debe rellenar el campo del código del artículo");
+                return;
+            }
+
             let datos = {
                 "ItemCode": sCodigo,
                 "ItemName": sNombre,
@@ -147,14 +152,55 @@ sap.ui.define([
                 }
 
                 const articuloC = await respuesta.json();
+                if(sNombre === "") sNombre = "Null"
+                const mensaje = `Se ha creado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre}`;
+                this.enviarMensaje(mensaje)
+
                 console.log('Artículo Creado con éxito:', articuloC);
                 this.ocultarFormulario()
                 var sMsg = oBundle.getText("anadeMensaje") + " " + sCodigo;
                 sap.m.MessageToast.show(sMsg);
+
             } catch (oError) {
                 console.error(oError);
             }
         },
+
+        enviarMensaje: async function (mensaje) {
+            const VERSION = 'v25.0';
+            const PHONE_NUMBER_ID = '1092196547309842';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRbhRXJiiY9o62L6ZCms09qhGb2mg8CRxns6HZCjeaLw0UfvROZC9CZBMgvyGDjk9XiexicSQOPLwST9ySCk6RGJFIts8sy9e1XIiYjZChyzGDPjxyRVE4Tw7DL2Wccn5kH1I4cthEp61KA52kZBdkS3ZC8fgzTbXxVbZCDCfwAPvnwJn4ZA62QcW2Rl6PzXXc2e8NqOm1WmOZATZADULJZB34F1X9TJQEeoD7xq3coUDdQCgkP8wdnQNNmnyFzN6ZAX04kagvPWSO1NOmg3yl7AZDZD';
+            const RECIPIENT_NUMBER = '34637853147';
+
+
+            const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
+
+            const data = {
+                messaging_product: "whatsapp",
+                recipient_type: "individual",
+                to: RECIPIENT_NUMBER,
+                type: "text",
+                text: {
+                    body: mensaje
+                }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+            } catch (error) {
+                console.error('error:', error);
+            }
+        },
+
 
         editar: function (oEvent) {
             this.getView().byId("vCode").setEditable(false);
@@ -247,6 +293,9 @@ sap.ui.define([
                     articuloC = await respuesta.json();
                 }
                 await this.cargarArticulos()
+                if(sNombre === "") sNombre = "Null"
+                const mensaje = `Se ha editado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre}`;
+                this.enviarMensaje(mensaje)
                 this.ocultarFormulario()
             } catch (oError) {
                 console.error(oError);
@@ -269,6 +318,8 @@ sap.ui.define([
                     throw new Error('Error al eliminar artículo: ' + errorMsg);
                 }
                 await this.cargarArticulos()
+                const mensaje = `Se ha borrado el artículo: \n-Codigo: ${articulo.ItemCode} \n-Nombre: ${articulo.ItemName}`;
+                this.enviarMensaje(mensaje)
                 this.ocultarFormulario()
             } catch (oError) {
                 var oBundle = this.getView().getModel("i18n").getResourceBundle();
@@ -482,6 +533,12 @@ sap.ui.define([
             try {
                 var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var empleadoID = this.getView().byId("select").getSelectedKey();
+                var select = this.getView().byId("select");
+                var ObjetoSelct = select.getSelectedItem();
+
+                if (ObjetoSelct) {
+                    var textoSelect = ObjetoSelct.getText();
+                }
                 if (!empleadoID) {
                     sap.m.MessageToast.show(oBundle.getText("SeleccionarEmpleado"));
                     return;
@@ -511,6 +568,8 @@ sap.ui.define([
                 });
 
                 if (respuesta.ok) {
+                    const mensaje = `Se ha subido la foto del empleado: ${textoSelect}`;
+                    this.enviarMensaje(mensaje)
                     sap.m.MessageToast.show(oBundle.getText("fotoSubida"));
                     archivo.clear();
                 }
