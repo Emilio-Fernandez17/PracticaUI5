@@ -18,7 +18,8 @@
                     <Title id="titulo" text="Creación de Empleados" level="H3"/>
                 </contentMiddle>
                 <contentRight>
-                    <ObjectStatus id="objStatus" text="7 Empleados" state="Information" icon="sap-icon://group"/>
+                    <Button id="botonIdiomas4" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+                    <ObjectStatus id="objStatus" text="9 Empleados" state="Information" icon="sap-icon://group"/>
                 </contentRight>
             </Bar>
         </customHeader>
@@ -30,7 +31,7 @@
                 <Panel id="panel1" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar1">
-                            <Avatar id="avatar1" initials="E1" backgroundColor="Accent1"/>
+                            <Avatar id="avatar1" backgroundColor="Accent1"/>
                             <Title id="titulo1" text="Empleado 1" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -50,7 +51,7 @@
                 <Panel id="panel2" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar2">
-                            <Avatar id="avatar2" initials="E2" backgroundColor="Accent2"/>
+                            <Avatar id="avatar2" backgroundColor="Accent2"/>
                             <Title id="titulo2" text="Empleado 2" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -70,7 +71,7 @@
                 <Panel id="panel3" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar3">
-                            <Avatar id="avatar3" initials="E3" backgroundColor="Accent3"/>
+                            <Avatar id="avatar3" backgroundColor="Accent3"/>
                             <Title id="titulo3" text="Empleado 3" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -90,7 +91,7 @@
                 <Panel id="panel4" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar4">
-                            <Avatar id="avatar4" initials="E4" backgroundColor="Accent4"/>
+                            <Avatar id="avatar4" backgroundColor="Accent4"/>
                             <Title id="titulo4" text="Empleado 4" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -110,7 +111,7 @@
                 <Panel id="panel5" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar5">
-                            <Avatar id="avatar5" initials="E5" backgroundColor="Accent5"/>
+                            <Avatar id="avatar5" backgroundColor="Accent5"/>
                             <Title id="titulo5" text="Empleado 5" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -130,7 +131,7 @@
                 <Panel id="panel6" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar6">
-                            <Avatar id="avatar6" initials="E6" backgroundColor="Accent6"/>
+                            <Avatar id="avatar6" backgroundColor="Accent6"/>
                             <Title id="titulo6" text="Empleado 6" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -150,7 +151,7 @@
                 <Panel id="panel7" expandable="false" class="sapUiNoContentPadding">
                     <headerToolbar>
                         <Toolbar id="toolbar7">
-                            <Avatar id="avatar7" initials="E7" backgroundColor="Accent7"/>
+                            <Avatar id="avatar7" backgroundColor="Accent7"/>
                             <Title id="titulo7" text="Empleado 7" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
@@ -162,6 +163,46 @@
                             <Input id="ia7" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
                             <Label id="lblTrabajo7" text="Trabajo" labelFor="it7"/>
                             <Input id="it7" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 8 -->
+                <Panel id="panel8" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar8">
+                            <Avatar id="avatar8" backgroundColor="Accent8"/>
+                            <Title id="titulo8" text="Empleado 8" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox8" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre8" text="Nombre" required="true" labelFor="in8"/>
+                            <Input id="in8" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos8" text="Apellidos" required="true" labelFor="ia8"/>
+                            <Input id="ia8" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo8" text="Trabajo" labelFor="it8"/>
+                            <Input id="it8" placeholder="Introduce trabajo (opcional)..."/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Empleado 9 -->
+                <Panel id="panel9" expandable="false" class="sapUiNoContentPadding">
+                    <headerToolbar>
+                        <Toolbar id="toolbar9">
+                            <Avatar id="avatar9" backgroundColor="Accent9"/>
+                            <Title id="titulo9" text="Empleado 9" level="H5" class="sapUiSmallMarginBegin"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="vbox9" class="sapUiSmallMargin" renderType="Bare">
+                            <Label id="lblNombre9" text="Nombre" required="true" labelFor="in9"/>
+                            <Input id="in9" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos9" text="Apellidos" required="true" labelFor="ia9"/>
+                            <Input id="ia9" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo9" text="Trabajo" labelFor="it9"/>
+                            <Input id="it9" placeholder="Introduce trabajo (opcional)..."/>
                         </VBox>
                     </content>
                 </Panel>
