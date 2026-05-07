@@ -153,7 +153,7 @@ sap.ui.define([
 
                 const articuloC = await respuesta.json();
                 if(sNombre === "") sNombre = "Null"
-                const mensaje = `Se ha creado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre}`;
+                const mensaje = `Se ha creado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre} \n-Usuario: ${usuario.nombre}`;
                 this.enviarMensaje(mensaje)
 
                 console.log('Artículo Creado con éxito:', articuloC);
@@ -294,7 +294,7 @@ sap.ui.define([
                 }
                 await this.cargarArticulos()
                 if(sNombre === "") sNombre = "Null"
-                const mensaje = `Se ha editado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre}`;
+                const mensaje = `Se ha editado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre} \n-Usuario: ${usuario.nombre}`;
                 this.enviarMensaje(mensaje)
                 this.ocultarFormulario()
             } catch (oError) {
@@ -302,6 +302,7 @@ sap.ui.define([
             }
         },
         borrar: async function (oEvent) {
+            var usuario = this.getOwnerComponent().getModel("usuario").getData();
             var boton = oEvent.getSource();
             var oContext = boton.getBindingContext("Items");
             var articulo = oContext.getObject();
@@ -318,7 +319,7 @@ sap.ui.define([
                     throw new Error('Error al eliminar artículo: ' + errorMsg);
                 }
                 await this.cargarArticulos()
-                const mensaje = `Se ha borrado el artículo: \n-Codigo: ${articulo.ItemCode} \n-Nombre: ${articulo.ItemName}`;
+                const mensaje = `Se ha borrado el artículo: \n-Codigo: ${articulo.ItemCode} \n-Nombre: ${articulo.ItemName} \n-Usuario: ${usuario.nombre}`;
                 this.enviarMensaje(mensaje)
                 this.ocultarFormulario()
             } catch (oError) {
@@ -531,6 +532,7 @@ sap.ui.define([
         },
         subirFotoEmpleado: async function () {
             try {
+                var usuario = this.getOwnerComponent().getModel("usuario").getData();
                 var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var empleadoID = this.getView().byId("select").getSelectedKey();
                 var select = this.getView().byId("select");
@@ -568,7 +570,7 @@ sap.ui.define([
                 });
 
                 if (respuesta.ok) {
-                    const mensaje = `Se ha subido la foto del empleado: ${textoSelect}`;
+                    const mensaje = `Se ha subido la foto del empleado: ${textoSelect} \n-Usuario: ${usuario.nombre}`;
                     this.enviarMensaje(mensaje)
                     sap.m.MessageToast.show(oBundle.getText("fotoSubida"));
                     archivo.clear();
