@@ -42,7 +42,6 @@ sap.ui.define([
             this.datos = {};
             this.ventas = {};
             this.Items = {};
-            this.Empleados = {};
             this._FlattenedDataset = FlattenedDataset;
             this._FeedItem = FeedItem;
             this.oVizFrame = this.getView().byId("chartContainerVizFrame");
@@ -175,7 +174,7 @@ sap.ui.define([
         enviarMensaje: async function (mensaje) {
             const VERSION = 'v25.0';
             const PHONE_NUMBER_ID = '1092196547309842';
-            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRd1JqP0MruaSvchxtpiZAZCZAySZAeJZAHZAgvgILRwPwjaXTtj66K9iP4gfYrEF9f0fpiswyFqV6h47VmbMkqZC1wfJl3djpcRC9mxArIiJ8J8BRdNJQNa5yE1UU3ZCAc6TvEJkErL6cP04ZCb7DiXLUmaLVDmXU4wFUQv3NfZAbcNkuYS3tYt1WLCKjVkPwFXZCWZCgOOBOOBMZBU6YDDiC9jjL8sLnylsQQir2iSPKTn0lThrzZC7lALDGZBDFa8qz1PfoB9ubsRfze6kW3H';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRaRWTQg7GvyeqaHhtqvc2wdj9G2tsrrI8lEYo2wMdXHQUwtDGa3IkENR8HcC5ZCUKScaiwfn9VpuOvSODtpS4lUa31958PxjGgbyiVn0wErNkBJZBIqjKHYUo8ZAaYbsQeVqKWivKhudKJlZAVpTaf3xuRTHYMSwdYiR3D1p3qm1KP5kX7JZBAuKO144rYWNrlZBSElvNZCB5QI69HlBZC7npt5zIFe5OgQAVVE2LxZA3uTB7tZAzIHtXnyo0JcGVZBtUepZB5TQKvIZCjM80';
             const RECIPIENT_NUMBER = '34637853147';
 
             const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
@@ -370,9 +369,6 @@ sap.ui.define([
             const datosBP = await peticionBP.json();
             this.datos = datosBP;
             console.log('BusinessPartners:', this.datos);
-
-            const oModelLista = new JSONModel(this.datos);
-            this.getView().setModel(oModelLista, "modeloSelect");
         },
         cargarPedidos: async function () {
             const peticionPO = await fetch('https://localhost:7184/api/values/Peticion/PurchaseOrders');
@@ -415,16 +411,6 @@ sap.ui.define([
             this.getView().byId("delante").setEnabled(true);
         },
 
-        cargarEmpleados: async function () {
-            const peticionEmpleados = await fetch('https://localhost:7184/api/values/Peticion/EmployeesInfo');
-            if (!peticionEmpleados.ok) throw new Error('Error en la peticion de Empleados');
-            const datosEmpleados = await peticionEmpleados.json();
-            this.Empleados = datosEmpleados;
-            console.log('Empleados:', this.Empleados);
-            const modelo = new JSONModel(this.Empleados);
-            this.getView().setModel(modelo, "Empleados");
-        },
-
         async cargarDatos() {
             try {
                 sap.ui.core.BusyIndicator.show(0);
@@ -432,7 +418,6 @@ sap.ui.define([
                 await this.cargarInterlocutores()
                 await this.cargarPedidos()
                 await this.cargarArticulos()
-                await this.cargarEmpleados()
                 this._crearGraficaConDatos(this.ventas, this.datos);
 
             } catch (error) {
