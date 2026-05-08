@@ -10,6 +10,10 @@ sap.ui.define([
 
         onInit() {
             this._sCurrentLanguage = "es";
+            this.crearSqlQuery()
+        },
+        crearSqlQuery:async function(){
+
         },
 
         cambiarRuta: function () {

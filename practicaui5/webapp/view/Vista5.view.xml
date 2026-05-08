@@ -4,6 +4,28 @@
 
     <Page id="page5" title="vista5">
     <Button id="botonIdiomas5" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+    <Table id="idTablapPedidos" width="95%"  items="{/SQLQueries('PedidosCerrados')/List}" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esEditor}" growing="true">
+            <headerToolbar>
+                <OverflowToolbar id="otbTablePedido">
+                    <Title id="tableTitlePedido" text="Tabla Pedidos" level="H2" />
+                    <ToolbarSpacer id="spacerTablePedido" />
+                </OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column id="colCodePedido"><header><Text id="txtColCodePedido" text="Numero de entrada"/></header></Column>
+                <Column id="colNamePedido"><header><Text id="txtColNamePedido" text="Proveedor" /></header></Column>
+                <Column id="colSeriePedido" hAlign="Center"><header><Text id="txtColSeriePedido" text="Total" /></header></Column>
+            </columns>
+            <items>
+                <ColumnListItem id="idFila1PEdido">
+                    <cells>
+                        <Text id="txtCellCodePedido" text="{DocEntry}" />
+                        <Text id="txtCellNamePedido" text="{CardCode}" />
+                        <Text id="txtCellNamPedido" text="{DocTotal}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
     </Page>
 
 </mvc:View>
