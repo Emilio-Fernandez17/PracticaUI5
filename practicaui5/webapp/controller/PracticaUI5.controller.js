@@ -46,7 +46,9 @@ sap.ui.define([
             this._FlattenedDataset = FlattenedDataset;
             this._FeedItem = FeedItem;
             this.oVizFrame = this.getView().byId("chartContainerVizFrame");
-            this.link = ""
+            this.link = "";
+            this.atras = false;
+            this.iSkip = 0;
 
         },
         navegar: function () {
@@ -390,35 +392,28 @@ sap.ui.define([
             this.getView().byId("delante").setEnabled(true);
         },
         delante: async function () {
-            try {
-                const sNextLink = this.Items["odata.nextLink"];
+            this.iSkip += 20;
 
-                if (!sNextLink) {
-                    this.getView().byId("delante").setEnabled(false);
-                    return;
-                }
+            const respuesta = await fetch(`https://localhost:7184/api/values/PeticionLink?skip=${this.iSkip}`);
+            this.Items = await respuesta.json();
 
-                const aPartes = sNextLink.split("=");
-                const iSkip = aPartes[1];
+            this.getView().getModel("Items").setData(this.Items);
 
-                const sUrl = `https://localhost:7184/api/values/PeticionLink?skip=${iSkip}`;
-
-                const peticionItems = await fetch(sUrl);
-                if (!peticionItems.ok) throw new Error('Error en la petición');
-
-                const datosItems = await peticionItems.json();
-                console.log("datosItems",datosItems)
-
-                this.Items = datosItems;
-                this.getView().getModel("Items").setData(this.Items);
-
-                this.getView().byId("delante").setEnabled(!!this.Items["odata.nextLink"]);
-
-            } catch (oError) {
-                console.error("Error al paginar:", oError);
-            }
+            this.getView().byId("atras").setEnabled(true);
+            this.getView().byId("delante").setEnabled(!!this.Items["odata.nextLink"]);
         },
 
+        atras: async function () {
+            this.iSkip -= 20;
+            if (this.iSkip < 0) this.iSkip = 0;
+
+            const respuesta = await fetch(`https://localhost:7184/api/values/PeticionLink?skip=${this.iSkip}`);
+            this.Items = await respuesta.json();
+
+            this.getView().getModel("Items").setData(this.Items);
+            this.getView().byId("atras").setEnabled(this.iSkip > 0);
+            this.getView().byId("delante").setEnabled(true);
+        },
 
         cargarEmpleados: async function () {
             const peticionEmpleados = await fetch('https://localhost:7184/api/values/Peticion/EmployeesInfo');

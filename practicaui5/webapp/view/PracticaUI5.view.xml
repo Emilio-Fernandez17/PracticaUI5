@@ -57,7 +57,7 @@
     </HBox>
 
         <Text id="a" text="&#10;"/>
-        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esEditor}">
+        <Table id="idTablaPrueba" width="95%"  items="{Items>/value}" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esEditor}" growing="true">
             <headerToolbar>
                 <OverflowToolbar id="otbTable">
                     <Title id="tableTitle" text="{i18n>titleTable}" level="H2" />
