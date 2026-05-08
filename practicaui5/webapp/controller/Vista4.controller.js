@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/resource/ResourceModel",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], (Controller, ResourceModel, MessageToast, MessageBox) => {
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
+], (Controller, ResourceModel, MessageToast, MessageBox, JSONModel) => {
     "use strict";
 
     return Controller.extend("practicaui5.practicaui5.controller.vista4", {
@@ -18,7 +19,7 @@ sap.ui.define([
             this.getView().setModel(oModel, "errores");
         },
 
-        async hacerBatch() {
+        async CrearEmpleados() {
             const empleados = [];
             const errorModelo = this.getView().getModel("errores");
 
@@ -43,7 +44,7 @@ sap.ui.define([
 
             errorModelo.setProperty("/error", false);
 
-            MessageToast.show(`Enviando ${empleados.length} empleado(s)...`);
+            MessageToast.show(`Enviando ${empleados.length} empleados`);
 
             const rollback = "rollback";
 
@@ -72,9 +73,10 @@ ${cuerpo}
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(textoFinal)
                 });
-
                 if (res.ok) {
                     MessageToast.show(`${empleados.length} empleados añadidos correctamente`);
+                    const oModelLista = new sap.ui.model.json.JSONModel(empleados);
+                    this.getView().setModel(oModelLista, "modeloEmpleados");
                     this._limpiarFormularios();
                 } else {
                     MessageToast.show("Error al enviar los empleados");
@@ -97,7 +99,6 @@ ${cuerpo}
                 oRouter.navTo("RoutePracticaUI5");
             }
         },
-
 
         onButtonPress: function () {
             var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";

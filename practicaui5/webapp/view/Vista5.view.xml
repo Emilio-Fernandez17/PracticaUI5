@@ -1,0 +1,9 @@
+<mvc:View controllerName="practicaui5.practicaui5.controller.vista5"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page id="page5" title="vista5">
+    <Button id="botonIdiomas5" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+    </Page>
+
+</mvc:View>

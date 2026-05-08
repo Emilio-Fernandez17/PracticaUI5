@@ -3,6 +3,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:l="sap.ui.layout"
     xmlns:core="sap.ui.core"
+      xmlns:tnt="sap.tnt"
     xmlns="sap.m">
 
     <Page id="page4" title="Creación de Empleados" showNavButton="true"
@@ -209,12 +210,18 @@
 
             </l:Grid>
         </content>
+<tnt:NavigationList id="navigationListEmpleados" width="100%">
+    <tnt:NavigationListItem id="cabeceraEmpleados" text="Lista de ultimos empleados creados" icon="sap-icon://employee-approvals" items="{modeloEmpleados>/}">  
+        <tnt:NavigationListItem id="navigationItemEmpleados" text="{modeloEmpleados>FirstName} {modeloEmpleados>LastName} {modeloEmpleados>JobTitle}" key="{modeloEmpleados>FirstName}" />
+    </tnt:NavigationListItem>
+</tnt:NavigationList>
+
 
         <footer>
             <OverflowToolbar id="overflowToolbar">
                 <MessageStrip id="msgError" text="Debe rellenar todos los campos obligatorios" type="Error" visible="{errores>/error}" class="sapUiSmallMarginEnd"/>
                 <ToolbarSpacer id="toolbarSpacer"/>
-                <Button id="btnHacerBatch" press="hacerBatch" text="Hacer Petición Batch" type="Emphasized"/>
+                <Button id="btnHacerBatch" press="CrearEmpleados" text="Hacer Petición Batch" type="Emphasized"/>
             </OverflowToolbar>
         </footer>
 

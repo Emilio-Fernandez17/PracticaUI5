@@ -54,6 +54,9 @@ sap.ui.define([
         navegar2: function () {
             this.getOwnerComponent().getRouter().navTo("Routevista4");
         },
+        navegar3: function () {
+            this.getOwnerComponent().getRouter().navTo("Routevista5");
+        },
 
         onButtonPress: function () {
             var sNewLang = this._sCurrentLanguage === "es" ? "en" : "es";
@@ -111,7 +114,7 @@ sap.ui.define([
             var sSerie = this.getView().byId("serie").getSelectedKey();
             var sLote = this.getView().byId("lote").getSelectedKey();
 
-            if(sCodigo === "") {
+            if (sCodigo === "") {
                 sap.m.MessageToast.show("Debe rellenar el campo del código del artículo");
                 return;
             }
@@ -152,7 +155,7 @@ sap.ui.define([
                 }
 
                 const articuloC = await respuesta.json();
-                if(sNombre === "") sNombre = "Null"
+                if (sNombre === "") sNombre = "Null"
                 const mensaje = `Se ha creado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre} \n-Usuario: ${usuario.nombre}`;
                 this.enviarMensaje(mensaje)
 
@@ -292,7 +295,7 @@ sap.ui.define([
                     articuloC = await respuesta.json();
                 }
                 await this.cargarArticulos()
-                if(sNombre === "") sNombre = "Null"
+                if (sNombre === "") sNombre = "Null"
                 const mensaje = `Se ha editado el artículo: \n-Codigo: ${sCodigo} \n-Nombre: ${sNombre} \n-Usuario: ${usuario.nombre}`;
                 this.enviarMensaje(mensaje)
                 this.ocultarFormulario()

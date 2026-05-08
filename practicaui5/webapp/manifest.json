@@ -123,6 +123,13 @@
           "target": [
             "Targetvista4"
           ]
+        },
+        {
+          "name": "Routevista5",
+          "pattern": "Vista5",
+          "target": [
+            "Targetvista5"
+          ]
         }
       ],
       "targets": {
@@ -137,6 +144,10 @@
         "Targetvista4": {
           "viewName": "vista4",
           "viewLevel": 4
+        },
+        "Targetvista5": {
+          "viewName": "vista5",
+          "viewLevel": 5
         },
         
          "Targetvista3": {
