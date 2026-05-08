@@ -12,7 +12,7 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-            <Button id="sqlquerys" text="nose" press="navegar3" type="Accept" icon="sap-icon://circle-task-2"></Button>
+            <Button id="sqlquery" text="nose" press="navegar3" type="Accept" icon="sap-icon://circle-task-2"></Button>
             <Button id="batch" text="Empleados" press="navegar2" type="Attention" icon="sap-icon://combine"></Button>
                 <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}" icon="sap-icon://journey-change" type="Neutral"></Button>
                 <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Emphasized"/>
@@ -91,6 +91,11 @@
                 </ColumnListItem>
             </items>
         </Table>
+        <HBox justifyContent="Center" width="100%" id="hoboxBotones">
+            <Button id="atras" visible="{usuario>/esEditor}" icon="sap-icon://arrow-left" enabled="false" press="atras"/>
+            <Button id="delante" icon="sap-icon://arrow-right" visible="{usuario>/esEditor}" press="delante" enabled="false"/>
+        </HBox>
+
 
         <VBox id="wrapperFormularioPermisos" visible="{usuario>/esEditor}">
             <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">

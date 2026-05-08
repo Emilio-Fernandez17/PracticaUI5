@@ -46,6 +46,7 @@ sap.ui.define([
             this._FlattenedDataset = FlattenedDataset;
             this._FeedItem = FeedItem;
             this.oVizFrame = this.getView().byId("chartContainerVizFrame");
+            this.link = ""
 
         },
         navegar: function () {
@@ -386,7 +387,39 @@ sap.ui.define([
             console.log('Items:', this.Items);
             const modelo = new JSONModel(this.Items);
             this.getView().setModel(modelo, "Items");
+            this.getView().byId("delante").setEnabled(true);
         },
+        delante: async function () {
+            try {
+                const sNextLink = this.Items["odata.nextLink"];
+
+                if (!sNextLink) {
+                    this.getView().byId("delante").setEnabled(false);
+                    return;
+                }
+
+                const aPartes = sNextLink.split("=");
+                const iSkip = aPartes[1];
+
+                const sUrl = `https://localhost:7184/api/values/PeticionLink?skip=${iSkip}`;
+
+                const peticionItems = await fetch(sUrl);
+                if (!peticionItems.ok) throw new Error('Error en la petición');
+
+                const datosItems = await peticionItems.json();
+                console.log("datosItems",datosItems)
+
+                this.Items = datosItems;
+                this.getView().getModel("Items").setData(this.Items);
+
+                this.getView().byId("delante").setEnabled(!!this.Items["odata.nextLink"]);
+
+            } catch (oError) {
+                console.error("Error al paginar:", oError);
+            }
+        },
+
+
         cargarEmpleados: async function () {
             const peticionEmpleados = await fetch('https://localhost:7184/api/values/Peticion/EmployeesInfo');
             if (!peticionEmpleados.ok) throw new Error('Error en la peticion de Empleados');
