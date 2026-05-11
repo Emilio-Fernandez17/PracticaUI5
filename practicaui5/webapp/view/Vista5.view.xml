@@ -1,31 +1,53 @@
 <mvc:View controllerName="practicaui5.practicaui5.controller.vista5"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Page id="page5" title="Pedidos" showNavButton="true" navButtonPress="volverAPrincipal">
+        <headerContent>
+            <Button id="botonIdiomas5" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+        </headerContent>
 
-    <Page id="page5" title="vista5">
-    <Button id="botonIdiomas5" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
-    <Table id="idTablapPedidos" width="95%"  items="{/SQLQueries('PedidosCerrados')/List}" class="sapUiMediumMarginTop sapUiResponsiveMargin" visible="{usuario>/esEditor}" growing="true">
+        <Table id="idTablapPedidos" width="auto" items="{pedidos>/value}" class="sapUiResponsiveMargin" growing="true" growingThreshold="20" sticky="HeaderToolbar,ColumnHeaders">
             <headerToolbar>
-                <OverflowToolbar id="otbTablePedido">
-                    <Title id="tableTitlePedido" text="Tabla Pedidos" level="H2" />
+                <OverflowToolbar id="otbTablePedido" design="Transparent">
+                    <Title id="tableTitlePedido" text="Pedidos Cerrados" level="H2" />
                     <ToolbarSpacer id="spacerTablePedido" />
                 </OverflowToolbar>
             </headerToolbar>
+
             <columns>
-                <Column id="colCodePedido"><header><Text id="txtColCodePedido" text="Numero de entrada"/></header></Column>
-                <Column id="colNamePedido"><header><Text id="txtColNamePedido" text="Proveedor" /></header></Column>
-                <Column id="colSeriePedido" hAlign="Center"><header><Text id="txtColSeriePedido" text="Total" /></header></Column>
+                <Column id="colNEntrada" width="8rem" hAlign="Begin">
+                    <header><Text id="txtColNEntrada" text="Nº Entrada" /></header>
+                </Column>
+                <Column id="colProveedor" minScreenWidth="Tablet" demandPopin="true">
+                    <header><Text id="txtColProveedor" text="Interlocutor" /></header>
+                </Column>
+                <Column id="colEstado" hAlign="Center" width="8rem">
+                    <header><Text id="txtColEstado" text="Estado" /></header>
+                </Column>
+                <Column id="colFecha" hAlign="Center" width="10rem">
+                    <header><Text id="txtColFecha" text="Fecha" /></header>
+                </Column>
+                <Column id="colTipo" hAlign="Center" width="8rem">
+                    <header><Text id="txtColTipo" text="Tipo" /></header>
+                </Column>
+                <Column id="colTotal" hAlign="End">
+                    <header><Text id="txtColTotal" text="Total" /></header>
+                </Column>
             </columns>
+
             <items>
-                <ColumnListItem id="idFila1PEdido">
+                <ColumnListItem id="idFilaPedido" vAlign="Middle" type="Active">
                     <cells>
-                        <Text id="txtCellCodePedido" text="{DocEntry}" />
-                        <Text id="txtCellNamePedido" text="{CardCode}" />
-                        <Text id="txtCellNamPedido" text="{DocTotal}" />
+                        <ObjectStatus id="objIdPedido" title="{pedidos>DocEntry}" icon="sap-icon://primary-key" />
+                        <ObjectStatus id="txtProvPedido" text="{pedidos>CardCode}" icon="sap-icon://person-placeholder" />
+                        <ObjectStatus id="statEstadoPedido" text="Cerrado" state="None" icon="sap-icon://locked" />
+                        <ObjectStatus id="txtFechaPedido" text="{path: 'pedidos>CreateDate', formatter: '.formatearFecha'}" state="None" icon="sap-icon://calendar"/>
+                        <ObjectStatus id="statTipoPedido" text="{pedidos>Tipo}" state="{= ${pedidos>Tipo} === 'Compra' ? 'Indication03' : 'Indication05' }" />
+                        <ObjectNumber id="numTotalPedido" number="{path: 'pedidos>DocTotal',type: 'sap.ui.model.type.Float',formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }}" unit="€" state="Information" />
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
     </Page>
-
 </mvc:View>

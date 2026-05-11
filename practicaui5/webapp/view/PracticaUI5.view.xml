@@ -12,7 +12,7 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-            <Button id="sqlquery" text="nose" press="navegar3" type="Accept" icon="sap-icon://circle-task-2"></Button>
+            <Button id="sqlquery" text="Pedidos" press="navegar3" type="Accept" icon="sap-icon://documents"></Button>
             <Button id="batch" text="Empleados" press="navegar2" type="Attention" icon="sap-icon://combine"></Button>
                 <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}" icon="sap-icon://journey-change" type="Neutral"></Button>
                 <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Emphasized"/>
