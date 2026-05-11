@@ -27,7 +27,11 @@ sap.ui.define([
             try {
                 await this.cargarTabla();
 
-                const respuesta = await fetch(`https://localhost:7184/apiUsuario/Usuario/login/${nombre}/${password}`);
+                const respuesta = await fetch("https://localhost:7184/apiUsuario/Usuario/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nombre: nombre, password: password })
+                });
                 if (!respuesta.ok) {
                     MessageBox.error("Usuario o contraseña incorrectos");
                     return;
@@ -79,8 +83,6 @@ sap.ui.define([
 
 
             this.getView().setModel(oNewModel, "i18n");
-
-
             this.getOwnerComponent().setModel(oNewModel, "i18n");
         }
     });
