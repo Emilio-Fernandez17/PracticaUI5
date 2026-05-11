@@ -16,6 +16,7 @@ sap.ui.define([
                 this.getOwnerComponent().getRouter().navTo("Routevista2");
                 return;
             }
+            this.cargarDatos();
 
             console.log(usuario);
 
