@@ -357,12 +357,12 @@ sap.ui.define([
             oModel.setProperty("/editar", false);
             oModel.setProperty("/lote", false);
         },
-            hacerLogin: async function () {
-                const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
-                if (!loginRespuesta.ok) throw new Error('Error en login');
-                const loginDatos = await loginRespuesta.json();
-                console.log('loginDatos:', loginDatos);
-            },
+        hacerLogin: async function () {
+            const loginRespuesta = await fetch('https://localhost:7184/api/values/login');
+            if (!loginRespuesta.ok) throw new Error('Error en login');
+            const loginDatos = await loginRespuesta.json();
+            console.log('loginDatos:', loginDatos);
+        },
         cargarInterlocutores: async function () {
             // Cargar BusinessPartners
             const peticionBP = await fetch('https://localhost:7184/api/values/Peticion/BusinessPartners');

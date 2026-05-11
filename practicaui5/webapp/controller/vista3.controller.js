@@ -13,6 +13,7 @@ sap.ui.define([
         },
 
         async cargarTabla() {
+            sap.ui.core.BusyIndicator.show(0);
             try {
                 const res = await fetch("https://localhost:7184/apiUsuario/Usuario/TablaPermisos", {
                     method: "POST"
@@ -26,9 +27,12 @@ sap.ui.define([
             } catch (err) {
                 MessageBox.error("Error al cargar datos: " + err.message);
             }
+            finally {
+                sap.ui.core.BusyIndicator.hide();
+            }
         },
 
-        volverAPrincipal: function() {
+        volverAPrincipal: function () {
             const oRouter = this.getOwnerComponent().getRouter();
             if (oRouter) {
                 oRouter.navTo("RoutePracticaUI5");
@@ -59,7 +63,7 @@ sap.ui.define([
                 MessageBox.error("No se pudieron guardar los cambios: " + err.message);
             } finally {
                 sap.ui.core.BusyIndicator.hide();
-                this.getOwnerComponent().getRouter().navTo("Routevista2");
+                this.getOwnerComponent().getRouter().navTo("RoutePracticaUI5");
             }
         },
 
