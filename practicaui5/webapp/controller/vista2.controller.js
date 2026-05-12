@@ -15,7 +15,7 @@ sap.ui.define([
         cambiarRuta: function () {
             this.getOwnerComponent().getRouter().navTo("RoutePracticaUI5");
         },
-        _cifrarPassword: async function (password) {
+       /* _cifrarPassword: async function (password) {
             const clave = "4i6ER3/J2KYh7H0LDfDzFdEetKanWCna";
             const iv = crypto.getRandomValues(new Uint8Array(16));
 
@@ -35,7 +35,7 @@ sap.ui.define([
 
             const combined = new Uint8Array([...iv, ...new Uint8Array(cifrado)]);
             return btoa(String.fromCharCode(...combined));
-        },
+        },*/
 
         login: async function () {
             var nombre = this.getView().byId("inputNombre").getValue();
@@ -48,12 +48,12 @@ sap.ui.define([
             try {
                 await this.cargarTabla();
 
-                const passwordCifrada = await this._cifrarPassword(password)
+               // const passwordCifrada = await this._cifrarPassword(password)
 
                 const respuesta = await fetch("https://localhost:7184/apiUsuario/Usuario/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ nombre: nombre, password: passwordCifrada })
+                    body: JSON.stringify({ nombre: nombre, password: password })
                 });
                 if (!respuesta.ok) {
                     MessageBox.error("Usuario o contraseña incorrectos");
