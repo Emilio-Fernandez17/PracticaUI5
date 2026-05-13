@@ -310,22 +310,20 @@ sap.ui.define([
             var boton = oEvent.getSource();
             var oContext = boton.getBindingContext("Items");
             var articulo = oContext.getObject();
-
             try {
-                await this.hacerLogin()
-
-                const respuesta = await fetch(`https://localhost:7184/api/values/Delete/Items('${articulo.ItemCode}')`, {
-                    method: 'DELETE',
-                });
-
+                await this.hacerLogin();
+                const respuesta = await fetch(
+                    `https://localhost:7184/api/values/Delete?endpoint=Items('${articulo.ItemCode}')`,
+                    { method: 'DELETE' }
+                );
                 if (!respuesta.ok) {
                     const errorMsg = await respuesta.text();
                     throw new Error('Error al eliminar artículo: ' + errorMsg);
                 }
-                await this.cargarArticulos()
+                await this.cargarArticulos();
                 const mensaje = `Se ha borrado el artículo: \n-Codigo: ${articulo.ItemCode} \n-Nombre: ${articulo.ItemName} \n-Usuario: ${usuario.nombre}`;
-                this.enviarMensaje(mensaje)
-                this.ocultarFormulario()
+                this.enviarMensaje(mensaje);
+                this.ocultarFormulario();
             } catch (oError) {
                 var oBundle = this.getView().getModel("i18n").getResourceBundle();
                 var sMsg = oBundle.getText("borrarMensaje") + " " + articulo.ItemCode;
