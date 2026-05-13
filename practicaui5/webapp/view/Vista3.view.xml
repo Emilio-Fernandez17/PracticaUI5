@@ -4,10 +4,10 @@
     xmlns="sap.m">
 
     <Page id="vista3" title="{i18n>permisos}" showNavButton="true" navButtonPress="volverAPrincipal">
-            <OverflowToolbar id="headerToolbar3" style="Clear">
+        <OverflowToolbar id="headerToolbar3" style="Clear">
             <ToolbarSpacer id="spacer3" />
-                <Button id="botonIdiomas3" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
-                <Button id="GuardarDatos" text="{i18n>datos}" icon="sap-icon://upload" press="GuardarDatos" type="Emphasized" />
+            <Button id="botonIdiomas3" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
+            <Button id="GuardarDatos" text="{i18n>datos}" icon="sap-icon://upload" press="GuardarDatos" type="Emphasized" />
         </OverflowToolbar>
 
         <Table id="idTablaPermisos" items="{permisosModel>/}">
@@ -25,12 +25,11 @@
             <items>
                 <ColumnListItem id="colItem">
                     <cells>
-                        <Text id="name1" text="{permisosModel>Name}" />
-                        <Text id="name2" text="{permisosModel>U_User}" />
-                        
+                        <Text id="name1" text="{permisosModel>name}" />
+                        <Text id="name2" text="{permisosModel>u_User}" />
                         <Select id="selectPermisos" 
                                 width="100%" 
-                                selectedKey="{permisosModel>U_Permisos}">
+                                selectedKey="{permisosModel>u_Permisos}">
                             <items>
                                 <core:Item id="adminO" key="admin" text="Admin" />
                                 <core:Item id="userO" key="user" text="Usuario" />

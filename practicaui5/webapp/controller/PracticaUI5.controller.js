@@ -170,7 +170,7 @@ sap.ui.define([
             } catch (oError) {
                 console.error(oError);
             }
-            finally{
+            finally {
                 sap.ui.core.BusyIndicator.hide();
             }
         },
@@ -309,7 +309,7 @@ sap.ui.define([
             } catch (oError) {
                 console.error(oError);
             }
-            finally{
+            finally {
                 sap.ui.core.BusyIndicator.hide();
             }
         },
@@ -339,7 +339,7 @@ sap.ui.define([
                 sap.m.MessageToast.show(sMsg);
                 console.error(oError);
             }
-            finally{
+            finally {
                 sap.ui.core.BusyIndicator.hide();
             }
         },
