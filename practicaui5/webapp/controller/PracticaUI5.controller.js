@@ -139,6 +139,7 @@ sap.ui.define([
             console.log(json)
 
             try {
+                sap.ui.core.BusyIndicator.show(0);
                 await this.hacerLogin()
 
                 const respuesta = await fetch('https://localhost:7184/api/values/Post/Items', {
@@ -168,6 +169,9 @@ sap.ui.define([
 
             } catch (oError) {
                 console.error(oError);
+            }
+            finally{
+                sap.ui.core.BusyIndicator.hide();
             }
         },
 
@@ -277,6 +281,7 @@ sap.ui.define([
             console.log(json)
 
             try {
+                sap.ui.core.BusyIndicator.show(0);
                 await this.hacerLogin()
 
                 const respuesta = await fetch(`https://localhost:7184/api/values/Patch/Items('${sCodigo}')`, {
@@ -304,6 +309,9 @@ sap.ui.define([
             } catch (oError) {
                 console.error(oError);
             }
+            finally{
+                sap.ui.core.BusyIndicator.hide();
+            }
         },
         borrar: async function (oEvent) {
             var usuario = this.getOwnerComponent().getModel("usuario").getData();
@@ -311,6 +319,7 @@ sap.ui.define([
             var oContext = boton.getBindingContext("Items");
             var articulo = oContext.getObject();
             try {
+                sap.ui.core.BusyIndicator.show(0);
                 await this.hacerLogin();
                 const respuesta = await fetch(
                     `https://localhost:7184/api/values/Delete?endpoint=Items('${articulo.ItemCode}')`,
@@ -329,6 +338,9 @@ sap.ui.define([
                 var sMsg = oBundle.getText("borrarMensaje") + " " + articulo.ItemCode;
                 sap.m.MessageToast.show(sMsg);
                 console.error(oError);
+            }
+            finally{
+                sap.ui.core.BusyIndicator.hide();
             }
         },
         mostrarlote: function () {
