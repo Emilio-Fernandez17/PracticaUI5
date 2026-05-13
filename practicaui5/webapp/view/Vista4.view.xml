@@ -16,11 +16,11 @@
                     <Button id="btnVolver" icon="sap-icon://nav-back" press="navegarPrincipal"/>
                 </contentLeft>
                 <contentMiddle>
-                    <Title id="titulo" text="Creación de Empleados" level="H3"/>
+                    <Title id="titulo" text="{i18n>tituloEmpleado}" level="H3"/>
                 </contentMiddle>
                 <contentRight>
                     <Button id="botonIdiomas4" text="{i18n>Idioma}" icon="sap-icon://world" press="onButtonPress" type="Transparent" />
-                    <ObjectStatus id="objStatus" text="9 Empleados" state="Information" icon="sap-icon://group"/>
+                    <ObjectStatus id="objStatus" text="9 {i18n>empleados}" state="Information" icon="sap-icon://group"/>
                 </contentRight>
             </Bar>
         </customHeader>
@@ -33,17 +33,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar1">
                             <Avatar id="avatar1" backgroundColor="Accent1"/>
-                            <Title id="titulo1" text="Empleado 1" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo1" text="{i18n>empleado} 1" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox1" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre1" text="Nombre" required="true" labelFor="in1"/>
-                            <Input id="in1" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos1" text="Apellidos" required="true" labelFor="ia1"/>
-                            <Input id="ia1" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo1" text="Trabajo" labelFor="it1"/>
-                            <Input id="it1" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre1" text="{i18n>nombre}" required="true" labelFor="in1"/>
+                            <Input id="in1" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos1" text="{i18n>apellidos}" required="true" labelFor="ia1"/>
+                            <Input id="ia1" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo1" text="{i18n>trabajo}" labelFor="it1"/>
+                            <Input id="it1" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -53,17 +53,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar2">
                             <Avatar id="avatar2" backgroundColor="Accent2"/>
-                            <Title id="titulo2" text="Empleado 2" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo2" text="{i18n>empleado} 2" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox2" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre2" text="Nombre" required="true" labelFor="in2"/>
-                            <Input id="in2" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos2" text="Apellidos" required="true" labelFor="ia2"/>
-                            <Input id="ia2" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo2" text="Trabajo" labelFor="it2"/>
-                            <Input id="it2" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre2" text="{i18n>nombre}" required="true" labelFor="in2"/>
+                            <Input id="in2" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos2" text="{i18n>apellidos}" required="true" labelFor="ia2"/>
+                            <Input id="ia2" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo2" text="{i18n>trabajo}" labelFor="it2"/>
+                            <Input id="it2" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -73,17 +73,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar3">
                             <Avatar id="avatar3" backgroundColor="Accent3"/>
-                            <Title id="titulo3" text="Empleado 3" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo3" text="{i18n>empleado} 3" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox3" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre3" text="Nombre" required="true" labelFor="in3"/>
-                            <Input id="in3" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos3" text="Apellidos" required="true" labelFor="ia3"/>
-                            <Input id="ia3" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo3" text="Trabajo" labelFor="it3"/>
-                            <Input id="it3" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre3" text="{i18n>nombre}" required="true" labelFor="in3"/>
+                            <Input id="in3" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos3" text="{i18n>apellidos}" required="true" labelFor="ia3"/>
+                            <Input id="ia3" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo3" text="{i18n>trabajo}" labelFor="it3"/>
+                            <Input id="it3" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -93,17 +93,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar4">
                             <Avatar id="avatar4" backgroundColor="Accent4"/>
-                            <Title id="titulo4" text="Empleado 4" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo4" text="{i18n>empleado} 4" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox4" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre4" text="Nombre" required="true" labelFor="in4"/>
-                            <Input id="in4" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos4" text="Apellidos" required="true" labelFor="ia4"/>
-                            <Input id="ia4" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo4" text="Trabajo" labelFor="it4"/>
-                            <Input id="it4" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre4" text="{i18n>nombre}" required="true" labelFor="in4"/>
+                            <Input id="in4" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos4" text="{i18n>apellidos}" required="true" labelFor="ia4"/>
+                            <Input id="ia4" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo4" text="{i18n>trabajo}" labelFor="it4"/>
+                            <Input id="it4" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>introduce})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -113,17 +113,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar5">
                             <Avatar id="avatar5" backgroundColor="Accent5"/>
-                            <Title id="titulo5" text="Empleado 5" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo5" text="{i18n>empleado} 5" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox5" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre5" text="Nombre" required="true" labelFor="in5"/>
-                            <Input id="in5" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos5" text="Apellidos" required="true" labelFor="ia5"/>
-                            <Input id="ia5" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo5" text="Trabajo" labelFor="it5"/>
-                            <Input id="it5" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre5" text="{i18n>nombre}" required="true" labelFor="in5"/>
+                            <Input id="in5" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos5" text="{i18n>apellidos}" required="true" labelFor="ia5"/>
+                            <Input id="ia5" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo5" text="{i18n>introduce}" labelFor="it5"/>
+                            <Input id="it5" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -133,17 +133,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar6">
                             <Avatar id="avatar6" backgroundColor="Accent6"/>
-                            <Title id="titulo6" text="Empleado 6" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo6" text="{i18n>empleado} 6" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox6" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre6" text="Nombre" required="true" labelFor="in6"/>
-                            <Input id="in6" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos6" text="Apellidos" required="true" labelFor="ia6"/>
-                            <Input id="ia6" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo6" text="Trabajo" labelFor="it6"/>
-                            <Input id="it6" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre6" text="{i18n>nombre}" required="true" labelFor="in6"/>
+                            <Input id="in6" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos6" text="{i18n>apellidos}" required="true" labelFor="ia6"/>
+                            <Input id="ia6" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo6" text="{i18n>introduce}" labelFor="it6"/>
+                            <Input id="it6" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -153,17 +153,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar7">
                             <Avatar id="avatar7" backgroundColor="Accent7"/>
-                            <Title id="titulo7" text="Empleado 7" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo7" text="{i18n>empleado} 7" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox7" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre7" text="Nombre" required="true" labelFor="in7"/>
-                            <Input id="in7" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos7" text="Apellidos" required="true" labelFor="ia7"/>
-                            <Input id="ia7" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo7" text="Trabajo" labelFor="it7"/>
-                            <Input id="it7" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre7" text="{i18n>nombre}" required="true" labelFor="in7"/>
+                            <Input id="in7" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos7" text="{i18n>apellidos}" required="true" labelFor="ia7"/>
+                            <Input id="ia7" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo7" text="{i18n>trabajo}" labelFor="it7"/>
+                            <Input id="it7" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -173,17 +173,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar8">
                             <Avatar id="avatar8" backgroundColor="Accent8"/>
-                            <Title id="titulo8" text="Empleado 8" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo8" text="{i18n>empleado} 8" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox8" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre8" text="Nombre" required="true" labelFor="in8"/>
-                            <Input id="in8" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos8" text="Apellidos" required="true" labelFor="ia8"/>
-                            <Input id="ia8" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo8" text="Trabajo" labelFor="it8"/>
-                            <Input id="it8" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre8" text="{i18n>nombre}" required="true" labelFor="in8"/>
+                            <Input id="in8" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos8" text="{i18n>apellidos}" required="true" labelFor="ia8"/>
+                            <Input id="ia8" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo8" text="{i18n>introduce}" labelFor="it8"/>
+                            <Input id="it8" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -193,17 +193,17 @@
                     <headerToolbar>
                         <Toolbar id="toolbar9">
                             <Avatar id="avatar9" backgroundColor="Accent9"/>
-                            <Title id="titulo9" text="Empleado 9" level="H5" class="sapUiSmallMarginBegin"/>
+                            <Title id="titulo9" text="{i18n>empleado} 9" level="H5" class="sapUiSmallMarginBegin"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
                         <VBox id="vbox9" class="sapUiSmallMargin" renderType="Bare">
-                            <Label id="lblNombre9" text="Nombre" required="true" labelFor="in9"/>
-                            <Input id="in9" placeholder="Introduce nombre..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblApellidos9" text="Apellidos" required="true" labelFor="ia9"/>
-                            <Input id="ia9" placeholder="Introduce apellidos..." class="sapUiTinyMarginBottom"/>
-                            <Label id="lblTrabajo9" text="Trabajo" labelFor="it9"/>
-                            <Input id="it9" placeholder="Introduce trabajo (opcional)..."/>
+                            <Label id="lblNombre9" text="{i18n>nombre}" required="true" labelFor="in9"/>
+                            <Input id="in9" placeholder="{i18n>introduce} {i18n>nombre}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblApellidos9" text="{i18n>apellidos}" required="true" labelFor="ia9"/>
+                            <Input id="ia9" placeholder="{i18n>introduce} {i18n>apellidos}..." class="sapUiTinyMarginBottom"/>
+                            <Label id="lblTrabajo9" text="{i18n>trabajo}" labelFor="it9"/>
+                            <Input id="it9" placeholder="{i18n>introduce} {i18n>trabajo} ({i18n>opcional})..."/>
                         </VBox>
                     </content>
                 </Panel>
@@ -211,7 +211,7 @@
             </l:Grid>
         </content>
 <tnt:NavigationList id="navigationListEmpleados" width="100%">
-    <tnt:NavigationListItem id="cabeceraEmpleados" text="Lista de ultimos empleados creados" icon="sap-icon://employee-approvals" items="{modeloEmpleados>/}">  
+    <tnt:NavigationListItem id="cabeceraEmpleados" text="{i18n>listaEmpleados}" icon="sap-icon://employee-approvals" items="{modeloEmpleados>/}">  
         <tnt:NavigationListItem id="navigationItemEmpleados" text="{modeloEmpleados>FirstName} {modeloEmpleados>LastName} {modeloEmpleados>JobTitle}" key="{modeloEmpleados>FirstName}" />
     </tnt:NavigationListItem>
 </tnt:NavigationList>
@@ -221,7 +221,7 @@
             <OverflowToolbar id="overflowToolbar">
                 <MessageStrip id="msgError" text="Debe rellenar todos los campos obligatorios" type="Error" visible="{errores>/error}" class="sapUiSmallMarginEnd"/>
                 <ToolbarSpacer id="toolbarSpacer"/>
-                <Button id="btnHacerBatch" press="CrearEmpleados" text="Hacer Petición Batch" type="Emphasized"/>
+                <Button id="btnHacerBatch" press="CrearEmpleados" text="{i18n>peticionBatch}" type="Emphasized"/>
             </OverflowToolbar>
         </footer>
 

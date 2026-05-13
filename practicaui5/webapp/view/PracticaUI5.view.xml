@@ -12,8 +12,8 @@
 
         <OverflowToolbar id="headerToolbar" style="Clear">
             <ToolbarSpacer id="spacer" />
-            <Button id="sqlquery" text="Pedidos" press="navegar3" type="Accept" icon="sap-icon://documents"></Button>
-            <Button id="batch" text="Empleados" press="navegar2" type="Unstyled" class="miBotonPersonalizado" visible="{usuario>/esEditor}"></Button>
+            <Button id="sqlquery" text="{i18n>pedidos}" press="navegar3" type="Accept" icon="sap-icon://documents"></Button>
+            <Button id="batch" text="{i18n>empleados}" press="navegar2" type="Unstyled" class="miBotonPersonalizado" visible="{usuario>/esEditor}"></Button>
             <Button id="roles" text="{i18n>roles}" press="navegar" visible="{usuario>/esAdmin}" icon="sap-icon://journey-change" type="Neutral"></Button>
             <Button id="btnUsuario" text="{usuario>/nombre}" icon="sap-icon://person-placeholder" type="Emphasized"/>
             <Button id="btn2" text="{i18n>vista}" press="cambiarRuta" icon="sap-icon://addresses" type="Ghost"/>
@@ -71,8 +71,8 @@
                 <Column id="colSerie" hAlign="Center"><header><Text id="txtColSerie" text="{i18n>ItemSerie}" /></header></Column>
                 <Column id="colLote" hAlign="Center"><header><Text id="txtColLote" text="{i18n>ItemLote}" /></header></Column>
                 <Column id="colAlmacenado" hAlign="End"><header><Text id="txtColStock" text="{i18n>stock}" /></header></Column>
-                <Column id="colAcciones" hAlign="End" width="8rem"><header><Text id="txtColAcciones" text="Acciones" /></header></Column>
-                <Column id="colEditor"><header><Text id="colUsuario" text="Editado por"/></header></Column>
+                <Column id="colAcciones" hAlign="End" width="8rem"><header><Text id="txtColAcciones" text="{i18n>acciones}" /></header></Column>
+                <Column id="colEditor"><header><Text id="colUsuario" text="{i18n>editado}"/></header></Column>
             </columns>
             <items>
                 <ColumnListItem id="idFila1">
@@ -81,7 +81,7 @@
                         <Text id="txtCellName" text="{Items>ItemName}" />
                         <Text id="txtCellSerie" text="{parts: [{path: 'Items>ManageSerialNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
                         <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
-                        <Text id="stock" text="{Items>QuantityOnStock} unidades" /> 
+                        <Text id="stock" text="{Items>QuantityOnStock} {i18n>unidades}" /> 
                         <HBox id="hbAcciones" justifyContent="End">
                             <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esEditor}" />
                             <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esEditor}" />
@@ -101,7 +101,7 @@
             <Panel id="panelFormulario" width="95%" visible="{formulario>/formulario}" class="sapUiMediumMarginTop sapUiResponsiveMargin" accessibleRole="Region">
                 <headerToolbar>
                     <OverflowToolbar id="otbForm">
-                        <Title id="titleForm" text="Detalles del Artículo" />
+                        <Title id="titleForm" text="{i18n>tituloDetalle}" />
                     </OverflowToolbar>
                 </headerToolbar>
                 <content>
@@ -134,7 +134,7 @@
     
                             <Label id="lblSpacer" text="" />
                             <HBox id="hboxBotonesForm" class="sapUiSmallMarginTop">
-                                <Button id="Anade" text="Añadir" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
+                                <Button id="Anade" text="{i18n>abrirFormulario}" icon="sap-icon://sys-add" type="Accept" press="anadeArticulo" visible="{formulario>/anade}" class="sapUiTinyMarginEnd" />
                                 <Button id="Edita" text="{i18n>EditarBoton}" icon="sap-icon://edit" type="Accept" press="EditaArticulo" visible="{formulario>/editar}" class="sapUiTinyMarginEnd" />
                                 <Button id="cancelar" text="{i18n>CancelarBoton}" type="Back" press="ocultarFormulario" />
                             </HBox>
