@@ -178,7 +178,7 @@ sap.ui.define([
         enviarMensaje: async function (mensaje) {
             const VERSION = 'v25.0';
             const PHONE_NUMBER_ID = '1092196547309842';
-            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRRnkYRLJpZAqdJR9wDn1gXpzS2NB5yJZAfewhSv8ryS2LykkhTiTC9FMlZBZC0a4RPzIYv0k8wp3u7ZAKnMLPPgbZC0ZAEWEr47n2ZCNdVUeDupYAkoYXmBV2qrFzTwmiUtTh7bjPXr5850H462aMBRO4IZAuPsgRwKZBeagqaMSWoXwnZCuDbn5TQncXihVrFW6O6ZCLrGJZC9T4lk0BEpTWYtRGgXo0P4jByOjXV5Qc6byu70AMd5oihwbDDo7QxRpZBOBZCUrr32fNV2bwZDZD';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRVMpgrdUcbvXS5h6uCfDlaCyuxlclyt5fNWZBcCRjzRZCJHbvlknfZBYEHGU4M4kn8skh7GOBqxVu4nfNnxtSq54CKLpDMMVNa5iYjmsmP7tu12MdqRUJWdiy9I4Rqm3RFe0X0Asv9sfux2YRHEU5OQMVzb7s7P5Azc9Of0iAfr7te1HTzkdPThe4igbCnv9IeYtP8ScrRMh6qHGsOhnILW6bxcU12oobZCwx11sbR6CSPsvA3ct8TJn0gXgbOt7bDnR0L04pAZDZD';
             const RECIPIENT_NUMBER = '34637853147';
 
             const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
@@ -398,6 +398,7 @@ sap.ui.define([
             this.getView().byId("delante").setEnabled(true);
         },
         delante: async function () {
+            sap.ui.core.BusyIndicator.show(0);
             this.iSkip += 20;
 
             const respuesta = await fetch(`https://localhost:7184/api/values/PeticionLink?skip=${this.iSkip}`);
@@ -407,9 +408,11 @@ sap.ui.define([
 
             this.getView().byId("atras").setEnabled(true);
             this.getView().byId("delante").setEnabled(!!this.Items["odata.nextLink"]);
+            sap.ui.core.BusyIndicator.hide();
         },
 
         atras: async function () {
+            sap.ui.core.BusyIndicator.show(0);
             this.iSkip -= 20;
             if (this.iSkip < 0) this.iSkip = 0;
 
@@ -419,6 +422,7 @@ sap.ui.define([
             this.getView().getModel("Items").setData(this.Items);
             this.getView().byId("atras").setEnabled(this.iSkip > 0);
             this.getView().byId("delante").setEnabled(true);
+            sap.ui.core.BusyIndicator.hide();
         },
 
         async cargarDatos() {

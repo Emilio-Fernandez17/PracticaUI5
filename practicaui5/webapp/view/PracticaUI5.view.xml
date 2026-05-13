@@ -32,7 +32,6 @@
                             <tnt:NavigationListItem id="cabecera" text="{i18n>Cabecera}" icon="sap-icon://list" items="{path: '/BusinessPartners', startIndex: 0, length: 20}">
                                 <tnt:NavigationListItem id="navigationItem" text="{CardCode}" key="{CardCode}" />
                             </tnt:NavigationListItem>
-
                         </tnt:NavigationList>
                     </items>
                 </VBox>
@@ -77,16 +76,16 @@
             <items>
                 <ColumnListItem id="idFila1">
                     <cells>
-                        <Text id="txtCellCode" text="{Items>ItemCode}" />
-                        <Text id="txtCellName" text="{Items>ItemName}" />
-                        <Text id="txtCellSerie" text="{parts: [{path: 'Items>ManageSerialNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
-                        <Text id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
-                        <Text id="stock" text="{Items>QuantityOnStock} {i18n>unidades}" /> 
+                        <ObjectStatus id="txtCellCode" text="{Items>ItemCode}" icon="sap-icon://primary-key"/>
+                        <ObjectStatus id="txtCellName" text="{Items>ItemName}" icon="sap-icon://message-information" />
+                        <ObjectStatus id="txtCellSerie" icon="sap-icon://settings" text="{parts: [{path: 'Items>ManageSerialNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
+                        <ObjectStatus icon="sap-icon://settings" id="txtCellLote" text="{parts: [{path: 'Items>ManageBatchNumbers'},{path: 'formulario>/idiomaActual'}],formatter: '.formatearSiNo'}" />
+                        <ObjectStatus id="stock" text="{Items>QuantityOnStock} {i18n>unidades}" icon="sap-icon://factory"/> 
                         <HBox id="hbAcciones" justifyContent="End">
                             <Button id="btnEditarFila" icon="sap-icon://edit" type="Transparent" press="editar" class="sapUiTinyMarginEnd" visible="{usuario>/esEditor}" />
                             <Button id="btnBorrarFila" icon="sap-icon://delete" type="Reject" press="borrar" visible="{usuario>/esEditor}" />
                         </HBox>
-                        <Text id="txtUsuario" text="{Items>U_UsuarioEditor}" />
+                        <ObjectStatus icon="sap-icon://account" id="txtUsuario" text="{Items>U_UsuarioEditor}" />
                     </cells>
                 </ColumnListItem>
             </items>

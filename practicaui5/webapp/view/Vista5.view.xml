@@ -20,7 +20,7 @@
                     <header><Text id="txtColNEntrada" text="Nº {i18n>entrada}" /></header>
                 </Column>
                 <Column id="colProveedor" minScreenWidth="Tablet" demandPopin="true">
-                    <header><Text id="txtColProveedor" text="Interlocutor" /></header>
+                    <header><Text id="txtColProveedor" text="{i18n>interlocutor}" /></header>
                 </Column>
                 <Column id="colEstado" hAlign="Center" width="8rem">
                     <header><Text id="txtColEstado" text="{i18n>estado}" /></header>
