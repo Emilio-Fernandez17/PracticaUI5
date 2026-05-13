@@ -108,7 +108,7 @@
                     <f:SimpleForm id="simpleFormArticulo" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
                         <f:content>
                             <Label id="lblCode" text="{i18n>formCode}" />
-                            <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..."/>
+                            <MultiInput id="vCode" editable="false" placeholder="Introduce el codigo..." />
     
                             <Label id="lblName" text="{i18n>formName}" />
                             <MultiInput id="vName" placeholder="Introduce el nombre..."/>

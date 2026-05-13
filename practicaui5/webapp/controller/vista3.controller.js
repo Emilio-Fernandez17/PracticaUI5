@@ -20,26 +20,16 @@ sap.ui.define([
                     method: "POST"
                 });
 
-                console.log("Response status:", res.status);
-
                 const data = await res.json();
-                console.log("Respuesta COMPLETA del backend:", JSON.stringify(data, null, 2));
-                console.log("Tipo de data:", typeof data);
-                console.log("¿Es array?", Array.isArray(data));
 
                 let datosArray = [];
                 if (Array.isArray(data)) {
                     datosArray = data;
                 } else if (data && data.value && Array.isArray(data.value)) {
                     datosArray = data.value;
-                    console.log("Caso 2: data.value es array, longitud:", datosArray.length);
                 } else if (data && typeof data === 'object') {
-                    console.log("Caso 3: data es objeto, propiedades:", Object.keys(data));
                     datosArray = [data];
                 }
-
-                console.log("datosArray final:", datosArray);
-                console.log("Longitud final:", datosArray.length);
 
                 if (datosArray.length === 0) {
                     MessageBox.warning("No se encontraron datos de permisos");
@@ -48,10 +38,7 @@ sap.ui.define([
                 const oModel = new sap.ui.model.json.JSONModel(datosArray);
                 this.getView().setModel(oModel, "permisosModel");
 
-                console.log("Modelo creado, datos en modelo:", oModel.getData());
-
             } catch (err) {
-                console.error("Error detallado:", err);
                 MessageBox.error("Error al cargar datos: " + err.message);
             } finally {
                 sap.ui.core.BusyIndicator.hide();

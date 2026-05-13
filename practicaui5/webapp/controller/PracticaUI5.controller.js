@@ -178,7 +178,7 @@ sap.ui.define([
         enviarMensaje: async function (mensaje) {
             const VERSION = 'v25.0';
             const PHONE_NUMBER_ID = '1092196547309842';
-            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRe1ldYbROmzsY9mK6uMBwqtGCfuAe9IENJiiYMIlRps77ZBtwEioOhSUx0LCDTG2gZAVRcRoRi2grZA7ZCtsZCJYFE2dNgwcskCNO0sAdeHITEcfEZCWUqLE8AZB47SSmxG4kcMJf1VcbYW9Sisdu7ee7KA8Ql22X0mdQCSjOIjZA8p1sDZAaAN4TrqmXtDu9bIcJ4JDMy0FX66EmajozbFsXcobUMenA8fpAEGLw48rjZCSWQoYWWWIiP9fcazhJXBo6kOxZAdK2ptYgZDZD';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRRnkYRLJpZAqdJR9wDn1gXpzS2NB5yJZAfewhSv8ryS2LykkhTiTC9FMlZBZC0a4RPzIYv0k8wp3u7ZAKnMLPPgbZC0ZAEWEr47n2ZCNdVUeDupYAkoYXmBV2qrFzTwmiUtTh7bjPXr5850H462aMBRO4IZAuPsgRwKZBeagqaMSWoXwnZCuDbn5TQncXihVrFW6O6ZCLrGJZC9T4lk0BEpTWYtRGgXo0P4jByOjXV5Qc6byu70AMd5oihwbDDo7QxRpZBOBZCUrr32fNV2bwZDZD';
             const RECIPIENT_NUMBER = '34637853147';
 
             const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
