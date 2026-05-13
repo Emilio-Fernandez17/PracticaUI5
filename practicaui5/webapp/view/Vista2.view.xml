@@ -31,7 +31,7 @@
                             <Input id="inputNombre" type="Text" placeholder="{i18n>Pnombre}" width="100%" showValueStateMessage="true"/>
 
                             <Label id="lblPassword" text="{i18n>contrasena}" labelFor="inputPassword" class="sapUiSmallMarginTop" />
-                            <Input id="inputPassword" type="Password" placeholder="••••••••"width="100%" />
+                            <Input id="inputPassword" type="Password" placeholder="••••••••" width="100%" />
                                 
                             <Button id="btnEnviar" text="{i18n>enviar}" type="Emphasized" press="login" width="100%" icon="sap-icon://log" class="sapUiMediumMarginTop" />
                         </VBox>

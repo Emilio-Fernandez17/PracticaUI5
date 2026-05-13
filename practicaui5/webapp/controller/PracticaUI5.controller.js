@@ -16,14 +16,13 @@ sap.ui.define([
                 this.getOwnerComponent().getRouter().navTo("Routevista2");
                 return;
             }
-            this.cargarDatos();
 
-            console.log(usuario);
-
-            fetch("https://localhost:7184/apiUsuario/Usuario/crearUDF", {
-                method: "POST"
-            }).then(function (res) {
-                console.log(res.ok ? "UDF creado" : "UDF ya existía");
+            this.cargarDatos().then(function () {
+                fetch("https://localhost:7184/api/values/crearUDF", {
+                    method: "POST"
+                }).then(function (res) {
+                    console.log("UDF listo");
+                });
             });
 
 
@@ -175,9 +174,9 @@ sap.ui.define([
         enviarMensaje: async function (mensaje) {
             const VERSION = 'v25.0';
             const PHONE_NUMBER_ID = '1092196547309842';
-            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRQgMX5siKlCohlFDMhcgZBkry7hyzMIVJXNnZCK1tiFZBPNuLOD9wWVwlhyFz2u5ACZCShPP6iyxVfGdyZA6iJZAXz6nLL0QZCsqBXfl3OVcZA9fxo3PcC2kP2v4uJR3SDuXlKZAgxbOHpLeUGv5bZCMZCAuGb6fFqZAExegC51WGjy8OECVJGvZCJ1lE0LUwPCRQEvycShjmND76cQMJPXsJepL9Gkr7vDv89ruZC2w3Uespywy3QnXpAWaPr0Wr0mBZAR3E9LP3mtyKfutMoZD';
+            const ACCESS_TOKEN = 'EAAYvVmsW6XQBRe1ldYbROmzsY9mK6uMBwqtGCfuAe9IENJiiYMIlRps77ZBtwEioOhSUx0LCDTG2gZAVRcRoRi2grZA7ZCtsZCJYFE2dNgwcskCNO0sAdeHITEcfEZCWUqLE8AZB47SSmxG4kcMJf1VcbYW9Sisdu7ee7KA8Ql22X0mdQCSjOIjZA8p1sDZAaAN4TrqmXtDu9bIcJ4JDMy0FX66EmajozbFsXcobUMenA8fpAEGLw48rjZCSWQoYWWWIiP9fcazhJXBo6kOxZAdK2ptYgZDZD';
             const RECIPIENT_NUMBER = '34637853147';
-            
+
             const url = "https://graph.facebook.com/" + VERSION + "/" + PHONE_NUMBER_ID + "/messages";
 
             const data = {
