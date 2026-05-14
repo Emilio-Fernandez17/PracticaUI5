@@ -570,37 +570,35 @@ sap.ui.define([
                 if (ObjetoSelct) {
                     var textoSelect = ObjetoSelct.getText();
                 }
+
                 if (!empleadoID) {
                     sap.m.MessageToast.show(oBundle.getText("SeleccionarEmpleado"));
                     return;
                 }
 
                 await this.hacerLogin();
-
                 var archivo = this.byId("subirFoto");
-                var ruta = archivo.getFocusDomRef();
+                var files = archivo.oFileUpload.files;
+                console.log(files);
 
-                if (!ruta.files || ruta.files.length === 0) {
+                if (!files || files.length === 0) {
                     sap.m.MessageToast.show(oBundle.getText("SeleccionarFoto"));
                     return;
                 }
 
-                var file = ruta.files[0];
+                var file = files[0];
                 var formData = new FormData();
                 formData.append("file", file);
-
                 var sUrl = "https://localhost:7184/api/Values/adjuntarFoto/" + empleadoID;
-
                 sap.ui.core.BusyIndicator.show(0);
-
                 var respuesta = await fetch(sUrl, {
-                    method: 'POST',
+                    method: "POST",
                     body: formData
                 });
 
                 if (respuesta.ok) {
                     const mensaje = `Se ha subido la foto del empleado: ${textoSelect} \n-Usuario: ${usuario.nombre}`;
-                    this.enviarMensaje(mensaje)
+                    this.enviarMensaje(mensaje);
                     sap.m.MessageToast.show(oBundle.getText("fotoSubida"));
                     archivo.clear();
                 }
@@ -608,10 +606,11 @@ sap.ui.define([
                     var errorText = await respuesta.text();
                     console.error("Detalle del error:", errorText);
                     sap.m.MessageBox.error("Error al adjuntar: " + errorText);
-                }
 
+                }
             } catch (oError) {
                 console.error("Error de conexión:", oError);
+
             } finally {
                 sap.ui.core.BusyIndicator.hide();
             }
